@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import TopBar from './components/TopBar';
 import { Box } from '@mui/system';
-import { grey } from '@mui/material/colors';
+import { grey, red } from '@mui/material/colors';
 
 
 const App = () => {
@@ -26,14 +26,13 @@ const App = () => {
   return (
 
     <BrowserRouter>
-      <Box sx={{ backgroundColor: grey[100], height: '100vh' }}>
+      <Box sx={{ backgroundColor: grey[100], height: '100vh', width: '100vw', position: 'fixed', zIndex: -10 }} />
         <TopBar />
         <Routes>
           <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="login" element={<SignIn />} />
           <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        </Routes>
-      </Box>
+      </Routes>
     </BrowserRouter>
 
   )
