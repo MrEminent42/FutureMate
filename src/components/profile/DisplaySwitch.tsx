@@ -6,6 +6,7 @@ import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
 import currentUserAtom from '../../jotai/currentUserAtom'
 import { MateInfo } from '../../types/Mate'
+import { ProfilePaper } from '../../pages/Profile'
 
 const DisplayProfile = () => {
 
@@ -63,7 +64,7 @@ const DisplayProfile = () => {
     }
 
     return (
-        <Paper sx={{ p: 2, my: 2 }} elevation={0}>
+        <ProfilePaper elevation={0}>
             <Box sx={{ display: 'flex' }}>
 
                 <Box
@@ -85,8 +86,9 @@ const DisplayProfile = () => {
                 </Box>
             </Box>
             {renderTodos()}
-        </Paper>
+        </ProfilePaper>
     )
 }
+
 
 export default DisplayProfile

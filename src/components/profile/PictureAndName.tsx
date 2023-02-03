@@ -13,6 +13,7 @@ import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
 import { MateInfo } from '../../types/Mate';
 import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
+import { ProfilePaper } from '../../pages/Profile';
 
 
 const PictureAndName = () => {
@@ -63,7 +64,7 @@ const PictureAndName = () => {
 
 
     return (
-        <Paper sx={{ p: 2, my: 2 }} elevation={0}>
+        <ProfilePaper elevation={0}>
             <UpdateProfilePicture
                 open={openPfpDialog}
                 onClose={handleDialogClose}
@@ -72,15 +73,16 @@ const PictureAndName = () => {
             />
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>
                 <Box
-                    sx={{ width: '200px', position: 'relative' }}
+                    sx={{ width: '140px', position: 'relative' }}
                     onClick={() => setOpenPfpDialog(true)}
                 >
                     <IconButton
                         disableFocusRipple
+                        disableRipple
                         sx={{
                             position: 'absolute',
-                            right: '12px',
-                            top: '12px',
+                            right: '3px',
+                            top: '3px',
                             backgroundColor: 'white',
                             borderRadius: '50%',
                         }}
@@ -93,8 +95,8 @@ const PictureAndName = () => {
 
                         sx={{
                             borderRadius: '50%',
-                            height: '200px',
-                            width: '200px',
+                            height: '140px',
+                            width: '140px',
                         }}
                     />
 
@@ -122,7 +124,7 @@ const PictureAndName = () => {
                 />
             </Box>
 
-        </Paper >
+        </ProfilePaper >
     )
 }
 

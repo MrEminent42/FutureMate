@@ -14,6 +14,7 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaceIcon from '@mui/icons-material/Place';
 import { firebaseAuth } from '../../config/firebase';
+import { ProfilePaper } from '../../pages/Profile';
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
@@ -61,7 +62,7 @@ const CompanyInfo = () => {
 
 
     return (
-        <Paper sx={{ p: 2, my: 2 }} elevation={0}>
+        <ProfilePaper elevation={0}>
             {/* start date */}
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px', }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
@@ -129,7 +130,7 @@ const CompanyInfo = () => {
                     </TextField>
                 </Box>
             </Box>
-        </Paper >
+        </ProfilePaper >
     )
 }
 

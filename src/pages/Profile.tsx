@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box/Box';
-import { Typography } from '@mui/material';
+import { Typography, Paper } from '@mui/material';
 import PictureAndName from '../components/profile/PictureAndName';
 import Snackbar from '@mui/material/Snackbar';
 import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../jotai/snacksAtoms';
@@ -11,7 +11,8 @@ import currentUserAtom from '../jotai/currentUserAtom';
 import { doc, setDoc } from 'firebase/firestore';
 import { firebaseAuth, firestoreDb } from '../config/firebase';
 import { MateDocConverter } from '../types/Mate';
-import DisplayProfile from '../components/profile/DisplayProfile';
+import DisplayProfile from '../components/profile/DisplaySwitch';
+import { styled } from '@mui/material/styles'
 
 const Profile = () => {
     const [uploadSuccess, setUploadSuccess] = useAtom(uploadSuccessSnackAtom);
@@ -74,5 +75,11 @@ const Profile = () => {
     )
 
 }
+
+
+export const ProfilePaper = styled(Paper)(({ theme }) => ({
+    padding: '1rem',
+    margin: '1rem 0',
+}))
 
 export default Profile
