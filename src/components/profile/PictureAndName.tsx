@@ -56,8 +56,10 @@ const PictureAndName = () => {
     }
 
     const updateUserInfo = () => {
-        let currentUserUpdateInfo = { ...currentUser!, name: name, contact: contact } as MateInfo;
-        setCurrentUser(currentUserUpdateInfo)
+        if (currentUser) {
+            let currentUserUpdateInfo = { ...currentUser, name: name, contact: contact } as MateInfo;
+            setCurrentUser(currentUserUpdateInfo)
+        }
     }
 
 
@@ -88,7 +90,7 @@ const PictureAndName = () => {
                     </IconButton>
                     <Box
                         component="img"
-                        src={currentUser?.photoURL + "?t=" + new Date().getTime()}
+                        src={currentUser?.photoURL}
 
                         sx={{
                             borderRadius: '50%',
