@@ -14,6 +14,8 @@ import PlaceIcon from '@mui/icons-material/Place';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import TypographyMapping from "../types/TypographyMapping";
+import { useNavigate } from "react-router-dom";
+import selectedMateAtom from "../jotai/selectedMateAtom";
 
 
 const MateList = () => {
@@ -33,7 +35,10 @@ const MateList = () => {
         <>
             <Box sx={{ px: '1rem' }}>
                 <Typography variant="h3">Roomates</Typography>
-                {users && users.map((doc, i) => (<MateCard mateInfo={doc.data()} key={i} />))}
+                {users && users.map((doc, i) => (
+                    <MateCard
+                        mateInfo={doc.data()} key={i} />
+                ))}
             </Box>
         </>
     )
@@ -42,9 +47,25 @@ const MateList = () => {
 }
 
 const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
-    // const mateInfo = a.data()
+    const [_, setOtherMate] = useAtom(selectedMateAtom);
+    const navigate = useNavigate();
     return (
-        <Paper elevation={0} sx={{ my: '1rem', wordBreak: 'break-word', overflow: 'hidden', border: 2, borderColor: 'primary.main', borderRadius: '20px' }}>
+        <Paper
+
+            onClick={() => {
+                setOtherMate(mateInfo)
+                navigate("mate");
+            }}
+            elevation={0}
+            sx={{
+                my: '1rem',
+                wordBreak: 'break-word',
+                overflow: 'hidden',
+                border: 2,
+                borderColor: 'primary.main',
+                borderRadius: '20px'
+            }}
+        >
             <Grid container sx={{}}>
 
                 {/* left container for title, text, etc */}

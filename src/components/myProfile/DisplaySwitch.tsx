@@ -6,28 +6,28 @@ import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
 import currentUserAtom from '../../jotai/currentUserAtom'
 import { MateInfo } from '../../types/Mate'
-import { ProfilePaper } from '../../pages/Profile'
+import { ProfilePaper } from '../../pages/MyProfile'
 
 const DisplayProfile = () => {
 
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
     const [tried, setTried] = useState(false);
-    const [enabled, setEnabled] = useState(false);
+    const [listed, setListed] = useState(false);
 
     const loadInfo = () => {
-        setEnabled(currentUser?.listed || false);
+        setListed(currentUser?.listed || false);
     }
 
     useEffect(() => {
         updateUserInfo()
-    }, [enabled])
+    }, [listed])
 
     useEffect(() => {
         loadInfo()
     }, [])
 
     const updateUserInfo = () => {
-        let currentUserUpdateInfo = { ...currentUser!, listed: enabled } as MateInfo;
+        let currentUserUpdateInfo = { ...currentUser!, listed: listed } as MateInfo;
         setCurrentUser(currentUserUpdateInfo)
     }
 
@@ -59,8 +59,8 @@ const DisplayProfile = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTried(true);
         if (e.target.checked && checkFullProfile()) {
-            setEnabled(true);
-        } else { setEnabled(false) }
+            setListed(true);
+        } else { setListed(false) }
     }
 
     return (
@@ -82,7 +82,7 @@ const DisplayProfile = () => {
                         width: '20%'
                     }}
                 >
-                    <Switch color='secondary' checked={enabled} onChange={handleChange} />
+                    <Switch color='secondary' checked={listed} onChange={handleChange} />
                 </Box>
             </Box>
             {renderTodos()}

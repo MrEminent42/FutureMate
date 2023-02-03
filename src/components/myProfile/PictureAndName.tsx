@@ -13,7 +13,7 @@ import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
 import { MateInfo } from '../../types/Mate';
 import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
-import { ProfilePaper } from '../../pages/Profile';
+import { ProfilePaper } from '../../pages/MyProfile';
 
 
 const PictureAndName = () => {
@@ -42,15 +42,17 @@ const PictureAndName = () => {
     }, [])
 
     const handleBlur = () => {
-        if (validate()) updateUserInfo()
+        if (validate()) {
+            console.log("valid!")
+            updateUserInfo()
+        }
     }
 
     const validate = () => {
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
         const phoneRegex = /\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/
 
-        // setErrors({ name: name.length < 2, contact: emailRegex.test(name) })
-        setErrors({ name: name.length < 2, contact: (!emailRegex.test(contact) && !phoneRegex.test(contact)) })
+        setErrors({ name: name.length < 2, contact: !(emailRegex.test(contact) || phoneRegex.test(contact)) })
         if (errors.name || errors.contact) return false;
         return true;
     }

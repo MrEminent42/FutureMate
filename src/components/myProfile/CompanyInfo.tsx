@@ -14,7 +14,7 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaceIcon from '@mui/icons-material/Place';
 import { firebaseAuth } from '../../config/firebase';
-import { ProfilePaper } from '../../pages/Profile';
+import { ProfilePaper } from '../../pages/MyProfile';
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
