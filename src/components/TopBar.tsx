@@ -1,15 +1,25 @@
 import { AppBar, Avatar, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useNavigate } from 'react-router-dom'
-import { firebaseAuth } from '../config/firebase';
+import { firebaseAuth, firebaseStorage } from '../config/firebase';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../jotai/currentUserAtom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useEffect, useState } from 'react';
+import { getDownloadURL, ref } from 'firebase/storage';
 
 const TopBar = () => {
     const navigate = useNavigate();
     const [currentUser] = useAtom(currentUserAtom);
     const [authState] = useAuthState(firebaseAuth);
+
+    const [logoUrl, setLogoUrl] = useState('');
+
+    useEffect(() => {
+
+        const fileRef = ref(firebaseStorage, "logo.png");
+        getDownloadURL(fileRef).then(setLogoUrl)
+    })
 
 
     return (
@@ -25,10 +35,9 @@ const TopBar = () => {
                         onClick={() => navigate("/")}
                     >
 
-                        {/* <img style={{ objectFit: 'contain' }} src="https://firebasestorage.googleapis.com/v0/b/salemate-c2a21.appspot.com/o/logo.png?alt=media&token=467871b4-211a-464d-8fce-0caf2e715a3f" /> */}
                         <Box
                             component="img"
-                            src="https://firebasestorage.googleapis.com/v0/b/salemate-c2a21.appspot.com/o/logo.png?alt=media&token=467871b4-211a-464d-8fce-0caf2e715a3f"
+                            src={logoUrl}
                             sx={{ height: '60px', transform: 'scale(2)', overflow: 'hidden' }}
                         />
 
