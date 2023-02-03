@@ -26,8 +26,8 @@ const Profile = () => {
     }, [currentUser])
 
     const updateFirebaseUser = () => {
-        if (currentUser) {
-            const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser!.uid!).withConverter(MateDocConverter);
+        if (currentUser && firebaseAuth.currentUser) {
+            const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid!).withConverter(MateDocConverter);
             setDoc(userRef, currentUser).catch(() => setFail(true)).then(() => { setSaveSuccess(true) });
         }
     }

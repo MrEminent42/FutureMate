@@ -16,7 +16,6 @@ import { grey } from '@mui/material/colors';
 
 const App = () => {
   const [user] = useAuthState(firebaseAuth);
-  console.log("useAuthState(firebaseAuth): " + user?.email)
 
   const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!user) {

@@ -10,8 +10,6 @@ const TopBar = () => {
     const navigate = useNavigate();
     const [currentUser] = useAtom(currentUserAtom);
     const [authState] = useAuthState(firebaseAuth);
-    console.log("firebaseAuth.currentUser: " + firebaseAuth.currentUser?.email)
-    console.log("SAME DIFF: " + authState?.email)
 
 
     return (
