@@ -43,7 +43,6 @@ const PictureAndName = () => {
 
     const handleBlur = () => {
         if (validate()) {
-            console.log("valid!")
             updateUserInfo()
         }
     }
