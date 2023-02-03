@@ -13,25 +13,31 @@ import MenuItem from '@mui/material/MenuItem';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaceIcon from '@mui/icons-material/Place';
+import { firebaseAuth } from '../../config/firebase';
 
 const CompanyInfo = () => {
-    // startDate?: StartDate,
-    // location?: LocationResponse,
-    // budgetMax?: number,
-    // budgetTarget?: number,
-
-    const [startDate, setStartDate] = useState<StartDate | null>(null);
-    const [location, setLocation] = useState<LocationResponse | null>(null);
-    const [budgetMin, setBudgetMin] = useState<number | null>(null);
-    const [budgetMax, setBudgetMax] = useState<number | null>(null);
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+
+    const [startDate, setStartDate] = useState<StartDate | null>(currentUser?.startDate || null);
+    const [location, setLocation] = useState<LocationResponse | null>(currentUser?.location || null);
+    const [budgetMin, setBudgetMin] = useState<number | null>(currentUser?.budgetMin || 0);
+    const [budgetMax, setBudgetMax] = useState<number | null>(currentUser?.budgetMax || 0);
 
     const handleBlur = () => {
         updateUserInfo()
     }
 
+
     const updateUserInfo = () => {
-        let currentUserUpdateInfo = { ...currentUser!, location: location, startDate: startDate, budgetMin: budgetMin, budgetMax: budgetMax } as MateInfo;
+        let currentUserUpdateInfo = {
+            ...currentUser,
+            uid: currentUser?.uid || firebaseAuth.currentUser!.uid,
+            listed: currentUser?.listed || false,
+            location: location,
+            startDate: startDate,
+            budgetMin: budgetMin,
+            budgetMax: budgetMax
+        };
         setCurrentUser(currentUserUpdateInfo);
     }
 
@@ -49,7 +55,8 @@ const CompanyInfo = () => {
     }
 
     useEffect(() => {
-        loadData()
+        loadData();
+        updateUserInfo();
     }, [])
 
 

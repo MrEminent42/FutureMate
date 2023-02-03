@@ -1,12 +1,10 @@
 
-import { firebaseAuth, } from './config/firebase';
+import { firebaseAuth, firestoreDb, } from './config/firebase';
 import { useAuthState } from "react-firebase-hooks/auth";
 import SignIn from './pages/SignIn';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 
-import React from 'react'
-// import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import TopBar from './components/TopBar';
@@ -19,7 +17,6 @@ const App = () => {
 
   const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!user) {
-      // if (firebaseAuth.currentUser) {
       return <Navigate to="/login" />
     }
 

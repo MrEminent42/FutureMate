@@ -21,8 +21,8 @@ export const SignIn = () => {
 
     const [authState] = useAuthState(firebaseAuth);
     useEffect(() => {
-        if (authState?.email) {
-            navigate("/")
+        if (authState) {
+            loadCurrentUser();
         }
     }, [authState]);
 
@@ -34,7 +34,6 @@ export const SignIn = () => {
 
         signInWithPopup(firebaseAuth, provider).then((result) => {
             loadCurrentUser();
-            // loadUsers();
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
@@ -44,35 +43,33 @@ export const SignIn = () => {
         })
     }
 
-    // useEffect(() => {
-    //     if (!submitted) return;
-    //     finishLogin();
-
-    // }, [loading])
-
 
 
     const loadCurrentUser = () => {
-
-        const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser!.uid!).withConverter(MateDocConverter);
+        if (!firebaseAuth.currentUser) return;
+        const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid).withConverter(MateDocConverter);
         getDoc(userRef).catch(console.log).then((docSnap) => {
+            if (!firebaseAuth.currentUser) return;
+
             if (!docSnap || !docSnap.exists()) {
                 console.log("creating new user")
-                let newMate = {
-                    uid: firebaseAuth.currentUser!.uid!,
-                    email: firebaseAuth.currentUser!.email,
+                let newMate: MateInfo = {
+                    uid: firebaseAuth.currentUser.uid,
+                    contact: firebaseAuth.currentUser.email,
                     photoURL: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
-                    name: firebaseAuth.currentUser!.displayName,
+                    name: firebaseAuth.currentUser!.displayName || null,
                     listed: false,
-                } as MateInfo;
+                }
                 setDoc(userRef, newMate).catch(console.log);
                 setCurrentUser(newMate);
+                navigate("/profile");
             } else {
                 setCurrentUser(docSnap.data());
+                navigate("/");
             }
             setLoading(false);
-            navigate("/profile");
         });
+
     }
 
     return (

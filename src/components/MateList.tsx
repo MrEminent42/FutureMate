@@ -92,7 +92,7 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                 {/* right container for image */}
                 <Grid item xs={4} sx={{ p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
                     <Box sx={{ height: '100px', width: '100px', borderRadius: '50%', overflow: 'hidden', textAlign: 'center' }}>
-                        <img src={mateInfo.photoURL} style={{ flexGrow: 1, height: '100%' }} />
+                        <img src={mateInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} style={{ flexGrow: 1, height: '100%' }} />
                     </Box>
                 </Grid>
 

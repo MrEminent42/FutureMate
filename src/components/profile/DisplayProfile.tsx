@@ -5,7 +5,6 @@ import { Box } from '@mui/system'
 import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
 import currentUserAtom from '../../jotai/currentUserAtom'
-import { doc, setDoc } from 'firebase/firestore'
 import { MateInfo } from '../../types/Mate'
 
 const DisplayProfile = () => {

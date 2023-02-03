@@ -11,8 +11,7 @@ import { firebaseAuth, firestoreDb } from '../../config/firebase';
 import TextField from '@mui/material/TextField/TextField';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { MateDocConverter, MateInfo } from '../../types/Mate';
+import { MateInfo } from '../../types/Mate';
 import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
 
 
@@ -90,7 +89,7 @@ const PictureAndName = () => {
                     </IconButton>
                     <Box
                         component="img"
-                        src={currentUser?.photoURL}
+                        src={currentUser?.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"}
 
                         sx={{
                             borderRadius: '50%',

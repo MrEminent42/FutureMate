@@ -20,7 +20,6 @@ const Profile = () => {
 
     const [currentUser] = useAtom(currentUserAtom);
 
-
     useEffect(() => {
         updateFirebaseUser()
     }, [currentUser])

@@ -1,27 +1,28 @@
 import { QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 import { Bedtime, CleanlinessResponse, LocationResponse, LoudnessResponse, ShareBedroomResponse, StartDate } from "./MatchingQuestions";
 import { User } from "firebase/auth";
+import { firebaseAuth } from "../config/firebase";
 
 export interface MateInfo {
     uid: string,
     listed: boolean,
 
-    contact?: string,
-    name?: string,
-    photoURL?: string,
+    contact?: string | null,
+    name?: string | null,
+    photoURL?: string | null,
 
-    startDate?: StartDate,
-    location?: LocationResponse,
-    budgetMax?: number,
-    budgetMin?: number,
+    startDate?: StartDate | null,
+    location?: LocationResponse | null,
+    budgetMax?: number | null,
+    budgetMin?: number | null,
 
-    bedtime?: Bedtime,
-    cleanliness?: CleanlinessResponse,
+    bedtime?: Bedtime | null,
+    cleanliness?: CleanlinessResponse | null,
     loudness?: LoudnessResponse,
 
-    numRoomatesMin?: number,
-    numRoomatesMax?: number,
-    shareBedroom?: ShareBedroomResponse,
+    numRoomatesMin?: number | null,
+    numRoomatesMax?: number | null,
+    shareBedroom?: ShareBedroomResponse | null,
 }
 
 export const MateDocConverter = {
