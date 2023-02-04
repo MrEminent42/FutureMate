@@ -67,7 +67,7 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                     </Grid>
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         {mateInfo.location && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', my: '2px' }}>
+                            <InfoChip>
                                 <PlaceIcon sx={{ color: grey[500], height: '1.2rem' }} />
                                 <Typography
                                     variant={TypographyMapping.CardDotInfo}
@@ -75,10 +75,10 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                                         color: grey[500],
                                         textTransform: 'capitalize'
                                     }}>{CapsToLower(mateInfo.location)}</Typography>
-                            </Box>
+                            </InfoChip>
                         )}
                         {mateInfo.startDate && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', my: '2px' }}>
+                            <InfoChip>
                                 <InsertInvitationIcon sx={{ color: grey[500], height: '1.2rem' }} />
                                 <Typography
                                     variant={TypographyMapping.CardDotInfo}
@@ -86,13 +86,13 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                                 >
                                     {CapsToLower(mateInfo.startDate)}
                                 </Typography>
-                            </Box>
+                            </InfoChip>
                         )}
                         {mateInfo.budgetMax && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', my: '2px' }}>
+                            <InfoChip>
                                 <AttachMoneyIcon sx={{ color: grey[500], height: '1.2rem' }} />
                                 <Typography variant={TypographyMapping.CardDotInfo} sx={{ color: grey[500] }}>{mateInfo.budgetMax}</Typography>
-                            </Box>
+                            </InfoChip>
                         )}
                     </Grid>
                 </Grid>
@@ -123,4 +123,10 @@ const MatePaper = styled(Paper)(({ theme }) => ({
     overflow: 'hidden',
     border: '2px solid ' + theme.palette.primary.main,
     borderRadius: '20px'
+}))
+
+const InfoChip = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    margin: '2px 0'
 }))

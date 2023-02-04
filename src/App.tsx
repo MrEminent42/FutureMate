@@ -27,7 +27,7 @@ const App = () => {
   return (
 
     <BrowserRouter>
-      <Box sx={{ backgroundColor: grey[100], height: '100vh', width: '100vw', position: 'fixed', zIndex: -10 }} />
+      <Box sx={{ backgroundColor: 'background.default', height: '100vh', width: '100vw', position: 'fixed', zIndex: -10 }} />
       <TopBar />
       <Box maxWidth={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Routes>

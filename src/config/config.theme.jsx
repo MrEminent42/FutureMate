@@ -14,7 +14,7 @@ const theme = createTheme({
             main: 'rgba(232,90,141,0.96)',
         },
         background: {
-            default: '#f1f1f1',
+            default: '#eaf5ea',
         },
     },
     typography: {
@@ -36,7 +36,8 @@ const theme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: 'primary.main'
+                    // backgroundColor: 'primary.main'
+                    backgroundColor: 'white'
                 }
             },
             defaultProps: {
