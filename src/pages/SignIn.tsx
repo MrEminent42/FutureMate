@@ -79,21 +79,25 @@ export const SignIn = () => {
     return (
         <Box sx={{ width: { xs: '100%', md: '600px' } }}>
             <Paper sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
-                <Box sx={{ p: '1rem' }}>
+                <Box sx={{ p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                     <Typography variant="h3" sx={{ mb: '1rem', textAlign: 'center' }}>SaleMate</Typography>
                     <Typography variant="body1" sx={{ textAlign: 'center' }}>
                         Designed to help FutureForce 2023 interns find roommates.
                     </Typography>
-                    <Typography variant="body1" sx={{ textAlign: 'center', mt: '1rem' }}>
-                        Disclaimers, etc:
-                    </Typography>
-                    <Typography variant="body2" sx={{ textAlign: 'center' }}>
-                        By signing up, you agree to receive emails about critical updates of this service for security and privacy.
-                    </Typography>
-                    <Typography variant="body2" sx={{ textAlign: 'center' }}>
-                        Listing your information on this service will allow anyone else who signs up to see the information. Be smart!
-                    </Typography>
+
+                    <Box sx={{ maxWidth: '300px' }}>
+
+                        <Typography variant="body1" sx={{ textAlign: 'center', mt: '1rem' }}>
+                            Disclaimers, etc:
+                        </Typography>
+                        <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                            By signing up, you agree to receive emails about critical updates of this service for security and privacy.
+                        </Typography>
+                        <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                            Listing your information on this service will allow anyone else who signs up to see the information. Be smart!
+                        </Typography>
+                    </Box>
 
                 </Box>
                 <Box sx={{
