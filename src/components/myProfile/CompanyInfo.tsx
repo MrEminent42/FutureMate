@@ -14,7 +14,7 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaceIcon from '@mui/icons-material/Place';
 import { firebaseAuth } from '../../config/firebase';
-import { ProfilePaper } from '../../pages/MyProfile';
+import { ProfilePaper, SectionTitle } from '../../pages/MyProfile';
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
@@ -27,7 +27,6 @@ const CompanyInfo = () => {
     const handleBlur = () => {
         updateUserInfo()
     }
-
 
     const updateUserInfo = () => {
         let currentUserUpdateInfo = {
@@ -42,11 +41,9 @@ const CompanyInfo = () => {
         setCurrentUser(currentUserUpdateInfo);
     }
 
-
     useEffect(() => {
         updateUserInfo()
     }, [startDate, location])
-
 
     const loadData = () => {
         setStartDate(currentUser?.startDate || null);
@@ -62,7 +59,8 @@ const CompanyInfo = () => {
 
 
     return (
-        <ProfilePaper elevation={0}>
+        <ProfilePaper >
+            <SectionTitle>Internship Details</SectionTitle>
             {/* start date */}
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px', }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '20%' }}>

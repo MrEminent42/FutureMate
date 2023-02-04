@@ -64,7 +64,7 @@ const DisplayProfile = () => {
     }
 
     return (
-        <ProfilePaper elevation={0}>
+        <ProfilePaper>
             <Box sx={{ display: 'flex' }}>
 
                 <Box

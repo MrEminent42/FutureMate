@@ -13,6 +13,7 @@ import { firebaseAuth, firestoreDb } from '../config/firebase';
 import { MateDocConverter } from '../types/Mate';
 import DisplayProfile from '../components/myProfile/DisplaySwitch';
 import { styled } from '@mui/material/styles'
+import Questionnaire from '../components/myProfile/Questionnaire';
 
 const Profile = () => {
     const [uploadSuccess, setUploadSuccess] = useAtom(uploadSuccessSnackAtom);
@@ -39,8 +40,7 @@ const Profile = () => {
                 <PictureAndName />
                 <DisplayProfile />
                 <CompanyInfo />
-
-
+                <Questionnaire />
 
                 {/* snackbars for success/fail */}
                 <Snackbar
@@ -79,9 +79,42 @@ const Profile = () => {
 }
 
 
+
+
+export default Profile
+
 export const ProfilePaper = styled(Paper)(({ theme }) => ({
     padding: '1rem',
     margin: '1rem 0',
 }))
 
-export default Profile
+export const ProfileEntryContainer = styled(Box)(({ theme }) => ({
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    py: '7px',
+}))
+
+export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
+    width: '20%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+}))
+
+export const ProfileEntryRight = styled(Box)(({ theme }) => ({
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+}))
+
+export const SectionTitle = styled(Typography)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    fontSize: '1.2rem',
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: '10px'
+}))

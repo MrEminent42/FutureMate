@@ -14,9 +14,9 @@ enum MatchingQuestion {
 }
 
 enum Bedtime {
-    NINE_TO_ELEVEN = "NINE_TO_ELEVEN",
-    ELEVEN_OR_TWELVE = "ELEVEN_OR_TWELVE",
-    AFTER_MIDNIGHT = "AFTER_MIDNIGHT"
+    NINE_TO_ELEVEN = 1,
+    ELEVEN_OR_TWELVE = 2,
+    AFTER_MIDNIGHT = 3
 }
 
 enum CleanlinessResponse {
@@ -27,10 +27,10 @@ enum CleanlinessResponse {
 }
 
 enum LoudnessResponse {
-    VERY_PARTY = 1,
-    OFTEN_SOCIAL = 2,
-    OCCASIONALLY_LOUD = 3,
-    MOSTLY_QUIET = 4,
+    VERY_PARTY = 4,
+    OFTEN_SOCIAL = 3,
+    OCCASIONALLY_LOUD = 2,
+    MOSTLY_QUIET = 1,
 }
 
 enum StartDate {

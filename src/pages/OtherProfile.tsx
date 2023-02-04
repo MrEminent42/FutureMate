@@ -19,7 +19,7 @@ const OtherProfile = () => {
     return (
         <Box sx={{ width: { xs: '100%', md: '600px' } }}>
             <Box sx={{ px: '1rem' }}>
-                <ProfilePaper elevation={0}>
+                <ProfilePaper>
 
 
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>

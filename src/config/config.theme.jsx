@@ -44,13 +44,11 @@ const theme = createTheme({
                 elevation: 10,
             }
         },
-        // MuiPaper: {
-        //     styleOverrides: {
-        //         root: {
-        //             borderRadius: 30
-        //         }
-        //     }
-        // }
+        MuiPaper: {
+            defaultProps: {
+                elevation: 0
+            }
+        }
 
     }
 

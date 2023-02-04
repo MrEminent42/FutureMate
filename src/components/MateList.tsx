@@ -42,8 +42,6 @@ const MateList = () => {
             </Box>
         </>
     )
-
-
 }
 
 const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
@@ -51,12 +49,10 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
     const navigate = useNavigate();
     return (
         <Paper
-
             onClick={() => {
                 setOtherMate(mateInfo)
                 navigate("mate");
             }}
-            elevation={0}
             sx={{
                 my: '1rem',
                 wordBreak: 'break-word',

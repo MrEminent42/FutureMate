@@ -65,7 +65,7 @@ const PictureAndName = () => {
 
 
     return (
-        <ProfilePaper elevation={0}>
+        <ProfilePaper>
             <UpdateProfilePicture
                 open={openPfpDialog}
                 onClose={handleDialogClose}
