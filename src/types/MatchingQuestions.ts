@@ -20,10 +20,10 @@ enum Bedtime {
 }
 
 enum CleanlinessResponse {
-    VERY_CLEAN = 1,
-    MOSTLY_TIDY = 2,
-    SUFF_PLACES = 3,
-    ALMOST_JUNGLE = 4
+    VERY_CLEAN = 4,
+    MOSTLY_TIDY = 3,
+    SUFF_PLACES = 2,
+    ALMOST_JUNGLE = 1
 }
 
 enum LoudnessResponse {

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { ProfileEntryContainer, ProfileEntryLeft, ProfileEntryRight, ProfilePaper, SectionTitle } from '../../pages/MyProfile'
 import Box from '@mui/material/Box'
 import { Typography } from '@mui/material';
-import { styled } from '@mui/material/styles'
 import Slider from '@mui/material/Slider';
 import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
@@ -20,7 +19,7 @@ const Questionnaire = () => {
     }
 
     const getCleanlinessLabel = (clean: CleanlinessResponse) => {
-        return ["Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"][clean - 1]
+        return ["Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"][4 - clean]
     }
 
     const updateLocalUserInfo = () => {

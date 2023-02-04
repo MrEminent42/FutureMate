@@ -66,7 +66,6 @@ const DisplayProfile = () => {
     return (
         <ProfilePaper>
             <Box sx={{ display: 'flex' }}>
-
                 <Box
                     sx={{
                         width: '80%',

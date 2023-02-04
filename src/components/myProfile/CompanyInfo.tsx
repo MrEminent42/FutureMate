@@ -14,7 +14,7 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaceIcon from '@mui/icons-material/Place';
 import { firebaseAuth } from '../../config/firebase';
-import { ProfilePaper, SectionTitle } from '../../pages/MyProfile';
+import { ProfileEntryContainer, ProfileEntryLeft, ProfileEntryRight, ProfilePaper, SectionTitle } from '../../pages/MyProfile';
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
@@ -62,10 +62,10 @@ const CompanyInfo = () => {
         <ProfilePaper >
             <SectionTitle>Internship Details</SectionTitle>
             {/* start date */}
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px', }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
+            <ProfileEntryContainer >
+                <ProfileEntryLeft>
                     <InsertInvitationIcon />
-                </Box>
+                </ProfileEntryLeft>
                 <ButtonGroup
                     sx={{ flexGrow: 1 }}
                 >
@@ -79,41 +79,42 @@ const CompanyInfo = () => {
                         >{CapsToLower(item)}</Button>
                     ))}
                 </ButtonGroup>
-            </Box>
+            </ProfileEntryContainer>
             {/* internship location */}
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
+                <ProfileEntryLeft>
                     <PlaceIcon />
-                </Box>
-                <Select
-                    value={location || ''}
-                    onChange={(item) => setLocation(item.target.value as LocationResponse)}
-                    sx={{ flexGrow: 1 }}
-                    renderValue={(item) => <p style={{ textTransform: 'capitalize' }}>{CapsToLower(item)}</p>}
-                >
-                    {Object.values(LocationResponse).map((item, i) => (
-                        <MenuItem
-                            key={i}
-                            value={item}
-                            sx={{ textTransform: 'capitalize' }}
-                        >{CapsToLower(item)}</MenuItem>
-                    ))}
-                </Select>
+                </ProfileEntryLeft>
+                <ProfileEntryRight >
+                    <Select
+                        value={location || ''}
+                        onChange={(item) => setLocation(item.target.value as LocationResponse)}
+                        sx={{ width: '100%' }}
+                        renderValue={(item) => <p style={{ textTransform: 'capitalize' }}>{CapsToLower(item)}</p>}
+                    >
+                        {Object.values(LocationResponse).map((item, i) => (
+                            <MenuItem
+                                key={i}
+                                value={item}
+                                sx={{ textTransform: 'capitalize' }}
+                            >{CapsToLower(item)}</MenuItem>
+                        ))}
+                    </Select>
+                </ProfileEntryRight>
             </Box>
             {/* budget */}
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '20%' }}>
+            <ProfileEntryContainer>
+                <ProfileEntryLeft>
                     <AttachMoneyIcon />
-                </Box>
-                <Box sx={{ width: '80%', display: 'flex' }}>
+                </ProfileEntryLeft>
+                <ProfileEntryRight sx={{ flexDirection: 'row' }}>
                     <TextField
                         value={budgetMin || ''}
                         type='number'
                         onChange={(item) => setBudgetMin(+item.target.value)}
                         sx={{ flexGrow: .5 }}
                         onBlur={handleBlur}
-                    >
-                    </TextField>
+                    />
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: '10px' }}>
                         <Typography >to</Typography>
                     </Box>
@@ -123,11 +124,9 @@ const CompanyInfo = () => {
                         onChange={(item) => setBudgetMax(+item.target.value)}
                         sx={{ flexGrow: .5 }}
                         onBlur={handleBlur}
-                    >
-
-                    </TextField>
-                </Box>
-            </Box>
+                    />
+                </ProfileEntryRight>
+            </ProfileEntryContainer>
         </ProfilePaper >
     )
 }

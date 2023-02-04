@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { User, updateProfile } from 'firebase/auth';
-import Box from '@mui/material/Box/Box';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import { Alert, Paper, Typography } from '@mui/material';
@@ -13,7 +12,8 @@ import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
 import { MateInfo } from '../../types/Mate';
 import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
-import { ProfilePaper } from '../../pages/MyProfile';
+import { ProfileEntryContainer, ProfilePaper } from '../../pages/MyProfile';
+import { Box } from '@mui/system';
 
 
 const PictureAndName = () => {
@@ -72,7 +72,7 @@ const PictureAndName = () => {
                 setUploadFailed={setFail}
                 setUploadSuccess={setUploadSuccess}
             />
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>
+            <ProfileEntryContainer>
                 <Box
                     sx={{ width: '140px', position: 'relative' }}
                     onClick={() => setOpenPfpDialog(true)}
@@ -100,10 +100,9 @@ const PictureAndName = () => {
                             width: '140px',
                         }}
                     />
-
                 </Box>
-            </Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px' }}>
+            </ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ py: '10px' }}>
                 <TextField
                     label="Name"
                     autoComplete='name'
@@ -112,8 +111,8 @@ const PictureAndName = () => {
                     onBlur={handleBlur}
                     error={errors.name}
                 />
-            </Box>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px' }}>
+            </ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ pt: '10px' }}>
                 <TextField
                     label="Contact method"
                     autoComplete='email'
@@ -123,7 +122,7 @@ const PictureAndName = () => {
                     error={errors.contact}
                     helperText={errors.contact ? "Please enter a valid phone or email" : "Phone or email, to be listed publicly."}
                 />
-            </Box>
+            </ProfileEntryContainer>
 
         </ProfilePaper >
     )

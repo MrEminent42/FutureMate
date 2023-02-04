@@ -92,7 +92,7 @@ export const ProfileEntryContainer = styled(Box)(({ theme }) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    py: '7px',
+    padding: '7px 0',
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({

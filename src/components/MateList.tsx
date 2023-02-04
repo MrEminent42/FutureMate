@@ -16,6 +16,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import TypographyMapping from "../types/TypographyMapping";
 import { useNavigate } from "react-router-dom";
 import selectedMateAtom from "../jotai/selectedMateAtom";
+import { styled } from "@mui/material/styles";
 
 
 const MateList = () => {
@@ -48,30 +49,20 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
     const [_, setOtherMate] = useAtom(selectedMateAtom);
     const navigate = useNavigate();
     return (
-        <Paper
+        <MatePaper
             onClick={() => {
                 setOtherMate(mateInfo)
                 navigate("mate");
             }}
-            sx={{
-                my: '1rem',
-                wordBreak: 'break-word',
-                overflow: 'hidden',
-                border: 2,
-                borderColor: 'primary.main',
-                borderRadius: '20px'
-            }}
+
         >
             <Grid container sx={{}}>
-
                 {/* left container for title, text, etc */}
                 <Grid item container sx={{ p: { xs: '.5rem', sm: '1.0rem' } }} xs={8}>
                     <Grid item xs={8} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <Typography variant={TypographyMapping.CardName}
-                            sx={{ textAlign: 'center' }}
-                        >
+                        <Name>
                             {mateInfo.name}
-                        </Typography>
+                        </Name>
 
                     </Grid>
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -114,8 +105,22 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                 </Grid>
 
             </Grid>
-        </Paper >
+        </MatePaper >
     )
 }
 
 export default MateList;
+
+const Name = styled(Typography)(({ theme }) => ({
+    textAlign: 'center',
+    fontSize: '1.3rem',
+    fontWeight: '500'
+}))
+
+const MatePaper = styled(Paper)(({ theme }) => ({
+    margin: '1rem 0',
+    wordBreak: 'break-word',
+    overflow: 'hidden',
+    border: '2px solid ' + theme.palette.primary.main,
+    borderRadius: '20px'
+}))
