@@ -121,7 +121,7 @@ const MatePaper = styled(Paper)(({ theme }) => ({
     margin: '1rem 0',
     wordBreak: 'break-word',
     overflow: 'hidden',
-    border: '2px solid ' + theme.palette.primary.main,
+    border: '1px solid grey',
     borderRadius: '20px'
 }))
 
