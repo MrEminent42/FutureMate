@@ -36,7 +36,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     // backgroundColor: 'primary.main'
-                    backgroundColor: 'white'
+                    backgroundColor: 'transparent'
                 }
             },
             defaultProps: {
@@ -45,8 +45,15 @@ const theme = createTheme({
         },
         MuiPaper: {
             defaultProps: {
-                elevation: 0
+                elevation: 2
             },
+            styleOverrides: {
+                root: {
+                    borderWidth: '2px',
+                    borderColor: '#a8a6a6',
+                    borderStyle: 'solid'
+                }
+            }
         }
 
     }

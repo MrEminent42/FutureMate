@@ -17,8 +17,8 @@ import { useNavigate } from "react-router-dom";
 import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
 import { Avatar } from "@mui/material";
+import { Fade } from '@mui/material';
 import { startDateFilterAtom } from "../jotai/filtersAtom";
-
 
 
 const InternList = () => {
@@ -36,13 +36,11 @@ const InternList = () => {
 
     useEffect(() => {
         if (firebaseAuth.currentUser) loadUsers();
-
-        filterUsers()
     }, [])
 
     useEffect(() => {
         filterUsers()
-    }, [usersAtom, date])
+    }, [users, date])
 
     const filterUsers = () => {
         let matchList = [] as Intern[];
@@ -61,15 +59,14 @@ const InternList = () => {
     }
 
     return (
-        <>
+        <Fade in={users.length > 0}>
             <Box sx={{ px: '1rem' }}>
-                <Typography variant="h3">Roomates</Typography>
                 {matches && matches.map((user, i) => (
                     <InternCard
                         internInfo={user} key={i} />
                 ))}
             </Box>
-        </>
+        </Fade>
     )
 }
 
@@ -158,7 +155,7 @@ const InternPaper = styled(Paper)(({ theme }) => ({
     margin: '1rem 0',
     wordBreak: 'break-word',
     overflow: 'hidden',
-    border: '1px solid grey',
+    // border: '2px solid #c7c4c4',
     borderRadius: '20px'
 }))
 

@@ -16,7 +16,9 @@ const ProfileFilters = () => {
     const [loudness, setLoudness] = useAtom(loudnessFiltersAtom);
 
     return (
-        <FiltersPaper>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: '600px' } }}>
+
+            <FiltersPaper sx={{ width: (open ? '80%' : '69%') }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <TopLabel>
                     Filters
@@ -81,6 +83,8 @@ const ProfileFilters = () => {
                 </Box> */}
             </Collapse>
         </FiltersPaper >
+        </Box>
+
     )
 }
 
@@ -91,7 +95,7 @@ const FiltersPaper = styled(Paper)(() => ({
     wordBreak: 'break-word',
     overflow: 'hidden',
     borderRadius: '20px',
-    backgroundColor: '#eeecec',
+    backgroundColor: '#f3f3f3',
     border: '1px solid black'
 }))
 

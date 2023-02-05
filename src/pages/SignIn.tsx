@@ -12,6 +12,9 @@ import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import GoogleIcon from '@mui/icons-material/Google';
+import { Fade } from '@mui/material';
+import { HomeSkeleton } from "./Home";
+import Skeleton from '@mui/material/Skeleton';
 
 
 export const SignIn = () => {
@@ -21,12 +24,21 @@ export const SignIn = () => {
     const [, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const [skeleton, setSkeleton] = useState(true);
+
     const [authState] = useAuthState(firebaseAuth);
     useEffect(() => {
         if (authState) {
             loadCurrentUser();
         }
     }, [authState]);
+
+
+    useEffect(() => {
+        setTimeout(function () {
+            setSkeleton(false);
+        }, 1100);
+    }, []);
 
 
     const signInWithGoogle = () => {
@@ -74,56 +86,85 @@ export const SignIn = () => {
 
     }
 
-    return (
-        <Box sx={{ width: { xs: '100%', md: '600px' } }}>
-            <Paper sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
-                <Box sx={{ p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
-                    <Typography variant="h3" sx={{ mb: '1rem', textAlign: 'center' }}>SaleMate</Typography>
-                    <Typography variant="body1" sx={{ textAlign: 'center' }}>
-                        Designed to help FutureForce 2023 interns find roommates.
-                    </Typography>
-
-                    <Box sx={{ maxWidth: '300px' }}>
-
-                        <Typography variant="body1" sx={{ textAlign: 'center', mt: '1rem' }}>
-                            Disclaimers, etc:
-                        </Typography>
-                        <Typography variant="body2" sx={{ textAlign: 'center' }}>
-                            By signing up, you agree to receive emails about critical updates of this service for security and privacy.
-                        </Typography>
-                        <Typography variant="body2" sx={{ textAlign: 'center' }}>
-                            Listing your information on this service will allow anyone else who signs up to see the information. Be smart!
-                        </Typography>
-                    </Box>
-
+    const renderSkeleton = () => {
+        return (
+            <Fade in={skeleton}>
+                <Box sx={{ width: { xs: '100%', md: '600px' } }}>
+                    <HomeSkeleton />
+                    <Box sx={{ px: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Skeleton variant="rectangular" height={'50px'} width={'80%'} sx={{ my: '15px', borderRadius: '20px' }} />
+                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
+                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
+                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
+                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
+                    </Box >
                 </Box>
-                <Box sx={{
-                    position: 'absolute',
-                    bottom: '1rem',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}>
-                    <Button onClick={signInWithGoogle} variant="contained" color="secondary" >
-                        <GoogleIcon sx={{ mr: '1rem' }} />
-                        Sign in with Google
-                    </Button>
+            </Fade>
+        )
+    }
 
-                </Box>
-            </Paper>
+    const renderSignIn = () => {
+        return (
+            <Box sx={{ width: { xs: '100%', md: '600px' } }}>
+                <Fade in={!skeleton}>
+                    <Paper sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
+                        <Box sx={{ p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                            <Typography variant="h3" sx={{ mb: '1rem', textAlign: 'center' }}>SaleMate</Typography>
+                            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                                Designed to help FutureForce 2023 interns find roommates.
+                            </Typography>
+
+                            <Box sx={{ maxWidth: '300px' }}>
+
+                                <Typography variant="body1" sx={{ textAlign: 'center', mt: '1rem' }}>
+                                    Disclaimers, etc:
+                                </Typography>
+                                <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                                    By signing up, you agree to receive emails about critical updates of this service for security and privacy.
+                                </Typography>
+                                <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                                    Listing your information on this service will allow anyone else who signs up to see the information. Be smart!
+                                </Typography>
+                            </Box>
+
+                        </Box>
+                        <Box sx={{
+                            position: 'absolute',
+                            bottom: '1rem',
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}>
+                            <Button onClick={signInWithGoogle} variant="contained" color="secondary" >
+                                <GoogleIcon sx={{ mr: '1rem' }} />
+                                Sign in with Google
+                            </Button>
+
+                        </Box>
+                    </Paper>
 
 
 
+                </Fade>
 
-            <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={loading}
-            >
-                <CircularProgress color="secondary" />
-            </Backdrop>
-        </Box >
-    )
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                >
+                    <CircularProgress color="secondary" />
+                </Backdrop>
+            </Box >
+        )
+    }
+
+    if (skeleton) {
+        return renderSkeleton();
+    } else {
+
+        return renderSignIn();
+
+    }
 }
 
 
