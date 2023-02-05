@@ -5,7 +5,7 @@ import { Box } from '@mui/system'
 import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
 import currentUserAtom from '../../jotai/currentUserAtom'
-import { MateInfo } from '../../types/Mate'
+import { Intern } from '../../types/Intern'
 import { ProfilePaper } from '../../pages/MyProfile'
 
 const DisplayProfile = () => {
@@ -27,7 +27,7 @@ const DisplayProfile = () => {
     }, [])
 
     const updateUserInfo = () => {
-        let currentUserUpdateInfo = { ...currentUser!, listed: listed } as MateInfo;
+        let currentUserUpdateInfo = { ...currentUser!, listed: listed } as Intern;
         setCurrentUser(currentUserUpdateInfo)
     }
 

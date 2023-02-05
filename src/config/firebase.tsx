@@ -3,7 +3,7 @@ import { Auth, UserInfo, getAuth } from "firebase/auth";
 import { getStorage, ref } from "firebase/storage";
 
 import { QueryDocumentSnapshot, getFirestore } from "firebase/firestore";
-import { MateInfo } from "../types/Mate";
+import { Intern } from "../types/Intern";
 import { atom } from 'jotai';
 
 const firebaseConfig = {
@@ -24,4 +24,4 @@ export const firebaseStorage = getStorage()
 
 // const firebaseAtom = atom(firebaseApp);
 // const firebaseAuthAtom = atom(getAuth(firebaseApp));
-export const usersAtom = atom<QueryDocumentSnapshot<MateInfo>[]>([]);
+export const usersAtom = atom<QueryDocumentSnapshot<Intern>[]>([]);

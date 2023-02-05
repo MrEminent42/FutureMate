@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import Box from '@mui/material/Box/Box';
-import selectedMateAtom from '../jotai/selectedMateAtom'
+import selectedInternAtom from '../jotai/selectedInternAtom'
 import { Typography, CircularProgress, styled } from '@mui/material';
 import { ProfilePaper } from './MyProfile';
 import Avatar from '@mui/material/Avatar';
@@ -10,14 +10,14 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Bedtime, CapsToLower } from '../types/MatchingQuestions';
 import TypographyMapping from '../types/TypographyMapping';
 import { grey } from '@mui/material/colors';
-import { CleanlinessLabels, LoudnessLabels } from '../types/Mate';
+import { CleanlinessLabels, LoudnessLabels } from '../types/Intern';
 import Slider from '@mui/material/Slider';
 
 const OtherProfile = () => {
 
-    const [otherMate] = useAtom(selectedMateAtom);
+    const [otherIntern] = useAtom(selectedInternAtom);
 
-    if (!otherMate) {
+    if (!otherIntern) {
         return (
             <CircularProgress />
         )
@@ -28,33 +28,33 @@ const OtherProfile = () => {
             <Box sx={{ px: '1rem' }}>
                 <ProfilePaper>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>
-                        <Avatar src={otherMate.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '140px', height: '140px' }} />
+                        <Avatar src={otherIntern.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '140px', height: '140px' }} />
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Name variant="h3" >{otherMate?.name}</Name>
-                        {otherMate.pronouns && <Pronouns>{otherMate.pronouns}</Pronouns>}
-                        <Typography>contact: {otherMate.contact}</Typography>
+                        <Name variant="h3" >{otherIntern?.name}</Name>
+                        {otherIntern.pronouns && <Pronouns>{otherIntern.pronouns}</Pronouns>}
+                        <Typography>contact: {otherIntern.contact}</Typography>
                     </Box>
                 </ProfilePaper>
 
                 <ProfilePaper>
                     <CardPadder >
-                        {otherMate.location && (
+                        {otherIntern.location && (
                             <InfoChip>
                                 <PlaceIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <InfoChipText>{CapsToLower(otherMate.location)}</InfoChipText>
+                                <InfoChipText>{CapsToLower(otherIntern.location)}</InfoChipText>
                             </InfoChip>
                         )}
-                        {otherMate.startDate && (
+                        {otherIntern.startDate && (
                             <InfoChip>
                                 <InsertInvitationIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <InfoChipText>{CapsToLower(otherMate.startDate)}</InfoChipText>
+                                <InfoChipText>{CapsToLower(otherIntern.startDate)}</InfoChipText>
                             </InfoChip>
                         )}
-                        {otherMate.budgetMax && (
+                        {otherIntern.budgetMax && (
                             <InfoChip>
                                 <AttachMoneyIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <InfoChipText >{otherMate.budgetMax}</InfoChipText>
+                                <InfoChipText >{otherIntern.budgetMax}</InfoChipText>
                             </InfoChip>
                         )}
                     </CardPadder>
@@ -72,7 +72,7 @@ const OtherProfile = () => {
                                     disabled
                                     valueLabelDisplay="on"
                                     sx={{ width: '80%' }}
-                                    value={otherMate.loudness || 2}
+                                    value={otherIntern.loudness || 2}
                                     min={1}
                                     max={4}
                                     valueLabelFormat={(i) => LoudnessLabels[i]}
@@ -91,7 +91,7 @@ const OtherProfile = () => {
                                     disabled
                                     valueLabelDisplay="on"
                                     sx={{ width: '80%' }}
-                                    value={otherMate.bedtime || 2}
+                                    value={otherIntern.bedtime || 2}
                                     min={Bedtime.NINE_TO_ELEVEN}
                                     max={Bedtime.AFTER_MIDNIGHT}
                                 />
@@ -108,7 +108,7 @@ const OtherProfile = () => {
                                     disabled
                                     valueLabelDisplay="on"
                                     sx={{ width: '80%' }}
-                                    value={otherMate.cleanliness || 2}
+                                    value={otherIntern.cleanliness || 2}
                                     min={1}
                                     max={4}
                                     valueLabelFormat={(i) => CleanlinessLabels[i]}

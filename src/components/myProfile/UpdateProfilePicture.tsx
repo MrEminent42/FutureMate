@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { MateInfo } from '../../types/Mate';
+import { Intern } from '../../types/Intern';
 
 const UpdateProfilePicture = (props: {
     open: boolean;
@@ -34,7 +34,7 @@ const UpdateProfilePicture = (props: {
             setLoading(false);
             props.setUploadSuccess(true);
         })
-        setCurrentUser({ ...currentUser, photoURL: photoURL } as MateInfo)
+        setCurrentUser({ ...currentUser, photoURL: photoURL } as Intern)
     }
 
     const resizeFile = (file: File) => new Promise(resolve => {

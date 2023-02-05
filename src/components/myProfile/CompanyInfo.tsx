@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { CapsToLower, LocationResponse, StartDate } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { MateInfo, combineMateInfo } from '../../types/Mate';
+import { Intern, combineMateInfo as combineInternInfo } from '../../types/Intern';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Select from '@mui/material/Select';
@@ -30,7 +30,7 @@ const CompanyInfo = () => {
 
     const updateUserInfo = () => {
         if (currentUser) {
-            setCurrentUser(combineMateInfo({
+            setCurrentUser(combineInternInfo({
                 uid: currentUser.uid || firebaseAuth.currentUser?.uid,
                 listed: currentUser.listed,
 

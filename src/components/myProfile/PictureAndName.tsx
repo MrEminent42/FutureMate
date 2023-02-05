@@ -5,7 +5,7 @@ import UpdateProfilePicture from './UpdateProfilePicture';
 import TextField from '@mui/material/TextField/TextField';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { MateInfo } from '../../types/Mate';
+import { Intern } from '../../types/Intern';
 import { failSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
 import { ProfileEntryContainer, ProfilePaper } from '../../pages/MyProfile';
 import { Box } from '@mui/system';
@@ -56,7 +56,7 @@ const PictureAndName = () => {
 
     const updateUserInfo = () => {
         if (currentUser) {
-            let currentUserUpdateInfo = { ...currentUser, name: name, contact: contact, pronouns: pronouns } as MateInfo;
+            let currentUserUpdateInfo = { ...currentUser, name: name, contact: contact, pronouns: pronouns } as Intern;
             setCurrentUser(currentUserUpdateInfo)
         }
     }

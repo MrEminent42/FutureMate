@@ -10,7 +10,7 @@ import CompanyInfo from '../components/myProfile/CompanyInfo';
 import currentUserAtom from '../jotai/currentUserAtom';
 import { doc, setDoc } from 'firebase/firestore';
 import { firebaseAuth, firestoreDb } from '../config/firebase';
-import { MateDocConverter } from '../types/Mate';
+import { InternDocConverter } from '../types/Intern';
 import DisplayProfile from '../components/myProfile/DisplaySwitch';
 import { styled } from '@mui/material/styles'
 import Questionnaire from '../components/myProfile/Questionnaire';
@@ -28,7 +28,7 @@ const Profile = () => {
 
     const updateFirebaseUser = () => {
         if (currentUser && firebaseAuth.currentUser) {
-            const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid!).withConverter(MateDocConverter);
+            const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid!).withConverter(InternDocConverter);
             setDoc(userRef, currentUser).catch(() => setFail(true)).then(() => { setSaveSuccess(true) });
         }
     }

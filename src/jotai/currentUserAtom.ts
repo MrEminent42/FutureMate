@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { MateInfo } from "../types/Mate";
+import { Intern } from "../types/Intern";
 
-const currentUserAtom = atom<MateInfo | null>(null);
+const currentUserAtom = atom<Intern | null>(null);
 
 export default currentUserAtom;

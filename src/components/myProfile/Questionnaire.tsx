@@ -6,7 +6,7 @@ import Slider from '@mui/material/Slider';
 import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { CleanlinessLabels } from '../../types/Mate';
+import { CleanlinessLabels } from '../../types/Intern';
 
 const Questionnaire = () => {
     const [loudness, setLoudness] = useState(LoudnessResponse.MOSTLY_QUIET);

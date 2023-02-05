@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { firebaseAuth, firestoreDb } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { MateDocConverter, MateInfo } from "../types/Mate";
+import { InternDocConverter, Intern } from "../types/Intern";
 import { useAtom } from "jotai";
 import { useState, useEffect } from 'react';
 import { Backdrop, CircularProgress, Typography } from '@mui/material';
@@ -49,21 +49,21 @@ export const SignIn = () => {
 
     const loadCurrentUser = () => {
         if (!firebaseAuth.currentUser) return;
-        const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid).withConverter(MateDocConverter);
+        const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid).withConverter(InternDocConverter);
         getDoc(userRef).catch(console.log).then((docSnap) => {
             if (!firebaseAuth.currentUser) return;
 
             if (!docSnap || !docSnap.exists()) {
                 console.log("creating new user")
-                let newMate: MateInfo = {
+                let newIntern: Intern = {
                     uid: firebaseAuth.currentUser.uid,
                     contact: firebaseAuth.currentUser.email,
                     photoURL: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
                     name: firebaseAuth.currentUser!.displayName || null,
                     listed: false,
                 }
-                setDoc(userRef, newMate).catch(console.log);
-                setCurrentUser(newMate);
+                setDoc(userRef, newIntern).catch(console.log);
+                setCurrentUser(newIntern);
                 navigate("/profile");
             } else {
                 setCurrentUser(docSnap.data());

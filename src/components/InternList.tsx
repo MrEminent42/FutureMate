@@ -1,6 +1,6 @@
 import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { firebaseApp, firebaseAuth, usersAtom } from "../config/firebase";
-import { MateDocConverter, MateInfo } from "../types/Mate";
+import { InternDocConverter as InternDocConverter, Intern } from "../types/Intern";
 import { useAtom } from 'jotai';
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from 'react';
@@ -14,33 +14,39 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import TypographyMapping from "../types/TypographyMapping";
 import { useNavigate } from "react-router-dom";
-import selectedMateAtom from "../jotai/selectedMateAtom";
+import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
 import { Avatar } from "@mui/material";
 import { startDateFilterAtom } from "../jotai/filtersAtom";
 
 
 
-const MateList = () => {
+const InternList = () => {
     const [users, setUsers] = useAtom(usersAtom);
     const [date] = useAtom(startDateFilterAtom);
 
-    const [matches, setMatches] = useState([] as MateInfo[]);
-    const [notMatches, setNotMatches] = useState([] as MateInfo[]);
+    const [matches, setMatches] = useState([] as Intern[]);
+    const [notMatches, setNotMatches] = useState([] as Intern[]);
 
     const loadUsers = () => {
         const db = getFirestore(firebaseApp);
         const q = query(collection(db, "mates"), where("listed", "==", true))
-        getDocs(q.withConverter(MateDocConverter)).then((querySnapshot) => setUsers(querySnapshot.docs)).catch(console.log)
+        getDocs(q.withConverter(InternDocConverter)).then((querySnapshot) => setUsers(querySnapshot.docs)).catch(console.log)
     }
 
     useEffect(() => {
         if (firebaseAuth.currentUser) loadUsers();
+
+        filterUsers()
     }, [])
 
     useEffect(() => {
-        let matchList = [] as MateInfo[];
-        let noMatchList = [] as MateInfo[];
+        filterUsers()
+    }, [usersAtom, date])
+
+    const filterUsers = () => {
+        let matchList = [] as Intern[];
+        let noMatchList = [] as Intern[];
         users.forEach((user) => {
             if (!date || user.data().startDate === date) {
                 matchList.push(user.data())
@@ -52,28 +58,28 @@ const MateList = () => {
         setMatches(matchList);
         setNotMatches(noMatchList);
 
-    }, [usersAtom, date])
+    }
 
     return (
         <>
             <Box sx={{ px: '1rem' }}>
                 <Typography variant="h3">Roomates</Typography>
                 {matches && matches.map((user, i) => (
-                    <MateCard
-                        mateInfo={user} key={i} />
+                    <InternCard
+                        internInfo={user} key={i} />
                 ))}
             </Box>
         </>
     )
 }
 
-const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
-    const [, setOtherMate] = useAtom(selectedMateAtom);
+const InternCard = ({ internInfo }: { internInfo: Intern }) => {
+    const [, setOtherIntern] = useAtom(selectedInternAtom);
     const navigate = useNavigate();
     return (
-        <MatePaper
+        <InternPaper
             onClick={() => {
-                setOtherMate(mateInfo)
+                setOtherIntern(internInfo)
                 navigate("mate");
             }}
 
@@ -83,15 +89,15 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                 <Grid item container sx={{ p: { xs: '.5rem', sm: '1.0rem' } }} xs={8}>
                     <Grid item xs={8} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Name>
-                            {mateInfo.name}
+                            {internInfo.name}
                         </Name>
                         <Pronouns>
-                            {mateInfo.pronouns && mateInfo.pronouns}
+                            {internInfo.pronouns && internInfo.pronouns}
                         </Pronouns>
 
                     </Grid>
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        {mateInfo.location && (
+                        {internInfo.location && (
                             <InfoChip>
                                 <PlaceIcon sx={{ color: grey[500], height: '1.2rem' }} />
                                 <Typography
@@ -99,24 +105,24 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                                     sx={{
                                         color: grey[500],
                                         textTransform: 'capitalize'
-                                    }}>{CapsToLower(mateInfo.location)}</Typography>
+                                    }}>{CapsToLower(internInfo.location)}</Typography>
                             </InfoChip>
                         )}
-                        {mateInfo.startDate && (
+                        {internInfo.startDate && (
                             <InfoChip>
                                 <InsertInvitationIcon sx={{ color: grey[500], height: '1.2rem' }} />
                                 <Typography
                                     variant={TypographyMapping.CardDotInfo}
                                     sx={{ color: grey[500], textTransform: 'capitalize' }}
                                 >
-                                    {CapsToLower(mateInfo.startDate)}
+                                    {CapsToLower(internInfo.startDate)}
                                 </Typography>
                             </InfoChip>
                         )}
-                        {mateInfo.budgetMax && (
+                        {internInfo.budgetMax && (
                             <InfoChip>
                                 <AttachMoneyIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <Typography variant={TypographyMapping.CardDotInfo} sx={{ color: grey[500] }}>{mateInfo.budgetMax}</Typography>
+                                <Typography variant={TypographyMapping.CardDotInfo} sx={{ color: grey[500] }}>{internInfo.budgetMax}</Typography>
                             </InfoChip>
                         )}
                     </Grid>
@@ -125,16 +131,16 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                 {/* right container for image */}
                 <Grid item xs={4} sx={{ p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
                     <Box sx={{ height: '100px', width: '100px', borderRadius: '50%', overflow: 'hidden', textAlign: 'center' }}>
-                        <Avatar src={mateInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '100%', height: '100%' }} />
+                        <Avatar src={internInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '100%', height: '100%' }} />
                     </Box>
                 </Grid>
 
             </Grid>
-        </MatePaper >
+        </InternPaper >
     )
 }
 
-export default MateList;
+export default InternList;
 
 const Name = styled(Typography)(({ theme }) => ({
     textAlign: 'center',
@@ -148,7 +154,7 @@ const Pronouns = styled(Typography)(({ theme }) => ({
     fontWeight: '300'
 }))
 
-const MatePaper = styled(Paper)(({ theme }) => ({
+const InternPaper = styled(Paper)(({ theme }) => ({
     margin: '1rem 0',
     wordBreak: 'break-word',
     overflow: 'hidden',

@@ -8,7 +8,7 @@ import { CapsToLower, LoudnessResponse, StartDate } from '../types/MatchingQuest
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useAtom } from 'jotai';
 import { loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
-import { LoudnessLabels } from '../types/Mate';
+import { LoudnessLabels } from '../types/Intern';
 
 const ProfileFilters = () => {
     const [open, setOpen] = useState(false);

@@ -1,9 +1,7 @@
 import { QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
 import { Bedtime, CleanlinessResponse, LocationResponse, LoudnessResponse, ShareBedroomResponse, StartDate } from "./MatchingQuestions";
-import { User } from "firebase/auth";
-import { firebaseAuth } from "../config/firebase";
 
-export interface MateInfo {
+export interface Intern {
     uid: string,
     listed: boolean,
 
@@ -56,7 +54,7 @@ export const combineMateInfo = (primary: {
 
     linkedin?: string | null,
     instagram?: string | null,
-}, secondary: MateInfo) => {
+}, secondary: Intern) => {
     return {
         uid: primary.uid || secondary.uid,
         listed: primary.listed || secondary.listed || false,
@@ -81,38 +79,38 @@ export const combineMateInfo = (primary: {
 
         linkedin: primary.linkedin || secondary.linkedin,
         instagram: primary.instagram || secondary.instagram,
-    } as MateInfo;
+    } as Intern;
 }
 
-export const MateDocConverter = {
-    toFirestore: (mate: MateInfo) => {
+export const InternDocConverter = {
+    toFirestore: (intern: Intern) => {
         return {
-            uid: mate.uid,
-            listed: mate.listed,
-            contact: mate.contact || "",
-            name: mate.name || "",
-            photoURL: mate.photoURL || "",
-            pronouns: mate.pronouns || "",
+            uid: intern.uid,
+            listed: intern.listed,
+            contact: intern.contact || "",
+            name: intern.name || "",
+            photoURL: intern.photoURL || "",
+            pronouns: intern.pronouns || "",
 
-            startDate: mate.startDate || "",
-            budgetMax: mate.budgetMax || "",
-            budgetMin: mate.budgetMin || "",
-            location: mate.location || "",
+            startDate: intern.startDate || "",
+            budgetMax: intern.budgetMax || "",
+            budgetMin: intern.budgetMin || "",
+            location: intern.location || "",
 
-            bedtime: mate.bedtime || "",
-            cleanliness: mate.cleanliness || "",
-            loudness: mate.loudness || "",
+            bedtime: intern.bedtime || "",
+            cleanliness: intern.cleanliness || "",
+            loudness: intern.loudness || "",
 
-            numRoomatesMin: mate.numRoomatesMin || "",
-            numRoomatesMax: mate.numRoomatesMax || "",
-            shareBedroom: mate.shareBedroom || "",
+            numRoomatesMin: intern.numRoomatesMin || "",
+            numRoomatesMax: intern.numRoomatesMax || "",
+            shareBedroom: intern.shareBedroom || "",
 
-            linkedin: mate.linkedin || "",
-            instagram: mate.instagram || "",
+            linkedin: intern.linkedin || "",
+            instagram: intern.instagram || "",
         };
     },
-    fromFirestore: (snapshot: QueryDocumentSnapshot<MateInfo>, options: SnapshotOptions) => {
+    fromFirestore: (snapshot: QueryDocumentSnapshot<Intern>, options: SnapshotOptions) => {
         const data = snapshot.data(options);
-        return data as MateInfo;
+        return data as Intern;
     }
 }
