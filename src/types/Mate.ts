@@ -10,6 +10,7 @@ export interface MateInfo {
     contact?: string | null,
     name?: string | null,
     photoURL?: string | null,
+    pronouns?: string | null,
 
     startDate?: StartDate | null,
     location?: LocationResponse | null,
@@ -23,6 +24,10 @@ export interface MateInfo {
     numRoomatesMin?: number | null,
     numRoomatesMax?: number | null,
     shareBedroom?: ShareBedroomResponse | null,
+
+    linkedin?: string | null,
+    instagram?: string | null,
+
 }
 
 export const combineMateInfo = (primary: {
@@ -32,6 +37,7 @@ export const combineMateInfo = (primary: {
     contact?: string | null,
     name?: string | null,
     photoURL?: string | null,
+    pronouns?: string | null,
 
     startDate?: StartDate | null,
     location?: LocationResponse | null,
@@ -45,6 +51,9 @@ export const combineMateInfo = (primary: {
     numRoomatesMin?: number | null,
     numRoomatesMax?: number | null,
     shareBedroom?: ShareBedroomResponse | null,
+
+    linkedin?: string | null,
+    instagram?: string | null,
 }, secondary: MateInfo) => {
     return {
         uid: primary.uid || secondary.uid,
@@ -53,6 +62,7 @@ export const combineMateInfo = (primary: {
         contact: primary.contact || secondary.contact,
         name: primary.name || secondary.name,
         photoURL: primary.photoURL || secondary.photoURL,
+        pronouns: primary.pronouns || secondary.pronouns,
 
         startDate: primary.startDate || secondary.startDate,
         location: primary.location || secondary.location,
@@ -66,6 +76,9 @@ export const combineMateInfo = (primary: {
         numRoomatesMax: primary.numRoomatesMax || secondary.numRoomatesMax,
         numRoomatesMin: primary.numRoomatesMin || secondary.numRoomatesMin,
         shareBedroom: primary.shareBedroom || secondary.shareBedroom,
+
+        linkedin: primary.linkedin || secondary.linkedin,
+        instagram: primary.instagram || secondary.instagram,
     } as MateInfo;
 }
 
@@ -77,6 +90,7 @@ export const MateDocConverter = {
             contact: mate.contact || "",
             name: mate.name || "",
             photoURL: mate.photoURL || "",
+            pronouns: mate.pronouns || "",
 
             startDate: mate.startDate || "",
             budgetMax: mate.budgetMax || "",
@@ -90,6 +104,9 @@ export const MateDocConverter = {
             numRoomatesMin: mate.numRoomatesMin || "",
             numRoomatesMax: mate.numRoomatesMax || "",
             shareBedroom: mate.shareBedroom || "",
+
+            linkedin: mate.linkedin || "",
+            instagram: mate.instagram || "",
         };
     },
     fromFirestore: (snapshot: QueryDocumentSnapshot<MateInfo>, options: SnapshotOptions) => {

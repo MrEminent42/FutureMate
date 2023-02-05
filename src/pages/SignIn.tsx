@@ -21,7 +21,6 @@ export const SignIn = () => {
     const [, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
 
-
     const [authState] = useAuthState(firebaseAuth);
     useEffect(() => {
         if (authState) {

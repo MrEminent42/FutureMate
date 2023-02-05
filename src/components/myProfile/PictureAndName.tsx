@@ -10,6 +10,7 @@ import { failSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
 import { ProfileEntryContainer, ProfilePaper } from '../../pages/MyProfile';
 import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 const PictureAndName = () => {
@@ -17,6 +18,7 @@ const PictureAndName = () => {
 
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
+    const [pronouns, setPronouns] = useState('');
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
     const [errors, setErrors] = useState({ name: false, contact: false });
@@ -30,11 +32,12 @@ const PictureAndName = () => {
     const loadData = () => {
         setName(currentUser?.name || '');
         setContact(currentUser?.contact || '');
+        setPronouns(currentUser?.pronouns || '');
     }
 
     useEffect(() => {
         loadData()
-    })
+    }, [])
 
     const handleBlur = () => {
         if (validate()) {
@@ -53,7 +56,7 @@ const PictureAndName = () => {
 
     const updateUserInfo = () => {
         if (currentUser) {
-            let currentUserUpdateInfo = { ...currentUser, name: name, contact: contact } as MateInfo;
+            let currentUserUpdateInfo = { ...currentUser, name: name, contact: contact, pronouns: pronouns } as MateInfo;
             setCurrentUser(currentUserUpdateInfo)
         }
     }
@@ -105,16 +108,38 @@ const PictureAndName = () => {
             </ProfileEntryContainer>
             <ProfileEntryContainer sx={{ py: '10px' }}>
                 <TextField
+                    size="small"
                     label="Name"
                     autoComplete='name'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     onBlur={handleBlur}
                     error={errors.name}
+                    sx={{ width: '300px' }}
+                />
+            </ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ py: '10px' }}>
+                <Autocomplete
+                    size="small"
+                    disablePortal
+                    id="pronouns"
+                    freeSolo
+                    value={pronouns}
+                    onChange={(e, text) => {
+                        setPronouns(text || '')
+                    }}
+                    onInputChange={(e, text) => {
+                        setPronouns(text || '')
+                    }}
+                    onBlur={handleBlur}
+                    options={["she/her/hers", "he/him/his", "they/them/theirs", "she/they", "they/she", "he/they", "they/he"]}
+                    renderInput={(params) => <TextField {...params} label="Pronouns" />}
+                    sx={{ width: '300px' }}
                 />
             </ProfileEntryContainer>
             <ProfileEntryContainer sx={{ pt: '10px' }}>
                 <TextField
+                    size="small"
                     label="Contact method"
                     autoComplete='email'
                     value={contact}
@@ -122,6 +147,7 @@ const PictureAndName = () => {
                     onBlur={handleBlur}
                     error={errors.contact}
                     helperText={errors.contact ? "Please enter a valid phone or email" : "Phone or email, to be listed publicly."}
+                    sx={{ width: '300px' }}
                 />
             </ProfileEntryContainer>
 

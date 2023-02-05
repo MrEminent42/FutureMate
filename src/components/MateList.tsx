@@ -63,6 +63,9 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                         <Name>
                             {mateInfo.name}
                         </Name>
+                        <Pronouns>
+                            {mateInfo.pronouns && mateInfo.pronouns}
+                        </Pronouns>
 
                     </Grid>
                     <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -115,6 +118,12 @@ const Name = styled(Typography)(({ theme }) => ({
     textAlign: 'center',
     fontSize: '1.3rem',
     fontWeight: '500'
+}))
+
+const Pronouns = styled(Typography)(({ theme }) => ({
+    textAlign: 'center',
+    fontSize: '.8rem',
+    fontWeight: '300'
 }))
 
 const MatePaper = styled(Paper)(({ theme }) => ({
