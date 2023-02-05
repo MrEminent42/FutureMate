@@ -15,16 +15,21 @@ import TypographyMapping from "../types/TypographyMapping";
 import { useNavigate } from "react-router-dom";
 import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
-import { Avatar, Fade, Card } from "@mui/material";
+import { Avatar, Fade, Card, Button } from "@mui/material";
 import { startDateFilterAtom } from "../jotai/filtersAtom";
+import currentUserAtom from "../jotai/currentUserAtom";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 
 const InternList = () => {
+    const navigate = useNavigate();
     const [users, setUsers] = useAtom(usersAtom);
     const [date] = useAtom(startDateFilterAtom);
 
     const [matches, setMatches] = useState([] as Intern[]);
     const [notMatches, setNotMatches] = useState([] as Intern[]);
+
+    const [currentUser] = useAtom(currentUserAtom)
 
     const loadUsers = () => {
         const db = getFirestore(firebaseApp);
@@ -53,12 +58,24 @@ const InternList = () => {
 
         setMatches(matchList);
         setNotMatches(noMatchList);
-
     }
 
     return (
         <Fade in={users.length > 0}>
             <Box sx={{ px: '1rem' }}>
+
+                {/* hidden reminder */}
+                {!currentUser?.listed && (
+                    <ProfileReminder onClick={() => navigate('profile')} >
+                        <Typography sx={{ fontSize: '.8rem' }}>
+                            You're not listing your profile.
+                        </Typography>
+                        <Button color="secondary" >
+                            Fix that <ChevronRightIcon />
+                        </Button>
+                    </ProfileReminder>
+                )}
+
                 {matches && matches.map((user, i) => (
                     <InternCard
                         internInfo={user} key={i} />
@@ -161,4 +178,11 @@ const InfoChip = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     margin: '2px 0'
+}))
+
+const ProfileReminder = styled(Card)(() => ({
+    padding: '5px 10px 5px 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 }))

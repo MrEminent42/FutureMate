@@ -33,7 +33,7 @@ const OtherProfile = () => {
                     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Name variant="h3" >{otherIntern?.name}</Name>
                         {otherIntern.pronouns && <Pronouns>{otherIntern.pronouns}</Pronouns>}
-                        <Typography>contact: {otherIntern.contact}</Typography>
+                        <Typography>{otherIntern.contact}</Typography>
                     </Box>
                 </ProfilePaper>
 

@@ -27,6 +27,7 @@ const Profile = () => {
     }, [currentUser])
 
     const updateFirebaseUser = () => {
+
         if (currentUser && firebaseAuth.currentUser) {
             const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid!).withConverter(InternDocConverter);
             setDoc(userRef, currentUser).catch(() => setFail(true)).then(() => { setSaveSuccess(true) });
