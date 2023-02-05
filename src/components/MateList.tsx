@@ -3,7 +3,7 @@ import { firebaseApp, firebaseAuth, usersAtom } from "../config/firebase";
 import { MateDocConverter, MateInfo } from "../types/Mate";
 import { useAtom } from 'jotai';
 import Typography from "@mui/material/Typography";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import { CapsToLower } from "../types/MatchingQuestions";
@@ -17,10 +17,16 @@ import { useNavigate } from "react-router-dom";
 import selectedMateAtom from "../jotai/selectedMateAtom";
 import { styled } from "@mui/material/styles";
 import { Avatar } from "@mui/material";
+import { startDateFilterAtom } from "../jotai/filtersAtom";
+
 
 
 const MateList = () => {
     const [users, setUsers] = useAtom(usersAtom);
+    const [date] = useAtom(startDateFilterAtom);
+
+    const [matches, setMatches] = useState([] as MateInfo[]);
+    const [notMatches, setNotMatches] = useState([] as MateInfo[]);
 
     const loadUsers = () => {
         const db = getFirestore(firebaseApp);
@@ -32,13 +38,29 @@ const MateList = () => {
         if (firebaseAuth.currentUser) loadUsers();
     }, [])
 
+    useEffect(() => {
+        let matchList = [] as MateInfo[];
+        let noMatchList = [] as MateInfo[];
+        users.forEach((user) => {
+            if (!date || user.data().startDate === date) {
+                matchList.push(user.data())
+            } else {
+                noMatchList.push(user.data())
+            }
+        })
+
+        setMatches(matchList);
+        setNotMatches(noMatchList);
+
+    }, [usersAtom, date])
+
     return (
         <>
             <Box sx={{ px: '1rem' }}>
                 <Typography variant="h3">Roomates</Typography>
-                {users && users.map((doc, i) => (
+                {matches && matches.map((user, i) => (
                     <MateCard
-                        mateInfo={doc.data()} key={i} />
+                        mateInfo={user} key={i} />
                 ))}
             </Box>
         </>
