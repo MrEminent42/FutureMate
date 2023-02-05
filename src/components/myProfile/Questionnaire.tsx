@@ -6,7 +6,7 @@ import Slider from '@mui/material/Slider';
 import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { CleanlinessLabels } from '../../types/Intern';
+import { CleanlinessLabels, combineInternInfo } from '../../types/Intern';
 
 const Questionnaire = () => {
     const [loudness, setLoudness] = useState(LoudnessResponse.MOSTLY_QUIET);
@@ -19,22 +19,32 @@ const Questionnaire = () => {
         return ["Mostly quiet", "Occasionally social", "Often social", "Very party"][loud - 1]
     }
 
+    const loadData = () => {
+        setLoudness(currentUser?.loudness || LoudnessResponse.MOSTLY_QUIET);
+        setBedtime(currentUser?.bedtime || Bedtime.ELEVEN_OR_TWELVE);
+        setCleanliness(currentUser?.cleanliness || CleanlinessResponse.VERY_CLEAN);
+    }
+
+    useEffect(() => {
+        loadData();
+    }, [])
+
 
     const updateLocalUserInfo = () => {
         if (!currentUser) return;
-        let currentUserUpdateInfo = {
-            ...currentUser,
-            loudness: loudness,
-            bedtime: bedtime,
-            cleanliness: cleanliness
-        }
-        setCurrentUser(currentUserUpdateInfo);
+        setCurrentUser(combineInternInfo(
+            {
+                loudness: loudness,
+                bedtime: bedtime,
+                cleanliness: cleanliness,
+            },
+            currentUser
+        ));
     }
-
 
     useEffect(() => {
         updateLocalUserInfo()
-    }, [bedtime, loudness])
+    }, [bedtime, loudness, cleanliness])
 
 
 

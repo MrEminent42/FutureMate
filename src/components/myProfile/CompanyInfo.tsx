@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { CapsToLower, LocationResponse, StartDate } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { Intern, combineMateInfo as combineInternInfo } from '../../types/Intern';
+import { Intern, combineInternInfo } from '../../types/Intern';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Select from '@mui/material/Select';
@@ -44,7 +44,7 @@ const CompanyInfo = () => {
 
     useEffect(() => {
         updateUserInfo()
-    }, [startDate, location])
+    }, [startDate, location, budgetMax, budgetMin])
 
     const loadData = () => {
         setStartDate(currentUser?.startDate || null);
@@ -55,7 +55,6 @@ const CompanyInfo = () => {
 
     useEffect(() => {
         loadData();
-        updateUserInfo();
     }, [])
 
 
