@@ -30,7 +30,7 @@ export interface MateInfo {
 }
 
 export const CleanlinessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"];
-export const LoudnessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"]
+export const LoudnessLabels = ["", "Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"]
 
 export const combineMateInfo = (primary: {
     uid?: string,

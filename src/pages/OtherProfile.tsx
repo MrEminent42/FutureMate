@@ -38,7 +38,7 @@ const OtherProfile = () => {
                 </ProfilePaper>
 
                 <ProfilePaper>
-                    <CardPadder>
+                    <CardPadder >
                         {otherMate.location && (
                             <InfoChip>
                                 <PlaceIcon sx={{ color: grey[500], height: '1.2rem' }} />
@@ -61,7 +61,7 @@ const OtherProfile = () => {
                 </ProfilePaper>
                 <ProfilePaper>
                     <CardPadder sx={{ flexDirection: 'column' }}>
-                        <ProfileEntryContainer>
+                        <SliderEntryContainer>
                             <ProfileEntryLeft>
                                 <Typography>
                                     Loudness
@@ -79,8 +79,8 @@ const OtherProfile = () => {
                                     getAriaValueText={(i) => LoudnessLabels[i]}
                                 />
                             </ProfileEntryRight>
-                        </ProfileEntryContainer>
-                        <ProfileEntryContainer>
+                        </SliderEntryContainer>
+                        <SliderEntryContainer>
                             <ProfileEntryLeft>
                                 <Typography>
                                     Bedtime
@@ -96,8 +96,8 @@ const OtherProfile = () => {
                                     max={Bedtime.AFTER_MIDNIGHT}
                                 />
                             </ProfileEntryRight>
-                        </ProfileEntryContainer>
-                        <ProfileEntryContainer>
+                        </SliderEntryContainer>
+                        <SliderEntryContainer>
                             <ProfileEntryLeft>
                                 <Typography>
                                     Cleanliness
@@ -115,7 +115,7 @@ const OtherProfile = () => {
                                     getAriaValueText={(i) => CleanlinessLabels[i]}
                                 />
                             </ProfileEntryRight>
-                        </ProfileEntryContainer>
+                        </SliderEntryContainer>
                     </CardPadder>
                 </ProfilePaper>
             </Box>
@@ -154,11 +154,11 @@ const InfoChipText = styled(Typography)(() => ({
     fontWeight: '700'
 }))
 
-export const ProfileEntryContainer = styled(Box)(({ theme }) => ({
+export const SliderEntryContainer = styled(Box)(({ theme }) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: '7px 0',
+    padding: '25px 0 10px 0',
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
