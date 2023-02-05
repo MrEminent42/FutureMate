@@ -32,18 +32,7 @@ const theme = createTheme({
         borderRadius: 15,
     },
     components: {
-        MuiAppBar: {
-            styleOverrides: {
-                root: {
-                    // backgroundColor: 'primary.main'
-                    backgroundColor: 'transparent'
-                }
-            },
-            defaultProps: {
-                position: 'sticky',
-            }
-        },
-        MuiPaper: {
+        MuiCard: {
             defaultProps: {
                 elevation: 2
             },

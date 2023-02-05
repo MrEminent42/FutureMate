@@ -4,7 +4,6 @@ import { InternDocConverter as InternDocConverter, Intern } from "../types/Inter
 import { useAtom } from 'jotai';
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from 'react';
-import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import { CapsToLower } from "../types/MatchingQuestions";
 import Grid from "@mui/material/Grid/Grid";
@@ -16,8 +15,7 @@ import TypographyMapping from "../types/TypographyMapping";
 import { useNavigate } from "react-router-dom";
 import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
-import { Avatar } from "@mui/material";
-import { Fade } from '@mui/material';
+import { Avatar, Fade, Card } from "@mui/material";
 import { startDateFilterAtom } from "../jotai/filtersAtom";
 
 
@@ -151,7 +149,7 @@ const Pronouns = styled(Typography)(({ theme }) => ({
     fontWeight: '300'
 }))
 
-const InternPaper = styled(Paper)(({ theme }) => ({
+const InternPaper = styled(Card)(({ theme }) => ({
     margin: '1rem 0',
     wordBreak: 'break-word',
     overflow: 'hidden',

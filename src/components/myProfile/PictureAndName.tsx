@@ -124,6 +124,12 @@ const PictureAndName = () => {
                     onBlur={handleBlur}
                     options={["she/her/hers", "he/him/his", "they/them/theirs", "she/they", "they/she", "he/they", "they/he"]}
                     renderInput={(params) => <TextField {...params} label="Pronouns" />}
+                    ListboxProps={{
+                        style: {
+                            borderWidth: 0
+                        }
+                    }}
+
                     sx={{ width: '300px' }}
                 />
             </ProfileEntryContainer>

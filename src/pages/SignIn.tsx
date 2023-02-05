@@ -5,14 +5,12 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { InternDocConverter, Intern } from "../types/Intern";
 import { useAtom } from "jotai";
 import { useState, useEffect } from 'react';
-import { Backdrop, CircularProgress, Typography } from '@mui/material';
+import { Backdrop, CircularProgress, Typography, Fade, Card } from '@mui/material';
 import currentUserAtom from "../jotai/currentUserAtom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import GoogleIcon from '@mui/icons-material/Google';
-import { Fade } from '@mui/material';
 import { HomeSkeleton } from "./Home";
 import Skeleton from '@mui/material/Skeleton';
 
@@ -107,7 +105,7 @@ export const SignIn = () => {
         return (
             <Box sx={{ width: { xs: '100%', md: '600px' } }}>
                 <Fade in={!skeleton}>
-                    <Paper sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
+                    <Card sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
                         <Box sx={{ p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                             <Typography variant="h3" sx={{ mb: '1rem', textAlign: 'center' }}>SaleMate</Typography>
@@ -142,7 +140,7 @@ export const SignIn = () => {
                             </Button>
 
                         </Box>
-                    </Paper>
+                    </Card>
 
 
 

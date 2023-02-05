@@ -1,14 +1,13 @@
-import { Paper, styled, Typography, Box } from '@mui/material';
+import { Card, styled, Typography, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Collapse from '@mui/material/Collapse';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import { CapsToLower, LoudnessResponse, StartDate } from '../types/MatchingQuestions';
+import { CapsToLower, StartDate } from '../types/MatchingQuestions';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useAtom } from 'jotai';
 import { loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
-import { LoudnessLabels } from '../types/Intern';
 
 const ProfileFilters = () => {
     const [open, setOpen] = useState(false);
@@ -88,7 +87,7 @@ const ProfileFilters = () => {
     )
 }
 
-const FiltersPaper = styled(Paper)(() => ({
+const FiltersPaper = styled(Card)(() => ({
     transition: 'all 250ms',
     margin: '1rem ',
     padding: '.5rem 1rem',
