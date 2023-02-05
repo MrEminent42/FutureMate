@@ -32,8 +32,6 @@ export const HomeSkeleton = () => {
       <TitleContainer>
         <Title><Skeleton width={'300px'} /></Title>
       </TitleContainer>
-      <ProfileFilters />
-      <InternList />
     </Box>
   )
 }
