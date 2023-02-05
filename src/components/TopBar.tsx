@@ -1,4 +1,4 @@
-import { AppBar, Avatar, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, Fade, IconButton, Toolbar, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useNavigate } from 'react-router-dom'
 import { firebaseAuth, firebaseStorage } from '../config/firebase';
@@ -18,7 +18,14 @@ const TopBar = () => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar elevation={0} position="static" sx={{ mb: '1rem' }}>
+            <AppBar
+                elevation={0}
+                position="static" sx={{
+                    // mb: '.rem',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    px: '1rem'
+                }}>
                 <Toolbar >
                     <IconButton
                         size="large"
@@ -29,11 +36,15 @@ const TopBar = () => {
                         onClick={() => navigate("/")}
                     >
 
-                        <Box
-                            component="img"
-                            src={logoUrl}
-                            sx={{ height: '60px', transform: 'scale(2)', overflow: 'hidden' }}
-                        />
+                        <Fade
+                            in={logoUrl != ''}
+                        >
+                            <Box
+                                component="img"
+                                src={logoUrl}
+                                sx={{ height: '60px', transform: 'scale(2)', overflow: 'hidden' }}
+                            />
+                        </Fade>
 
                     </IconButton>
                     <Box sx={{ flexGrow: 1 }} />

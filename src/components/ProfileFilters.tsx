@@ -1,14 +1,13 @@
-import { Paper, styled, Typography, Box } from '@mui/material';
+import { Card, styled, Typography, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Collapse from '@mui/material/Collapse';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import { CapsToLower, LoudnessResponse, StartDate } from '../types/MatchingQuestions';
+import { CapsToLower, StartDate } from '../types/MatchingQuestions';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useAtom } from 'jotai';
 import { loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
-import { LoudnessLabels } from '../types/Intern';
 
 const ProfileFilters = () => {
     const [open, setOpen] = useState(false);
@@ -16,7 +15,9 @@ const ProfileFilters = () => {
     const [loudness, setLoudness] = useAtom(loudnessFiltersAtom);
 
     return (
-        <FiltersPaper>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: '600px' } }}>
+
+            <FiltersPaper sx={{ width: (open ? '80%' : '69%') }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <TopLabel>
                     Filters
@@ -81,18 +82,20 @@ const ProfileFilters = () => {
                 </Box> */}
             </Collapse>
         </FiltersPaper >
+        </Box>
+
     )
 }
 
-const FiltersPaper = styled(Paper)(() => ({
+const FiltersPaper = styled(Card)(() => ({
     transition: 'all 250ms',
     margin: '1rem ',
     padding: '.5rem 1rem',
     wordBreak: 'break-word',
     overflow: 'hidden',
     borderRadius: '20px',
-    backgroundColor: '#eeecec',
-    border: '1px solid black'
+    backgroundColor: '#f3f3f3',
+    borderWidth: '1px'
 }))
 
 const TopLabel = styled(Typography)(() => ({

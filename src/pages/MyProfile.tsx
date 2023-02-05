@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box/Box';
-import { Typography, Paper } from '@mui/material';
+import { Typography, Card } from '@mui/material';
 import PictureAndName from '../components/myProfile/PictureAndName';
 import Snackbar from '@mui/material/Snackbar';
 import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../jotai/snacksAtoms';
@@ -83,7 +83,7 @@ const Profile = () => {
 
 export default Profile
 
-export const ProfilePaper = styled(Paper)(({ theme }) => ({
+export const ProfilePaper = styled(Card)(({ theme }) => ({
     padding: '1rem',
     margin: '1rem 0',
 }))
