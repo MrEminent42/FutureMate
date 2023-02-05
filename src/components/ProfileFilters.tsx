@@ -96,7 +96,7 @@ const FiltersPaper = styled(Paper)(() => ({
     overflow: 'hidden',
     borderRadius: '20px',
     backgroundColor: '#f3f3f3',
-    border: '1px solid black'
+    borderWidth: '1px'
 }))
 
 const TopLabel = styled(Typography)(() => ({

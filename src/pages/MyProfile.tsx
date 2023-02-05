@@ -48,7 +48,7 @@ const Profile = () => {
                     autoHideDuration={3000}
                     onClose={() => setUploadSuccess(false)}
                     anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
-                    <Alert severity='success' variant='filled'>
+                    <Alert severity='success' variant='filled' sx={{ borderWidth: 0 }}>
                         Success! You look great 😍
                     </Alert>
                 </Snackbar>
@@ -58,7 +58,7 @@ const Profile = () => {
                     autoHideDuration={3000}
                     onClose={() => setSaveSuccess(false)}
                     anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
-                    <Alert severity='success' variant='filled'>
+                    <Alert severity='success' variant='filled' sx={{ borderWidth: 0 }}>
                         Saved 🥳
                     </Alert>
                 </Snackbar>
@@ -68,7 +68,7 @@ const Profile = () => {
                     autoHideDuration={3000}
                     onClose={() => setFail(false)}
                     anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
-                    <Alert severity='error' variant='filled'>
+                    <Alert severity='error' variant='filled' sx={{ borderWidth: 0 }}>
                         That didn't quite work...
                     </Alert>
                 </Snackbar>
