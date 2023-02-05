@@ -27,10 +27,10 @@ export interface Intern {
     instagram?: string | null,
 }
 
-export const CleanlinessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"];
-export const LoudnessLabels = ["", "Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"]
+export const LoudnessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"];
+export const CleanlinessLabels = ["", "Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"]
 
-export const combineMateInfo = (primary: {
+export const combineInternInfo = (primary: {
     uid?: string,
     listed?: boolean,
 
