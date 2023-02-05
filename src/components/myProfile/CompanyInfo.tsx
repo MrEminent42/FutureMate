@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { CapsToLower, LocationResponse, StartDate } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { MateInfo } from '../../types/Mate';
+import { MateInfo, combineMateInfo } from '../../types/Mate';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Select from '@mui/material/Select';
@@ -29,16 +29,17 @@ const CompanyInfo = () => {
     }
 
     const updateUserInfo = () => {
-        let currentUserUpdateInfo = {
-            ...currentUser,
-            uid: currentUser?.uid || firebaseAuth.currentUser!.uid,
-            listed: currentUser?.listed || false,
-            location: location,
-            startDate: startDate,
-            budgetMin: budgetMin,
-            budgetMax: budgetMax
-        };
-        setCurrentUser(currentUserUpdateInfo);
+        if (currentUser) {
+            setCurrentUser(combineMateInfo({
+                uid: currentUser.uid || firebaseAuth.currentUser?.uid,
+                listed: currentUser.listed,
+
+                location: location,
+                startDate: startDate,
+                budgetMin: budgetMin,
+                budgetMax: budgetMax,
+            }, currentUser));
+        }
     }
 
     useEffect(() => {

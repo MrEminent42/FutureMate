@@ -1,13 +1,12 @@
-import { collection, doc, getDoc, getDocs, getFirestore, query, QueryDocumentSnapshot, setDoc, where } from "firebase/firestore";
-import { firebaseApp, firebaseAuth, firestoreDb, usersAtom } from "../config/firebase";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { firebaseApp, firebaseAuth, usersAtom } from "../config/firebase";
 import { MateDocConverter, MateInfo } from "../types/Mate";
 import { useAtom } from 'jotai';
 import Typography from "@mui/material/Typography";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
-import { Bedtime, CapsToLower } from "../types/MatchingQuestions";
-import red from "@mui/material/colors/red";
+import { CapsToLower } from "../types/MatchingQuestions";
 import Grid from "@mui/material/Grid/Grid";
 import grey from "@mui/material/colors/grey";
 import PlaceIcon from '@mui/icons-material/Place';
@@ -17,6 +16,7 @@ import TypographyMapping from "../types/TypographyMapping";
 import { useNavigate } from "react-router-dom";
 import selectedMateAtom from "../jotai/selectedMateAtom";
 import { styled } from "@mui/material/styles";
+import { Avatar } from "@mui/material";
 
 
 const MateList = () => {
@@ -46,7 +46,7 @@ const MateList = () => {
 }
 
 const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
-    const [_, setOtherMate] = useAtom(selectedMateAtom);
+    const [, setOtherMate] = useAtom(selectedMateAtom);
     const navigate = useNavigate();
     return (
         <MatePaper
@@ -100,7 +100,7 @@ const MateCard = ({ mateInfo }: { mateInfo: MateInfo }) => {
                 {/* right container for image */}
                 <Grid item xs={4} sx={{ p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
                     <Box sx={{ height: '100px', width: '100px', borderRadius: '50%', overflow: 'hidden', textAlign: 'center' }}>
-                        <img src={mateInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} style={{ flexGrow: 1, height: '100%' }} />
+                        <Avatar src={mateInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '100%', height: '100%' }} />
                     </Box>
                 </Grid>
 

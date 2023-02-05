@@ -1,17 +1,12 @@
-import { AppBar, Avatar, IconButton, Toolbar, Tooltip, Typography } from '@mui/material'
+import { AppBar, Avatar, IconButton, Toolbar, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useNavigate } from 'react-router-dom'
 import { firebaseAuth, firebaseStorage } from '../config/firebase';
-import { useAtom } from 'jotai';
-import currentUserAtom from '../jotai/currentUserAtom';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect, useState } from 'react';
 import { getDownloadURL, ref } from 'firebase/storage';
 
 const TopBar = () => {
     const navigate = useNavigate();
-    const [currentUser] = useAtom(currentUserAtom);
-    const [authState] = useAuthState(firebaseAuth);
 
     const [logoUrl, setLogoUrl] = useState('');
 
@@ -19,8 +14,7 @@ const TopBar = () => {
 
         const fileRef = ref(firebaseStorage, "logo.png");
         getDownloadURL(fileRef).then(setLogoUrl)
-    })
-
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1 }}>

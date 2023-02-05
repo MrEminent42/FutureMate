@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { User, updateProfile } from 'firebase/auth';
+import { useState, useEffect } from 'react'
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import { Alert, Paper, Typography } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
 import UpdateProfilePicture from './UpdateProfilePicture';
-import { firebaseAuth, firestoreDb } from '../../config/firebase';
 import TextField from '@mui/material/TextField/TextField';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
 import { MateInfo } from '../../types/Mate';
-import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
+import { failSnackAtom, uploadSuccessSnackAtom } from '../../jotai/snacksAtoms';
 import { ProfileEntryContainer, ProfilePaper } from '../../pages/MyProfile';
 import { Box } from '@mui/system';
+import Avatar from '@mui/material/Avatar';
 
 
 const PictureAndName = () => {
@@ -25,7 +21,6 @@ const PictureAndName = () => {
 
     const [errors, setErrors] = useState({ name: false, contact: false });
     const [, setUploadSuccess] = useAtom(uploadSuccessSnackAtom);
-    const [, setSaveSuccess] = useAtom(saveSuccessSnackAtom);
     const [, setFail] = useAtom(failSnackAtom);
 
     const handleDialogClose = () => {
@@ -39,7 +34,7 @@ const PictureAndName = () => {
 
     useEffect(() => {
         loadData()
-    }, [])
+    })
 
     const handleBlur = () => {
         if (validate()) {
@@ -86,11 +81,13 @@ const PictureAndName = () => {
                             top: '3px',
                             backgroundColor: 'white',
                             borderRadius: '50%',
+                            zIndex: '1',
+                            boxShadow: '3'
                         }}
                     >
                         <EditIcon />
                     </IconButton>
-                    <Box
+                    {/* <Box
                         component="img"
                         src={currentUser?.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"}
 
@@ -99,6 +96,10 @@ const PictureAndName = () => {
                             height: '140px',
                             width: '140px',
                         }}
+                    /> */}
+                    <Avatar
+                        src={currentUser?.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"}
+                        sx={{ width: '140px', height: '140px' }} 
                     />
                 </Box>
             </ProfileEntryContainer>

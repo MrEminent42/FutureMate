@@ -1,7 +1,7 @@
-import { GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup } from "firebase/auth";
-import { firebaseApp, firebaseAuth, firestoreDb, usersAtom } from "../config/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { firebaseAuth, firestoreDb } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
-import { QuerySnapshot, addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { MateDocConverter, MateInfo } from "../types/Mate";
 import { useAtom } from "jotai";
 import { useState, useEffect } from 'react';
@@ -16,10 +16,9 @@ import GoogleIcon from '@mui/icons-material/Google';
 
 export const SignIn = () => {
     const navigate = useNavigate();
-    const [users, setUsers] = useAtom(usersAtom);
-    const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+    const [, setCurrentUser] = useAtom(currentUserAtom);
 
-    const [submitted, setSubmitted] = useState(false);
+    const [, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
 
 
@@ -107,7 +106,7 @@ export const SignIn = () => {
                     display: 'flex',
                     justifyContent: 'center',
                 }}>
-                    <Button onClick={signInWithGoogle} variant="contained" >
+                    <Button onClick={signInWithGoogle} variant="contained" color="secondary" >
                         <GoogleIcon sx={{ mr: '1rem' }} />
                         Sign in with Google
                     </Button>

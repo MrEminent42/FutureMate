@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material";
 import '../index.css'
-import blue from "@mui/material/colors/blue";
 import green from "@mui/material/colors/green";
 import grey from "@mui/material/colors/grey";
 
@@ -42,13 +41,12 @@ const theme = createTheme({
             },
             defaultProps: {
                 position: 'sticky',
-                elevation: 10,
             }
         },
         MuiPaper: {
             defaultProps: {
                 elevation: 0
-            }
+            },
         }
 
     }
