@@ -6,6 +6,7 @@ import Slider from '@mui/material/Slider';
 import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
+import { CleanlinessLabels } from '../../types/Mate';
 
 const Questionnaire = () => {
     const [loudness, setLoudness] = useState(LoudnessResponse.MOSTLY_QUIET);
@@ -18,16 +19,14 @@ const Questionnaire = () => {
         return ["Mostly quiet", "Occasionally social", "Often social", "Very party"][loud - 1]
     }
 
-    const getCleanlinessLabel = (clean: CleanlinessResponse) => {
-        return ["Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"][4 - clean]
-    }
 
     const updateLocalUserInfo = () => {
         if (!currentUser) return;
         let currentUserUpdateInfo = {
             ...currentUser,
             loudness: loudness,
-            bedtime: bedtime
+            bedtime: bedtime,
+            cleanliness: cleanliness
         }
         setCurrentUser(currentUserUpdateInfo);
     }
@@ -95,8 +94,8 @@ const Questionnaire = () => {
                         min={1}
                         max={4}
                         onChange={(e, nv) => setCleanliness(nv as number)}
-                        valueLabelFormat={getCleanlinessLabel}
-                        getAriaValueText={getCleanlinessLabel}
+                        valueLabelFormat={(i) => CleanlinessLabels[i]}
+                        getAriaValueText={(i) => CleanlinessLabels[i]}
                         valueLabelDisplay="auto"
                     />
                 </ProfileEntryRight>

@@ -27,8 +27,10 @@ export interface MateInfo {
 
     linkedin?: string | null,
     instagram?: string | null,
-
 }
+
+export const CleanlinessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"];
+export const LoudnessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"]
 
 export const combineMateInfo = (primary: {
     uid?: string,

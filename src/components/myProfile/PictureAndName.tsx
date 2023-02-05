@@ -90,16 +90,6 @@ const PictureAndName = () => {
                     >
                         <EditIcon />
                     </IconButton>
-                    {/* <Box
-                        component="img"
-                        src={currentUser?.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"}
-
-                        sx={{
-                            borderRadius: '50%',
-                            height: '140px',
-                            width: '140px',
-                        }}
-                    /> */}
                     <Avatar
                         src={currentUser?.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"}
                         sx={{ width: '140px', height: '140px' }} 
