@@ -19,6 +19,8 @@ import { Avatar, Fade, Card, Button } from "@mui/material";
 import { startDateFilterAtom } from "../jotai/filtersAtom";
 import currentUserAtom from "../jotai/currentUserAtom";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Collapse } from '@mui/material';
+import Divider from '@mui/material/Divider';
 
 
 const InternList = () => {
@@ -30,6 +32,7 @@ const InternList = () => {
     const [notMatches, setNotMatches] = useState([] as Intern[]);
 
     const [currentUser] = useAtom(currentUserAtom)
+    const [showNonMatches, setShowNonMatches] = useState(false);
 
     const loadUsers = () => {
         const db = getFirestore(firebaseApp);
@@ -61,27 +64,63 @@ const InternList = () => {
     }
 
     return (
-        <Fade in={users.length > 0}>
-            <Box sx={{ px: '1rem' }}>
+        <Box sx={{ px: '1rem' }}>
 
-                {/* hidden reminder */}
-                {!currentUser?.listed && (
-                    <ProfileReminder onClick={() => navigate('profile')} >
-                        <Typography sx={{ fontSize: '.8rem' }}>
-                            You're not listing your profile.
-                        </Typography>
-                        <Button color="secondary" >
-                            Fix that <ChevronRightIcon />
+            {/* hidden reminder */}
+            {!currentUser?.listed && (
+                <ProfileReminder onClick={() => navigate('profile')} >
+                    <Typography sx={{ fontSize: '.8rem' }}>
+                        You're not listing your profile.
+                    </Typography>
+                    <Button color="secondary" >
+                        Fix that <ChevronRightIcon />
+                    </Button>
+                </ProfileReminder>
+            )}
+
+            <Box>
+                <Fade in={users.length > 0}>
+                    <Box>
+                        {matches && matches.map((user, i) => (
+                            <InternCard
+                        internInfo={user} key={i} />
+                        ))}
+                        {users.length > 0 && matches.length === 0 && (
+                            <Box sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                mt: '1rem'
+                            }}>
+                                <Typography>No matches.</Typography>
+                            </Box>
+                        )}
+                        <Button
+                            color='secondary'
+                            onClick={() => setShowNonMatches(!showNonMatches)}
+                        >
+                            See non-matches
                         </Button>
-                    </ProfileReminder>
-                )}
-
-                {matches && matches.map((user, i) => (
+                    </Box>
+                </Fade>
+            </Box>
+            <Collapse
+                in={showNonMatches}
+            >
+                <Divider />
+                {notMatches.length > 0 ? notMatches.map((user, i) => (
                     <InternCard
                         internInfo={user} key={i} />
-                ))}
-            </Box>
-        </Fade>
+                )) : (
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        mt: '1rem'
+                    }}>
+                        <Typography>There's  nobody here.</Typography>
+                    </Box>
+                )}
+            </Collapse>
+        </Box>
     )
 }
 
