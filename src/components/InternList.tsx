@@ -52,6 +52,7 @@ const InternList = () => {
         let matchList = [] as Intern[];
         let noMatchList = [] as Intern[];
         users.forEach((user) => {
+            if (user.data().uid == currentUser?.uid) return;
             if (!date || user.data().startDate === date) {
                 matchList.push(user.data())
             } else {
