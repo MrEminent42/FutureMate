@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import GoogleIcon from '@mui/icons-material/Google';
 import { HomeSkeleton } from "./Home";
 import Skeleton from '@mui/material/Skeleton';
+import { styled } from "@mui/material/styles";
 
 
 export const SignIn = () => {
@@ -118,13 +119,20 @@ export const SignIn = () => {
                                 <Typography variant="body1" sx={{ textAlign: 'center', mt: '1rem' }}>
                                     Disclaimers, etc:
                                 </Typography>
-                                <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                                <Disclaimers >
                                     By signing up, you agree to receive emails about critical updates of this service for security and privacy.
-                                </Typography>
-                                <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                                </Disclaimers>
+                                <Disclaimers >
                                     Listing your information on this service will allow anyone else who signs up to see the information. Be smart!
-                                </Typography>
+                                </Disclaimers>
                             </Box>
+                            <Warning>
+                                <br />
+                                <b>Important:</b> <br />Please use the name you use in the slack channel!
+                            </Warning>
+                            <Disclaimers >
+                                I will periodically verify the user list.
+                            </Disclaimers>
 
                         </Box>
                         <Box sx={{
@@ -167,3 +175,14 @@ export const SignIn = () => {
 
 
 export default SignIn
+
+const Disclaimers = styled(Typography)(() => ({
+    fontSize: '0.75rem',
+    color: '#837f7f',
+    textAlign: 'center'
+}))
+
+const Warning = styled(Typography)(() => ({
+    fontSize: '.9rem',
+    textAlign: 'center'
+}))

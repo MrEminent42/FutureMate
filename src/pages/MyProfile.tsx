@@ -14,6 +14,7 @@ import { InternDocConverter } from '../types/Intern';
 import DisplayProfile from '../components/myProfile/DisplaySwitch';
 import { styled } from '@mui/material/styles'
 import Questionnaire from '../components/myProfile/Questionnaire';
+import Socials from '../components/myProfile/Socials';
 
 const Profile = () => {
     const [uploadSuccess, setUploadSuccess] = useAtom(uploadSuccessSnackAtom);
@@ -42,6 +43,7 @@ const Profile = () => {
                 <DisplayProfile />
                 <CompanyInfo />
                 <Questionnaire />
+                <Socials />
 
                 {/* snackbars for success/fail */}
                 <Snackbar
