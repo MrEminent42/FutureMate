@@ -10,7 +10,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Bedtime, CapsToLower } from '../types/MatchingQuestions';
 import TypographyMapping from '../types/TypographyMapping';
 import { grey } from '@mui/material/colors';
-import { CleanlinessLabels, LoudnessLabels } from '../types/Intern';
+import { CleanlinessLabels, LoudnessLabels, BedtimeLabels } from '../types/Intern';
 import Slider from '@mui/material/Slider';
 import Tooltip from '@mui/material/Tooltip';
 import LinkedIn from '@mui/icons-material/LinkedIn';
@@ -88,7 +88,7 @@ const OtherProfile = () => {
                         )}
                     </CardPadder>
                 </ProfilePaper>
-                <ProfilePaper>
+                <ProfilePaper sx={{ pb: 0 }}>
                     <CardPadder sx={{ flexDirection: 'column' }}>
                         <SliderEntryContainer>
                             <ProfileEntryLeft>
@@ -123,6 +123,8 @@ const OtherProfile = () => {
                                     value={otherIntern.bedtime || 2}
                                     min={Bedtime.NINE_TO_ELEVEN}
                                     max={Bedtime.AFTER_MIDNIGHT}
+                                    valueLabelFormat={(i) => BedtimeLabels[i]}
+                                    getAriaValueText={(i) => BedtimeLabels[i]}
                                 />
                             </ProfileEntryRight>
                         </SliderEntryContainer>
