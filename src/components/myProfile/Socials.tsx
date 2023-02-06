@@ -66,7 +66,6 @@ const Socials = () => {
                         value={linkedin}
                         onChange={(e) => setLinkedin(e.target.value)}
                         onBlur={handleBlur}
-                        sx={{ width: '300px' }}
                     />
                 </ProfileEntryRight>
             </ProfileEntryContainer>
@@ -82,7 +81,6 @@ const Socials = () => {
                         value={instagram}
                         onChange={(e) => setInstagram(e.target.value)}
                         onBlur={handleBlur}
-                        sx={{ width: '300px' }}
                     />
                 </ProfileEntryRight>
             </Box>

@@ -87,6 +87,7 @@ const CompanyInfo = () => {
                 </ProfileEntryLeft>
                 <ProfileEntryRight >
                     <Select
+                        size="small"
                         value={location || ''}
                         onChange={(item) => setLocation(item.target.value as LocationResponse)}
                         sx={{ width: '100%' }}
@@ -109,6 +110,7 @@ const CompanyInfo = () => {
                 </ProfileEntryLeft>
                 <ProfileEntryRight sx={{ flexDirection: 'row' }}>
                     <TextField
+                        size="small"
                         value={budgetMin || ''}
                         type='number'
                         onChange={(item) => setBudgetMin(+item.target.value)}
@@ -119,6 +121,7 @@ const CompanyInfo = () => {
                         <Typography >to</Typography>
                     </Box>
                     <TextField
+                        size="small"
                         value={budgetMax || ''}
                         type='number'
                         onChange={(item) => setBudgetMax(+item.target.value)}
