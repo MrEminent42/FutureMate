@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import currentUserAtom, { currentUserListedAtom } from '../../jotai/currentUserAtom'
 import { Intern } from '../../types/Intern'
 import { ProfilePaper } from '../../pages/MyProfile'
+import theme from '../../config/config.theme'
 
 const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean }) => {
 
@@ -58,21 +59,34 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
     }
 
     return (
-        <ProfilePaper>
-            <Box sx={{ display: 'flex' }}>
+        <ProfilePaper
+            sx={{
+                transition: 'all 250ms',
+                border: listed ? "2px solid " + theme.palette.secondary.light : "",
+                backgroundColor: listed ? '' : "#ececec"
+            }}
+        >
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Box
                     sx={{
-                        width: '80%',
+                        // width: '80%',
+                        flexGrow: .8,
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        pl: {
+                            xs: '5px',
+                        }
                     }}
                 >
                     <Typography>Display my profile</Typography>
                 </Box>
                 <Box
                     sx={{
-                        width: '20%'
+                        // width: '20%',
+                        flexGrow: .2,
+                        display: 'flex',
+                        justifyContent: 'end',
                     }}
                 >
                     <Switch color='secondary' checked={listed} onChange={handleChange} />
