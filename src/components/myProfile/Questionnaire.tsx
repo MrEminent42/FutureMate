@@ -46,7 +46,7 @@ const Questionnaire = () => {
 
     return (
         <ProfilePaper>
-            <SectionTitle >Roommate Questionnarie</SectionTitle>
+            <SectionTitle>Living Preferences</SectionTitle>
             <ProfileEntryContainer>
                 <ProfileEntryLeft>
                     <Typography>

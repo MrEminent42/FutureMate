@@ -4,11 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import { firebaseAuth, firebaseStorage } from '../config/firebase';
 import { useEffect, useState } from 'react';
 import { getDownloadURL, ref } from 'firebase/storage';
+import currentUserAtom from "../jotai/currentUserAtom";
+import { useAtom } from 'jotai';
+
 
 const TopBar = () => {
     const navigate = useNavigate();
 
     const [logoUrl, setLogoUrl] = useState('');
+    const [currentUser] = useAtom(currentUserAtom);
 
     useEffect(() => {
 
@@ -61,7 +65,11 @@ const TopBar = () => {
                             <IconButton
                                 onClick={() => navigate("profile")}
                             >
-                                <Avatar src={firebaseAuth.currentUser.photoURL!} />
+                            <Avatar
+                                src={currentUser?.photoURL ? currentUser.photoURL : ""}
+                            >
+                                {currentUser?.name ? currentUser.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                            </Avatar>
                             </IconButton>
                         </>
                     }
@@ -70,7 +78,7 @@ const TopBar = () => {
                 </Toolbar>
             </AppBar>
 
-        </Box>
+        </Box >
     )
 }
 

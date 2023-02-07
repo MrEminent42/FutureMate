@@ -17,7 +17,7 @@ import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
 import { Avatar, Fade, Card, Button } from "@mui/material";
 import { startDateFilterAtom } from "../jotai/filtersAtom";
-import currentUserAtom from "../jotai/currentUserAtom";
+import currentUserAtom, { currentUserListedAtom } from "../jotai/currentUserAtom";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Collapse } from '@mui/material';
 import Divider from '@mui/material/Divider';
@@ -31,7 +31,8 @@ const InternList = () => {
     const [matches, setMatches] = useState([] as Intern[]);
     const [notMatches, setNotMatches] = useState([] as Intern[]);
 
-    const [currentUser] = useAtom(currentUserAtom)
+    const [currentUser] = useAtom(currentUserAtom);
+    const [currentUserListed] = useAtom(currentUserListedAtom);
     const [showNonMatches, setShowNonMatches] = useState(false);
 
     const loadUsers = () => {
@@ -52,7 +53,7 @@ const InternList = () => {
         let matchList = [] as Intern[];
         let noMatchList = [] as Intern[];
         users.forEach((user) => {
-            if (user.data().uid == currentUser?.uid) return;
+            // if (user.data().uid == currentUser?.uid) return;
             if (!date || user.data().startDate === date) {
                 matchList.push(user.data())
             } else {
@@ -68,7 +69,7 @@ const InternList = () => {
         <Box sx={{ px: '1rem' }}>
 
             {/* hidden reminder */}
-            {!currentUser?.listed && (
+            {!currentUserListed && (
                 <ProfileReminder onClick={() => navigate('profile')} >
                     <Typography sx={{ fontSize: '.8rem' }}>
                         You're not listing your profile.
@@ -183,7 +184,11 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
                 {/* right container for image */}
                 <Grid item xs={4} sx={{ p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
                     <Box sx={{ height: '100px', width: '100px', borderRadius: '50%', overflow: 'hidden', textAlign: 'center' }}>
-                        <Avatar src={internInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '100%', height: '100%' }} />
+                        <Avatar
+                            src={internInfo.photoURL ? internInfo.photoURL : ""}
+                            sx={{ width: '100%', height: '100%' }}>
+                            {internInfo?.name ? internInfo.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                        </Avatar>
                     </Box>
                 </Grid>
 

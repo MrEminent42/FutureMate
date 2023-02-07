@@ -4,18 +4,18 @@ import Typography from '@mui/material/Typography'
 import { Box } from '@mui/system'
 import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
-import currentUserAtom from '../../jotai/currentUserAtom'
+import currentUserAtom, { currentUserListedAtom } from '../../jotai/currentUserAtom'
 import { Intern } from '../../types/Intern'
 import { ProfilePaper } from '../../pages/MyProfile'
 
-const DisplayProfile = () => {
+const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean }) => {
 
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
     const [tried, setTried] = useState(false);
-    const [listed, setListed] = useState(false);
+    const [listed, setListed] = useAtom(currentUserListedAtom);
 
     const loadInfo = () => {
-        setListed(currentUser?.listed || false);
+        // setListed(currentUser?.listed || false);
     }
 
     useEffect(() => {
@@ -27,8 +27,10 @@ const DisplayProfile = () => {
     }, [])
 
     const updateUserInfo = () => {
-        let currentUserUpdateInfo = { ...currentUser!, listed: listed } as Intern;
-        setCurrentUser(currentUserUpdateInfo)
+        if (currentUser) {
+            let currentUserUpdateInfo = { ...currentUser, listed: listed } as Intern;
+            setCurrentUser(currentUserUpdateInfo)
+        }
     }
 
     const renderTodos = () => {
@@ -46,14 +48,6 @@ const DisplayProfile = () => {
                 {!currentUser?.budgetMax && <Typography> - Budget</Typography>}
             </Box>
         )
-    }
-
-    const checkFullProfile = () => {
-        return currentUser?.name &&
-            currentUser.contact &&
-            currentUser.location &&
-            currentUser.startDate &&
-            currentUser.budgetMax;
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

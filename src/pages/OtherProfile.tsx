@@ -31,7 +31,13 @@ const OtherProfile = () => {
             <Box sx={{ px: '1rem' }}>
                 <ProfilePaper>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>
-                        <Avatar src={otherIntern.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '140px', height: '140px' }} />
+
+                        <Avatar
+                            src={otherIntern.photoURL ? otherIntern.photoURL : ""}
+                            sx={{ width: '140px', height: '140px' }}>
+                            {otherIntern?.name ? otherIntern.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                        </Avatar>
+
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Name variant="h3" >{otherIntern?.name}</Name>

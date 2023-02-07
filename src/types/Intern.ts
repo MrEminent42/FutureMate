@@ -27,7 +27,7 @@ export interface Intern {
     instagram?: string | null,
 }
 
-export const LoudnessLabels = ["", "Mostly quiet", "Occasionally social", "Often social", "Very party"];
+export const LoudnessLabels = ["", "Mostly quiet", "Occasionally social", "Often loud", "Very party"];
 export const CleanlinessLabels = ["", "Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"]
 export const BedtimeLabels = ["", "9-11PM", "11PM-12AM", "12AM+"]
 
@@ -58,7 +58,7 @@ export const combineInternInfo = (primary: {
 }, secondary: Intern) => {
     return {
         uid: primary.uid || secondary.uid,
-        listed: primary.listed || secondary.listed || false,
+        listed: primary.listed !== undefined ? primary.listed : secondary.listed,
 
         contact: primary.contact || secondary.contact,
         name: primary.name || secondary.name,

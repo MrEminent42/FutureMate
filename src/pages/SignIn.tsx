@@ -69,13 +69,12 @@ export const SignIn = () => {
                 let newIntern: Intern = {
                     uid: firebaseAuth.currentUser.uid,
                     contact: firebaseAuth.currentUser.email,
-                    photoURL: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
-                    name: firebaseAuth.currentUser!.displayName || null,
+                    name: firebaseAuth.currentUser.displayName || null,
                     listed: false,
                 }
                 setDoc(userRef, newIntern).catch(console.log);
                 setCurrentUser(newIntern);
-                navigate("/profile");
+                navigate("/profile?onboarding=true");
             } else {
                 setCurrentUser(docSnap.data());
                 navigate("/");

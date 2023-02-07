@@ -11,7 +11,7 @@ import { ProfileEntryContainer, ProfilePaper } from '../../pages/MyProfile';
 import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const PictureAndName = () => {
     const [openPfpDialog, setOpenPfpDialog] = useState(false);
@@ -88,12 +88,13 @@ const PictureAndName = () => {
                             boxShadow: '3'
                         }}
                     >
-                        <EditIcon />
+                        {currentUser?.photoURL ? <EditIcon /> : <AddAPhotoIcon />}
                     </IconButton>
                     <Avatar
-                        src={currentUser?.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"}
-                        sx={{ width: '140px', height: '140px' }} 
-                    />
+                        src={currentUser?.photoURL ? currentUser.photoURL : ""}
+                        sx={{ width: '140px', height: '140px' }}>
+                        {currentUser?.name ? currentUser.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                    </Avatar>
                 </Box>
             </ProfileEntryContainer>
             <ProfileEntryContainer sx={{ py: '10px' }}>

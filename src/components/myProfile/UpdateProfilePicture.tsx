@@ -30,7 +30,8 @@ const UpdateProfilePicture = (props: {
         const compressedPhoto = (await resizeFile(photo)) as File;
         const res = await uploadBytes(fileRef, compressedPhoto);
         const photoURL = await getDownloadURL(fileRef);
-        updateProfile(firebaseAuth.currentUser!, { photoURL: photoURL }).then(() => {
+        if (!firebaseAuth.currentUser) return;
+        updateProfile(firebaseAuth.currentUser, { photoURL: photoURL }).then(() => {
             setLoading(false);
             props.setUploadSuccess(true);
         })
@@ -45,9 +46,10 @@ const UpdateProfilePicture = (props: {
     });
 
     const handleClose = (photo: File) => {
+        if (!firebaseAuth.currentUser) return;
         props.onClose();
         setPhoto(photo);
-        uploadProfile(photo, firebaseAuth.currentUser!, setUploading).then(totalSuccess).catch(fail);
+        uploadProfile(photo, firebaseAuth.currentUser, setUploading).then(totalSuccess).catch(fail);
 
     };
 
