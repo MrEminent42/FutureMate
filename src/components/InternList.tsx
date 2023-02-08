@@ -17,8 +17,10 @@ import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
 import { Avatar, Fade, Card, Button } from "@mui/material";
 import { startDateFilterAtom } from "../jotai/filtersAtom";
-import currentUserAtom from "../jotai/currentUserAtom";
+import currentUserAtom, { currentUserListedAtom } from "../jotai/currentUserAtom";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Collapse } from '@mui/material';
+import Divider from '@mui/material/Divider';
 
 
 const InternList = () => {
@@ -29,7 +31,9 @@ const InternList = () => {
     const [matches, setMatches] = useState([] as Intern[]);
     const [notMatches, setNotMatches] = useState([] as Intern[]);
 
-    const [currentUser] = useAtom(currentUserAtom)
+    const [currentUser] = useAtom(currentUserAtom);
+    const [currentUserListed] = useAtom(currentUserListedAtom);
+    const [showNonMatches, setShowNonMatches] = useState(false);
 
     const loadUsers = () => {
         const db = getFirestore(firebaseApp);
@@ -49,6 +53,7 @@ const InternList = () => {
         let matchList = [] as Intern[];
         let noMatchList = [] as Intern[];
         users.forEach((user) => {
+            // if (user.data().uid == currentUser?.uid) return;
             if (!date || user.data().startDate === date) {
                 matchList.push(user.data())
             } else {
@@ -61,27 +66,63 @@ const InternList = () => {
     }
 
     return (
-        <Fade in={users.length > 0}>
-            <Box sx={{ px: '1rem' }}>
+        <Box sx={{ px: '1rem' }}>
 
-                {/* hidden reminder */}
-                {!currentUser?.listed && (
-                    <ProfileReminder onClick={() => navigate('profile')} >
-                        <Typography sx={{ fontSize: '.8rem' }}>
-                            You're not listing your profile.
-                        </Typography>
-                        <Button color="secondary" >
-                            Fix that <ChevronRightIcon />
+            {/* hidden reminder */}
+            {!currentUserListed && (
+                <ProfileReminder onClick={() => navigate('profile')} >
+                    <Typography sx={{ fontSize: '.8rem' }}>
+                        You're not listing your profile.
+                    </Typography>
+                    <Button color="secondary" >
+                        Fix that <ChevronRightIcon />
+                    </Button>
+                </ProfileReminder>
+            )}
+
+            <Box>
+                <Fade in={users.length > 0}>
+                    <Box>
+                        {matches && matches.map((user, i) => (
+                            <InternCard
+                        internInfo={user} key={i} />
+                        ))}
+                        {users.length > 0 && matches.length === 0 && (
+                            <Box sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                mt: '1rem'
+                            }}>
+                                <Typography>No matches.</Typography>
+                            </Box>
+                        )}
+                        <Button
+                            color='secondary'
+                            onClick={() => setShowNonMatches(!showNonMatches)}
+                        >
+                            See non-matches
                         </Button>
-                    </ProfileReminder>
-                )}
-
-                {matches && matches.map((user, i) => (
+                    </Box>
+                </Fade>
+            </Box>
+            <Collapse
+                in={showNonMatches}
+            >
+                <Divider />
+                {notMatches.length > 0 ? notMatches.map((user, i) => (
                     <InternCard
                         internInfo={user} key={i} />
-                ))}
-            </Box>
-        </Fade>
+                )) : (
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        mt: '1rem'
+                    }}>
+                        <Typography>There's  nobody here.</Typography>
+                    </Box>
+                )}
+            </Collapse>
+        </Box>
     )
 }
 
@@ -143,7 +184,11 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
                 {/* right container for image */}
                 <Grid item xs={4} sx={{ p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}>
                     <Box sx={{ height: '100px', width: '100px', borderRadius: '50%', overflow: 'hidden', textAlign: 'center' }}>
-                        <Avatar src={internInfo.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '100%', height: '100%' }} />
+                        <Avatar
+                            src={internInfo.photoURL ? internInfo.photoURL : ""}
+                            sx={{ width: '100%', height: '100%' }}>
+                            {internInfo?.name ? internInfo.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                        </Avatar>
                     </Box>
                 </Grid>
 

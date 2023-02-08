@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import Box from '@mui/material/Box/Box';
 import selectedInternAtom from '../jotai/selectedInternAtom'
-import { Typography, CircularProgress, styled } from '@mui/material';
+import { Typography, CircularProgress, styled, IconButton } from '@mui/material';
 import { ProfilePaper } from './MyProfile';
 import Avatar from '@mui/material/Avatar';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -10,8 +10,11 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Bedtime, CapsToLower } from '../types/MatchingQuestions';
 import TypographyMapping from '../types/TypographyMapping';
 import { grey } from '@mui/material/colors';
-import { CleanlinessLabels, LoudnessLabels } from '../types/Intern';
+import { CleanlinessLabels, LoudnessLabels, BedtimeLabels } from '../types/Intern';
 import Slider from '@mui/material/Slider';
+import Tooltip from '@mui/material/Tooltip';
+import LinkedIn from '@mui/icons-material/LinkedIn';
+import Instagram from '@mui/icons-material/Instagram';
 
 const OtherProfile = () => {
 
@@ -28,38 +31,70 @@ const OtherProfile = () => {
             <Box sx={{ px: '1rem' }}>
                 <ProfilePaper>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>
-                        <Avatar src={otherIntern.photoURL || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"} sx={{ width: '140px', height: '140px' }} />
+
+                        <Avatar
+                            src={otherIntern.photoURL ? otherIntern.photoURL : ""}
+                            sx={{ width: '140px', height: '140px' }}>
+                            {otherIntern?.name ? otherIntern.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                        </Avatar>
+
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Name variant="h3" >{otherIntern?.name}</Name>
                         {otherIntern.pronouns && <Pronouns>{otherIntern.pronouns}</Pronouns>}
                         <Typography>{otherIntern.contact}</Typography>
                     </Box>
+                    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        {otherIntern.linkedin && (
+                            <IconButton
+                                href={"https://linkedin.com/in/" + otherIntern.linkedin}
+                                target="_blank"
+                            >
+                                <LinkedIn />
+                            </IconButton>
+                        )}
+                        {otherIntern.instagram && (
+                            <IconButton
+                                href={"https://instagram.com/" + otherIntern.instagram}
+                                target="_blank"
+                            >
+                                <Instagram />
+                            </IconButton>
+                        )}
+                    </Box>
                 </ProfilePaper>
 
                 <ProfilePaper>
                     <CardPadder >
                         {otherIntern.location && (
-                            <InfoChip>
-                                <PlaceIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <InfoChipText>{CapsToLower(otherIntern.location)}</InfoChipText>
-                            </InfoChip>
+
+                            <Tooltip title="Location" placement="top">
+                                <InfoChip>
+                                    <PlaceIcon sx={{ color: 'secondary.main', height: '1.2rem' }} />
+                                    <InfoChipText>{CapsToLower(otherIntern.location)}</InfoChipText>
+                                </InfoChip>
+                            </Tooltip>
                         )}
                         {otherIntern.startDate && (
-                            <InfoChip>
-                                <InsertInvitationIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <InfoChipText>{CapsToLower(otherIntern.startDate)}</InfoChipText>
-                            </InfoChip>
+
+                            <Tooltip title="Internship Start Date" placement="top">
+                                <InfoChip>
+                                    <InsertInvitationIcon sx={{ color: 'secondary.main', height: '1.2rem' }} />
+                                    <InfoChipText>{CapsToLower(otherIntern.startDate)}</InfoChipText>
+                                </InfoChip>
+                            </Tooltip>
                         )}
                         {otherIntern.budgetMax && (
-                            <InfoChip>
-                                <AttachMoneyIcon sx={{ color: grey[500], height: '1.2rem' }} />
-                                <InfoChipText >{otherIntern.budgetMax}</InfoChipText>
-                            </InfoChip>
+                            <Tooltip title="Budget" placement="top">
+                                <InfoChip>
+                                    <AttachMoneyIcon sx={{ color: 'secondary.main', height: '1.2rem' }} />
+                                    <InfoChipText >{otherIntern.budgetMax}</InfoChipText>
+                                </InfoChip>
+                            </Tooltip>
                         )}
                     </CardPadder>
                 </ProfilePaper>
-                <ProfilePaper>
+                <ProfilePaper sx={{ pb: 0 }}>
                     <CardPadder sx={{ flexDirection: 'column' }}>
                         <SliderEntryContainer>
                             <ProfileEntryLeft>
@@ -94,6 +129,8 @@ const OtherProfile = () => {
                                     value={otherIntern.bedtime || 2}
                                     min={Bedtime.NINE_TO_ELEVEN}
                                     max={Bedtime.AFTER_MIDNIGHT}
+                                    valueLabelFormat={(i) => BedtimeLabels[i]}
+                                    getAriaValueText={(i) => BedtimeLabels[i]}
                                 />
                             </ProfileEntryRight>
                         </SliderEntryContainer>
@@ -147,7 +184,7 @@ const InfoChip = styled(Box)(() => ({
 }))
 
 const InfoChipText = styled(Typography)(() => ({
-    color: grey[500],
+    // color: grey[500],
     textTransform: 'capitalize',
     textAlign: 'center',
     fontSize: '.75rem',
@@ -158,11 +195,12 @@ export const SliderEntryContainer = styled(Box)(({ theme }) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: '25px 0 10px 0',
+    padding: theme.breakpoints.up('sm') ? '10px 10px 10px 0' : '25px 30px 10px 0'
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
-    width: '20%',
+    // width: '20%',
+    flexGrow: .1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -170,7 +208,8 @@ export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
 }))
 
 export const ProfileEntryRight = styled(Box)(({ theme }) => ({
-    width: '80%',
+    // width: '80%',
+    flexGrow: .8,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

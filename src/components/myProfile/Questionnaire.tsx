@@ -6,7 +6,7 @@ import Slider from '@mui/material/Slider';
 import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { CleanlinessLabels, combineInternInfo } from '../../types/Intern';
+import { CleanlinessLabels, BedtimeLabels, LoudnessLabels, combineInternInfo } from '../../types/Intern';
 
 const Questionnaire = () => {
     const [loudness, setLoudness] = useState(LoudnessResponse.MOSTLY_QUIET);
@@ -14,10 +14,6 @@ const Questionnaire = () => {
     const [cleanliness, setCleanliness] = useState(CleanlinessResponse.VERY_CLEAN);
 
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
-
-    const getLoudnessLabel = (loud: LoudnessResponse) => {
-        return ["Mostly quiet", "Occasionally social", "Often social", "Very party"][loud - 1]
-    }
 
     const loadData = () => {
         setLoudness(currentUser?.loudness || LoudnessResponse.MOSTLY_QUIET);
@@ -50,7 +46,7 @@ const Questionnaire = () => {
 
     return (
         <ProfilePaper>
-            <SectionTitle >Roommate Questionnarie</SectionTitle>
+            <SectionTitle>Living Preferences</SectionTitle>
             <ProfileEntryContainer>
                 <ProfileEntryLeft>
                     <Typography>
@@ -64,8 +60,8 @@ const Questionnaire = () => {
                         min={1}
                         max={4}
                         onChange={(e, nv) => setLoudness(nv as number)}
-                        valueLabelFormat={getLoudnessLabel}
-                        getAriaValueText={getLoudnessLabel}
+                        valueLabelFormat={(i) => LoudnessLabels[i]}
+                        getAriaValueText={(i) => LoudnessLabels[i]}
                         valueLabelDisplay="auto"
                     />
                 </ProfileEntryRight>
@@ -83,9 +79,9 @@ const Questionnaire = () => {
                         min={Bedtime.NINE_TO_ELEVEN}
                         max={Bedtime.AFTER_MIDNIGHT}
                         marks={[
-                            { value: Bedtime.NINE_TO_ELEVEN, label: "9-11 PM" },
-                            { value: Bedtime.ELEVEN_OR_TWELVE, label: "11PM-12AM" },
-                            { value: Bedtime.AFTER_MIDNIGHT, label: "12AM+" }
+                            { value: Bedtime.NINE_TO_ELEVEN, label: BedtimeLabels[Bedtime.NINE_TO_ELEVEN] },
+                            { value: Bedtime.ELEVEN_OR_TWELVE, label: BedtimeLabels[Bedtime.ELEVEN_OR_TWELVE] },
+                            { value: Bedtime.AFTER_MIDNIGHT, label: BedtimeLabels[Bedtime.AFTER_MIDNIGHT] }
                         ]}
                         onChange={(e, nv) => setBedtime(nv as number)}
                     />

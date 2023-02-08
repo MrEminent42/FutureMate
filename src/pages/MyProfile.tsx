@@ -1,47 +1,100 @@
 import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box/Box';
-import { Typography, Card } from '@mui/material';
+import { Typography, Card, Button } from '@mui/material';
 import PictureAndName from '../components/myProfile/PictureAndName';
 import Snackbar from '@mui/material/Snackbar';
-import { failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../jotai/snacksAtoms';
+import { emptyProfileAtom, failSnackAtom, saveSuccessSnackAtom, uploadSuccessSnackAtom } from '../jotai/snacksAtoms';
 import { useAtom } from 'jotai';
 import Alert from '@mui/material/Alert';
 import CompanyInfo from '../components/myProfile/CompanyInfo';
-import currentUserAtom from '../jotai/currentUserAtom';
+import currentUserAtom, { currentUserListedAtom } from '../jotai/currentUserAtom';
 import { doc, setDoc } from 'firebase/firestore';
 import { firebaseAuth, firestoreDb } from '../config/firebase';
 import { InternDocConverter } from '../types/Intern';
 import DisplayProfile from '../components/myProfile/DisplaySwitch';
 import { styled } from '@mui/material/styles'
 import Questionnaire from '../components/myProfile/Questionnaire';
+import Socials from '../components/myProfile/Socials';
+import { useNavigate } from 'react-router-dom';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { PageTitle } from './Home';
 
 const Profile = () => {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const navigate = useNavigate();
+
     const [uploadSuccess, setUploadSuccess] = useAtom(uploadSuccessSnackAtom);
     const [saveSuccess, setSaveSuccess] = useAtom(saveSuccessSnackAtom);
-    const [fail, setFail] = useAtom(failSnackAtom);
-
+    const [failSnack, setFailSnack] = useAtom(failSnackAtom);
+    const [emptyProfileSnack, setEmptyProfileSnack] = useAtom(emptyProfileAtom);
     const [currentUser] = useAtom(currentUserAtom);
 
+    const [firstTime, setFirstTime] = useState(false);
+    const [_, setListed] = useAtom(currentUserListedAtom);
+
     useEffect(() => {
-        updateFirebaseUser()
+        if (!firstTime) updateFirebaseUser()
     }, [currentUser])
 
-    const updateFirebaseUser = () => {
+    useEffect(() => {
+        const firstTime = queryParameters.get("onboarding");
+        setFirstTime(firstTime === "true" ? true : false);
+    }, [])
 
+    const updateFirebaseUser = (overrideListed?: boolean) => {
         if (currentUser && firebaseAuth.currentUser) {
+            if (overrideListed) setListed(true);
             const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid!).withConverter(InternDocConverter);
-            setDoc(userRef, currentUser).catch(() => setFail(true)).then(() => { setSaveSuccess(true) });
+            setDoc(userRef, { ...currentUser, listed: overrideListed || currentUser.listed }).catch(() => setFailSnack(true)).then(() => { setSaveSuccess(true) });
         }
+    }
+
+
+    const checkFullProfile = () => {
+        return !(!currentUser?.name ||
+            !currentUser.contact ||
+            !currentUser.location ||
+            !currentUser.startDate ||
+            !currentUser.budgetMax);
     }
 
     return (
         <Box sx={{ width: { xs: '100%', md: '600px' } }}>
             <Box sx={{ px: '1rem' }}>
-                <Typography variant="h3" sx={{ mb: '1rem' }}>Your Profile</Typography>
+                {firstTime ? (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Typography variant="h4" sx={{ mb: '1rem' }}>Welcome!</Typography>
+                        <Typography variant="body1" sx={{ mb: '1rem' }}>Please fill out your profile.</Typography>
+                    </Box>
+                ) : (
+                        <PageTitle sx={{ mb: '1rem' }}>Your Profile</PageTitle>
+                )}
                 <PictureAndName />
-                <DisplayProfile />
+                {!firstTime && <DisplayProfile
+                    checkFullProfile={checkFullProfile} />}
                 <CompanyInfo />
                 <Questionnaire />
+                <Socials />
+
+                <Button
+                    variant="contained"
+                    color="success"
+                    sx={{ width: '100%', mb: '10px' }}
+                    onClick={() => {
+                        if (firstTime) {
+                            if (!checkFullProfile()) {
+                                setEmptyProfileSnack(true);
+                            } else {
+                                setFirstTime(false)
+                                updateFirebaseUser(true)
+                                navigate("/")
+                            }
+                        } else {
+                            updateFirebaseUser()
+                            navigate("/")
+                        }
+                    }}
+                >{firstTime ? "Save & List My Profile" : "Save"}</Button>
 
                 {/* snackbars for success/fail */}
                 <Snackbar
@@ -65,12 +118,22 @@ const Profile = () => {
                 </Snackbar>
 
                 <Snackbar
-                    open={fail}
+                    open={failSnack}
                     autoHideDuration={3000}
-                    onClose={() => setFail(false)}
+                    onClose={() => setFailSnack(false)}
                     anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
                     <Alert severity='error' variant='filled'>
                         That didn't quite work...
+                    </Alert>
+                </Snackbar>
+
+                <Snackbar
+                    open={emptyProfileSnack}
+                    autoHideDuration={6000}
+                    onClose={() => setEmptyProfileSnack(false)}
+                    anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
+                    <Alert severity='error' variant='filled'>
+                        Please fill out your contact info, internship details, and living preferences.
                     </Alert>
                 </Snackbar>
             </Box>
@@ -97,19 +160,23 @@ export const ProfileEntryContainer = styled(Box)(({ theme }) => ({
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
-    width: '20%',
+    width: '30%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    maxWidth: '90px',
+    // backgroundColor: 'red',
+    // padding: '0 10px'
 }))
 
 export const ProfileEntryRight = styled(Box)(({ theme }) => ({
-    width: '80%',
+    width: '70%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    flexGrow: 1,
 }))
 
 export const SectionTitle = styled(Typography)(({ theme }) => ({
