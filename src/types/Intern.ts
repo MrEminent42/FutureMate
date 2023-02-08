@@ -28,7 +28,7 @@ export interface Intern {
 }
 
 export const LoudnessLabels = ["", "Mostly quiet", "Occasionally social", "Often loud", "Very party"];
-export const CleanlinessLabels = ["", "Very clean", "Mostly tidy", "Lots of stuff", "Almost jungle"]
+export const CleanlinessLabels = ["", "Almost jungle", "Lots of stuff", "Mostly tidy", "Very clean"]
 export const BedtimeLabels = ["", "9-11PM", "11PM-12AM", "12AM+"]
 
 export const combineInternInfo = (primary: {
