@@ -17,6 +17,7 @@ import Questionnaire from '../components/myProfile/Questionnaire';
 import Socials from '../components/myProfile/Socials';
 import { useNavigate } from 'react-router-dom';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { PageTitle } from './Home';
 
 const Profile = () => {
     const queryParameters = new URLSearchParams(window.location.search)
@@ -66,7 +67,7 @@ const Profile = () => {
                         <Typography variant="body1" sx={{ mb: '1rem' }}>Please fill out your profile.</Typography>
                     </Box>
                 ) : (
-                    <Typography variant="h4" sx={{ mb: '1rem' }}>Your Profile</Typography>
+                        <PageTitle sx={{ mb: '1rem' }}>Your Profile</PageTitle>
                 )}
                 <PictureAndName />
                 {!firstTime && <DisplayProfile

@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <Box sx={{ width: { xs: '100%', md: '600px' } }}>
       <TitleContainer>
-        <Title>Roomates</Title>
+        <PageTitle>Find Roomates</PageTitle>
       </TitleContainer>
       <ProfileFilters />
       <InternList />
@@ -32,7 +32,7 @@ export const HomeSkeleton = () => {
   return (
     <Box sx={{ width: { xs: '100%', md: '600px' } }}>
       <TitleContainer>
-        <Title><Skeleton width={'300px'} /></Title>
+        <PageTitle><Skeleton width={'300px'} /></PageTitle>
       </TitleContainer>
     </Box>
   )
@@ -46,7 +46,7 @@ const TitleContainer = styled(Box)(() => ({
   alignItems: 'center'
 }))
 
-const Title = styled(Typography)(() => ({
+export const PageTitle = styled(Typography)(() => ({
   fontSize: '2rem',
   fontWeight: '600',
   textAlign: 'center'
