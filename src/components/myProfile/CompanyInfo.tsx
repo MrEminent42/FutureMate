@@ -15,6 +15,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaceIcon from '@mui/icons-material/Place';
 import { firebaseAuth } from '../../config/firebase';
 import { ProfileEntryContainer, ProfileEntryLeft, ProfileEntryRight, ProfilePaper, SectionTitle } from '../../pages/MyProfile';
+import { styled } from "@mui/material/styles";
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
@@ -65,6 +66,9 @@ const CompanyInfo = () => {
             <ProfileEntryContainer >
                 <ProfileEntryLeft>
                     <InsertInvitationIcon />
+                    <LeftChipLabel>
+                        Start Date
+                    </LeftChipLabel>
                 </ProfileEntryLeft>
                 <ButtonGroup
                     sx={{ flexGrow: 1 }}
@@ -84,6 +88,9 @@ const CompanyInfo = () => {
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px' }}>
                 <ProfileEntryLeft>
                     <PlaceIcon />
+                    <LeftChipLabel>
+                        Location
+                    </LeftChipLabel>
                 </ProfileEntryLeft>
                 <ProfileEntryRight >
                     <Select
@@ -107,6 +114,9 @@ const CompanyInfo = () => {
             <ProfileEntryContainer>
                 <ProfileEntryLeft>
                     <AttachMoneyIcon />
+                    <LeftChipLabel>
+                        Budget
+                    </LeftChipLabel>
                 </ProfileEntryLeft>
                 <ProfileEntryRight sx={{ flexDirection: 'row' }}>
                     <TextField
@@ -135,3 +145,8 @@ const CompanyInfo = () => {
 }
 
 export default CompanyInfo
+
+const LeftChipLabel = styled(Typography)(() => ({
+    fontSize: '.8rem',
+    fontWeight: '500',
+}))
