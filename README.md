@@ -9,4 +9,4 @@ Link to dev: https://salemate-2023-dev.herokuapp.com/
 
 ## Want to contribute?
 
-Sounds great! Please reach out to me on the Salesforce Slack (Leo Horwitz).
+Sounds great! Please feel free to make a pull request (likey off of the Dev branch).
