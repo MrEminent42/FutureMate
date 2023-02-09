@@ -34,23 +34,6 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
         }
     }
 
-    const renderTodos = () => {
-        if (checkFullProfile() || !tried) {
-            return <></>
-        }
-
-        return (
-            <Box>
-                <Typography variant='body1' color='error'>Please add your:</Typography>
-                {!currentUser?.name && <Typography> - Name</Typography>}
-                {!currentUser?.contact && <Typography> - Contact method</Typography>}
-                {!currentUser?.location && <Typography> - Location</Typography>}
-                {!currentUser?.startDate && <Typography> - Start date</Typography>}
-                {!currentUser?.budgetMax && <Typography> - Budget</Typography>}
-            </Box>
-        )
-    }
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTried(true);
         if (e.target.checked && checkFullProfile()) {
@@ -92,7 +75,6 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
                     <Switch color='secondary' checked={listed} onChange={handleChange} />
                 </Box>
             </Box>
-            {renderTodos()}
         </ProfilePaper>
     )
 }
