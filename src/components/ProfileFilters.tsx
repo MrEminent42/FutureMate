@@ -207,7 +207,7 @@ const DialogSubtitle = styled(Typography)(() => ({
     fontWeight: '500',
 }))
 
-const FilterFlex = styled(Typography)(() => ({
+const FilterFlex = styled(Box)(() => ({
     // border: '1px solid red',
     width: '100%',
     display: 'flex',
