@@ -18,7 +18,7 @@ import Socials from '../components/myProfile/Socials';
 import { useNavigate } from 'react-router-dom';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { PageTitle } from './Home';
-import { profileErrorsAtom } from '../jotai/profileAtoms';
+import { getTodoLabel, profileErrorsAtom } from '../jotai/profileAtoms';
 
 const Profile = () => {
     const queryParameters = new URLSearchParams(window.location.search)
@@ -187,7 +187,12 @@ const Profile = () => {
                     onClose={() => setEmptyProfileSnack(false)}
                     anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
                     <Alert severity='error' variant='filled'>
-                        Please fill out your contact info, internship details, and living preferences.
+                        {/* Please make sure your profile has: contact info, internship details, and living preferences. */}
+                        Please add: {
+                            Object.entries(errors)
+                                .filter(([key, isError]) => isError)
+                                .map(([key]) => getTodoLabel(key))
+                                .join(", ")}.
                     </Alert>
                 </Snackbar>
             </Box>
