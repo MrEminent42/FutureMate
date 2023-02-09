@@ -17,7 +17,7 @@ export interface Intern {
 
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
-    loudness?: LoudnessResponse,
+    loudness?: LoudnessResponse | null,
 
     numRoomatesMin?: number | null,
     numRoomatesMax?: number | null,
@@ -47,7 +47,7 @@ export const combineInternInfo = (primary: {
 
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
-    loudness?: LoudnessResponse,
+    loudness?: LoudnessResponse | null,
 
     numRoomatesMin?: number | null,
     numRoomatesMax?: number | null,

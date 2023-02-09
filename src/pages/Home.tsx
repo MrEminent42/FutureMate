@@ -12,7 +12,7 @@ const Home = () => {
   const [, setDate] = useAtom(startDateFilterAtom);
 
   useEffect(() => {
-    setDate(null);
+    setDate([]);
     // TODO : clear all filters on load?
   }, [])
 

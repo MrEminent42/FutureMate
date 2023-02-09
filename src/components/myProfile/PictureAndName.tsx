@@ -12,6 +12,7 @@ import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import Autocomplete from '@mui/material/Autocomplete';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { profileErrorsAtom } from '../../jotai/profileAtoms';
 
 const PictureAndName = () => {
     const [openPfpDialog, setOpenPfpDialog] = useState(false);
@@ -21,12 +22,18 @@ const PictureAndName = () => {
     const [pronouns, setPronouns] = useState('');
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
-    const [errors, setErrors] = useState({ name: false, contact: false });
+    // const [errors, setErrors] = useState({ name: false, contact: false });
+    const [errors, setErrors] = useAtom(profileErrorsAtom);
     const [, setUploadSuccess] = useAtom(uploadSuccessSnackAtom);
     const [, setFail] = useAtom(failSnackAtom);
 
     const handleDialogClose = () => {
         setOpenPfpDialog(false);
+    }
+
+    const handleSuccess = () => {
+        setUploadSuccess(true);
+        setErrors({ ...errors, photoURL: false });
     }
 
     const loadData = () => {
@@ -49,7 +56,7 @@ const PictureAndName = () => {
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
         const phoneRegex = /\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/
 
-        setErrors({ name: name.length < 2, contact: !(emailRegex.test(contact) || phoneRegex.test(contact)) })
+        setErrors({ ...errors, name: name.length < 2, contact: !(emailRegex.test(contact) || phoneRegex.test(contact)) })
         if (errors.name || errors.contact) return false;
         return true;
     }
@@ -68,7 +75,7 @@ const PictureAndName = () => {
                 open={openPfpDialog}
                 onClose={handleDialogClose}
                 setUploadFailed={setFail}
-                setUploadSuccess={setUploadSuccess}
+                setUploadSuccess={handleSuccess}
             />
             <ProfileEntryContainer>
                 <Box
@@ -92,8 +99,12 @@ const PictureAndName = () => {
                     </IconButton>
                     <Avatar
                         src={currentUser?.photoURL ? currentUser.photoURL : ""}
-                        sx={{ width: '140px', height: '140px' }}>
-                        {currentUser?.name ? currentUser.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
+                        sx={{
+                            width: '140px',
+                            height: '140px',
+                            border: errors.photoURL ? '3px solid red' : '3px solid transparent',
+                        }}>
+                        {currentUser?.name ? currentUser.name.split(" ").map((s) => s[0]).join("") : name ? name.split(" ").map((s) => s[0]).join("") : "Unknown"}
                     </Avatar>
                 </Box>
             </ProfileEntryContainer>

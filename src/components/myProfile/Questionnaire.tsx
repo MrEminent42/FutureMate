@@ -7,18 +7,19 @@ import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/Matc
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
 import { CleanlinessLabels, BedtimeLabels, LoudnessLabels, combineInternInfo } from '../../types/Intern';
+import { profileErrorsAtom } from '../../jotai/profileAtoms';
 
 const Questionnaire = () => {
-    const [loudness, setLoudness] = useState(LoudnessResponse.MOSTLY_QUIET);
-    const [bedtime, setBedtime] = useState(Bedtime.ELEVEN_OR_TWELVE);
-    const [cleanliness, setCleanliness] = useState(CleanlinessResponse.VERY_CLEAN);
-
+    const [loudness, setLoudness] = useState<LoudnessResponse | null>(null);
+    const [bedtime, setBedtime] = useState<Bedtime | null>(null);
+    const [cleanliness, setCleanliness] = useState<CleanlinessResponse | null>(null);
+    const [errors, setErrors] = useAtom(profileErrorsAtom);
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
     const loadData = () => {
-        setLoudness(currentUser?.loudness || LoudnessResponse.MOSTLY_QUIET);
-        setBedtime(currentUser?.bedtime || Bedtime.ELEVEN_OR_TWELVE);
-        setCleanliness(currentUser?.cleanliness || CleanlinessResponse.VERY_CLEAN);
+        setLoudness(currentUser?.loudness || null);
+        setBedtime(currentUser?.bedtime || null);
+        setCleanliness(currentUser?.cleanliness || null);
     }
 
     useEffect(() => {
@@ -47,7 +48,7 @@ const Questionnaire = () => {
     return (
         <ProfilePaper>
             <SectionTitle>Living Preferences</SectionTitle>
-            <ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ borderWidth: errors.loudness ? '1px' : '0px' }}>
                 <ProfileEntryLeft>
                     <Typography>
                         Loudness
@@ -59,14 +60,17 @@ const Questionnaire = () => {
                         value={loudness || 2}
                         min={1}
                         max={4}
-                        onChange={(e, nv) => setLoudness(nv as number)}
+                        onChange={(e, nv) => {
+                            setErrors({ ...errors, loudness: false })
+                            setLoudness(nv as number)
+                        }}
                         valueLabelFormat={(i) => LoudnessLabels[i]}
                         getAriaValueText={(i) => LoudnessLabels[i]}
                         valueLabelDisplay="auto"
                     />
                 </ProfileEntryRight>
             </ProfileEntryContainer>
-            <ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ borderWidth: errors.bedtime ? '1px' : '0px' }}>
                 <ProfileEntryLeft>
                     <Typography>
                         Bedtime
@@ -83,11 +87,14 @@ const Questionnaire = () => {
                             { value: Bedtime.ELEVEN_OR_TWELVE, label: BedtimeLabels[Bedtime.ELEVEN_OR_TWELVE] },
                             { value: Bedtime.AFTER_MIDNIGHT, label: BedtimeLabels[Bedtime.AFTER_MIDNIGHT] }
                         ]}
-                        onChange={(e, nv) => setBedtime(nv as number)}
+                        onChange={(e, nv) => {
+                            setErrors({ ...errors, bedtime: false })
+                            setBedtime(nv as number)
+                        }}
                     />
                 </ProfileEntryRight>
             </ProfileEntryContainer>
-            <ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ borderWidth: errors.cleanliness ? '1px' : '0px' }}>
                 <ProfileEntryLeft>
                     <Typography>
                         Cleanliness
@@ -99,7 +106,10 @@ const Questionnaire = () => {
                         value={cleanliness || 2}
                         min={1}
                         max={4}
-                        onChange={(e, nv) => setCleanliness(nv as number)}
+                        onChange={(e, nv) => {
+                            setErrors({ ...errors, cleanliness: false })
+                            setCleanliness(nv as number)
+                        }}
                         valueLabelFormat={(i) => CleanlinessLabels[i]}
                         getAriaValueText={(i) => CleanlinessLabels[i]}
                         valueLabelDisplay="auto"

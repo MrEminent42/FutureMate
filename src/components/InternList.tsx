@@ -21,15 +21,17 @@ import currentUserAtom, { currentUserListedAtom } from "../jotai/currentUserAtom
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Collapse } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import { filteredUsersAtom, filteredUsersNonMatchesAtom } from "../jotai/usersAtoms";
 
 
 const InternList = () => {
     const navigate = useNavigate();
-    const [users, setUsers] = useAtom(usersAtom);
-    const [date] = useAtom(startDateFilterAtom);
+    const [allUsers, setUsers] = useAtom(usersAtom);
+    const [filteredUsers] = useAtom(filteredUsersAtom);
+    const [nonMatchUsers] = useAtom(filteredUsersNonMatchesAtom);
 
-    const [matches, setMatches] = useState([] as Intern[]);
-    const [notMatches, setNotMatches] = useState([] as Intern[]);
+
+    const [date] = useAtom(startDateFilterAtom);
 
     const [currentUser] = useAtom(currentUserAtom);
     const [currentUserListed] = useAtom(currentUserListedAtom);
@@ -37,7 +39,7 @@ const InternList = () => {
 
     const loadUsers = () => {
         const db = getFirestore(firebaseApp);
-        const q = query(collection(db, "mates"), where("listed", "==", true))
+        const q = query(collection(db, "mates"), where("listed", "==", true));
         getDocs(q.withConverter(InternDocConverter)).then((querySnapshot) => setUsers(querySnapshot.docs)).catch(console.log)
     }
 
@@ -45,25 +47,6 @@ const InternList = () => {
         if (firebaseAuth.currentUser) loadUsers();
     }, [])
 
-    useEffect(() => {
-        filterUsers()
-    }, [users, date])
-
-    const filterUsers = () => {
-        let matchList = [] as Intern[];
-        let noMatchList = [] as Intern[];
-        users.forEach((user) => {
-            // if (user.data().uid == currentUser?.uid) return;
-            if (!date || user.data().startDate === date) {
-                matchList.push(user.data())
-            } else {
-                noMatchList.push(user.data())
-            }
-        })
-
-        setMatches(matchList);
-        setNotMatches(noMatchList);
-    }
 
     return (
         <Box sx={{ px: '1rem' }}>
@@ -81,13 +64,13 @@ const InternList = () => {
             )}
 
             <Box>
-                <Fade in={users.length > 0}>
+                <Fade in={allUsers.length > 0}>
                     <Box>
-                        {matches && matches.map((user, i) => (
+                        {filteredUsers && filteredUsers.map((user, i) => (
                             <InternCard
-                        internInfo={user} key={i} />
+                                internInfo={user.data()} key={i} />
                         ))}
-                        {users.length > 0 && matches.length === 0 && (
+                        {allUsers.length > 0 && filteredUsers.length === 0 && (
                             <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -109,9 +92,9 @@ const InternList = () => {
                 in={showNonMatches}
             >
                 <Divider />
-                {notMatches.length > 0 ? notMatches.map((user, i) => (
+                {nonMatchUsers.length > 0 ? nonMatchUsers.map((user, i) => (
                     <InternCard
-                        internInfo={user} key={i} />
+                        internInfo={user.data()} key={i} />
                 )) : (
                     <Box sx={{
                         display: 'flex',
