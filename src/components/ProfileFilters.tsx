@@ -81,10 +81,6 @@ const ProfileFilters = () => {
                 PaperProps={{
                     sx: {
                         backgroundColor: '#f3f3f3',
-                        // border: '1px solid red',
-                        // display: 'flex',
-                        // flexDirection: 'center',
-                        // justifyContent: 'center',
                     }
                 }}
             >
@@ -224,7 +220,6 @@ const DialogSubtitle = styled(Typography)(() => ({
 }))
 
 const FilterFlex = styled(Box)(() => ({
-    // border: '1px solid red',
     width: '100%',
     display: 'flex',
     alignItems: 'center',

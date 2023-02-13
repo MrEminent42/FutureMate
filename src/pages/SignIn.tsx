@@ -65,7 +65,6 @@ export const SignIn = () => {
             if (!firebaseAuth.currentUser) return;
 
             if (!docSnap || !docSnap.exists()) {
-                console.log("creating new user")
                 let newIntern: Intern = {
                     uid: firebaseAuth.currentUser.uid,
                     contact: firebaseAuth.currentUser.email,

@@ -129,7 +129,7 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
                         </Pronouns>
 
                     </Grid>
-                    <Grid item container xs={12} md={6} sx={{}}>
+                    <Grid item container xs={12} md={6} sx={{ px: { xs: '.5rem', md: 0 } }}>
                         {internInfo.location && (
                             <InfoChip item xs={6}>
                                 <PlaceIcon sx={{ color: grey[500], width: { xs: '1.0rem', md: '1.2rem' }, height: { xs: '1.0rem', md: '1.2rem' } }} />

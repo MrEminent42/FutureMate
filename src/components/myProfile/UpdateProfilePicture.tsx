@@ -86,7 +86,6 @@ const UpdateProfilePicture = (props: {
                 <input
                     onChange={(e) => {
                         if (e.target.files && e.target.files[0]) {
-                            // console.log(e.target.files[0]);
                             handleClose(e.target.files[0]);
                         }
                     }}
