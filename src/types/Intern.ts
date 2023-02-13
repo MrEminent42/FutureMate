@@ -64,7 +64,7 @@ export const combineInternInfo = (primary: {
         contact: primary.contact || secondary.contact,
         name: primary.name || secondary.name,
         photoURL: primary.photoURL || secondary.photoURL,
-        pronouns: primary.pronouns,
+        pronouns: primary.pronouns || secondary.pronouns,
 
         startDate: primary.startDate || secondary.startDate,
         location: primary.location || secondary.location,
@@ -78,8 +78,8 @@ export const combineInternInfo = (primary: {
         householdSize: primary.householdSize || secondary.householdSize,
         shareBedroom: primary.shareBedroom,
 
-        linkedin: primary.linkedin,
-        instagram: primary.instagram,
+        linkedin: primary.linkedin || secondary.linkedin,
+        instagram: primary.instagram || secondary.linkedin,
     } as Intern;
 }
 
