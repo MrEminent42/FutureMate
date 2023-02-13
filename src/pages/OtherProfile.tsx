@@ -81,7 +81,7 @@ const OtherProfile = () => {
                 </ProfilePaper>
 
                 <ProfilePaper>
-                    <CardPadder >
+                    <CardPadder>
                         {otherIntern.location && (
 
                             <Tooltip title="Location" placement="top">
@@ -119,7 +119,7 @@ const OtherProfile = () => {
                     </CardPadder>
                 </ProfilePaper>
                 <ProfilePaper sx={{ pb: 0 }}>
-                    <CardPadder sx={{ flexDirection: 'column' }}>
+                    <CardPadder sx={{ flexDirection: 'column', py: { md: '15px' } }}>
                         <SliderEntryContainer>
                             <ProfileEntryLeft>
                                 <Typography>
@@ -227,18 +227,17 @@ const InfoChip = styled(Box)(() => ({
 }))
 
 const InfoChipText = styled(Typography)(() => ({
-    // color: grey[500],
     textTransform: 'capitalize',
     textAlign: 'center',
     fontSize: '.75rem',
-    fontWeight: '700'
+    fontWeight: '700',
 }))
 
 export const SliderEntryContainer = styled(Box)(({ theme }) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    padding: theme.breakpoints.up('sm') ? '10px 10px 10px 0' : '25px 30px 10px 0'
+    padding: theme.breakpoints.up('sm') ? '20px 10px 10px 0' : '25px 30px 10px 0'
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
@@ -248,6 +247,7 @@ export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
 }))
 
 export const ProfileEntryRight = styled(Box)(({ theme }) => ({
