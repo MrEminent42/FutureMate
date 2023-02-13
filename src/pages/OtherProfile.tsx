@@ -36,7 +36,7 @@ const OtherProfile = () => {
                         onClick={() => navigate("/")}
                         color="inherit">
                         <ChevronLeft />
-                        Back to Roomate List
+                        Roommate List
                     </Button>
                 </BackContainer>
                 {/* <PageTitle>
