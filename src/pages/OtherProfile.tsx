@@ -8,15 +8,17 @@ import PlaceIcon from '@mui/icons-material/Place';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Bedtime, CapsToLower } from '../types/MatchingQuestions';
-import TypographyMapping from '../types/TypographyMapping';
-import { grey } from '@mui/material/colors';
 import { CleanlinessLabels, LoudnessLabels, BedtimeLabels } from '../types/Intern';
 import Slider from '@mui/material/Slider';
 import Tooltip from '@mui/material/Tooltip';
 import LinkedIn from '@mui/icons-material/LinkedIn';
 import Instagram from '@mui/icons-material/Instagram';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const OtherProfile = () => {
+    const navigate = useNavigate();
 
     const [otherIntern] = useAtom(selectedInternAtom);
 
@@ -28,6 +30,19 @@ const OtherProfile = () => {
 
     return (
         <Box sx={{ width: { xs: '100%', md: '600px' } }}>
+            <TitleContainer>
+                <BackContainer>
+                    <Button
+                        onClick={() => navigate("/")}
+                        color="inherit">
+                        <ChevronLeft />
+                        Back to Roomate List
+                    </Button>
+                </BackContainer>
+                {/* <PageTitle>
+                    Intern Profile
+                </PageTitle> */}
+            </TitleContainer>
             <Box sx={{ px: '1rem' }}>
                 <ProfilePaper>
                     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: '5px' }}>
@@ -161,6 +176,25 @@ const OtherProfile = () => {
 }
 
 export default OtherProfile
+
+
+const TitleContainer = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'relative',
+    padding: '10px 0'
+}))
+
+const BackContainer = styled(Box)(() => ({
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+}))
 
 const Name = styled(Typography)(({ theme }) => ({
     fontSize: '2rem',

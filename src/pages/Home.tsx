@@ -43,7 +43,7 @@ export default Home;
 const TitleContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center'
+  alignItems: 'center',
 }))
 
 export const PageTitle = styled(Typography)(() => ({
