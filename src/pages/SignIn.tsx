@@ -75,7 +75,7 @@ export const SignIn = () => {
                     <Card sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
                         <Box sx={{ p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-                            <Typography variant="h3" sx={{ mb: '1rem', textAlign: 'center' }}>SaleMate</Typography>
+                            <Typography variant="h3" sx={{ mb: '1rem', textAlign: 'center' }}>FutureMate</Typography>
                             <Typography variant="body1" sx={{ textAlign: 'center' }}>
                                 Designed to help FutureForce 2023 interns find roommates.
                             </Typography>

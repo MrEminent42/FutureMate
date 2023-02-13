@@ -1,11 +1,11 @@
-# SaleMate
+# FutureMate
 
 This is a small roommate-finder app made for Salesforce 2023 interns.
 
 ## Dev & Prod
 
-Link to live site: https://salemate-2023.herokuapp.com/
-Link to dev: https://salemate-2023-dev.herokuapp.com/
+Link to live site: https://futuremate-2023.herokuapp.com/
+Link to dev: https://futuremate-2023-dev.herokuapp.com/
 
 ## Want to contribute?
 
