@@ -7,7 +7,6 @@ import { useAtom } from "jotai";
 import { useState, useEffect } from 'react';
 import { Backdrop, CircularProgress, Typography, Fade, Card } from '@mui/material';
 import currentUserAtom from "../jotai/currentUserAtom";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import GoogleIcon from '@mui/icons-material/Google';
@@ -21,12 +20,6 @@ export const SignIn = () => {
     const [, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const [authState] = useAuthState(firebaseAuth);
-    useEffect(() => {
-        if (authState) {
-            // loadCurrentUser();
-        }
-    }, [authState]);
 
 
 
@@ -36,7 +29,6 @@ export const SignIn = () => {
         setLoading(true);
 
         signInWithPopup(firebaseAuth, provider).then((result) => {
-            // loadCurrentUser();
             initialize();
             setLoading(false);
             navigate("/");
@@ -45,7 +37,7 @@ export const SignIn = () => {
             console.log(errorMessage);
             setLoading(false);
             setSubmitted(false);
-            // alert(error.message);
+            alert(error.message);
         })
     }
 

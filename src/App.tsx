@@ -9,19 +9,18 @@ import Home from './pages/Home';
 import Profile from './pages/MyProfile';
 import TopBar from './components/TopBar';
 import { Box } from '@mui/system';
-import { grey, red } from '@mui/material/colors';
 import OtherProfile from './pages/OtherProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import currentUserAtom from './jotai/currentUserAtom';
 import { useAtom } from 'jotai';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { Intern, InternDocConverter } from './types/Intern';
+import { doc, getDoc, } from 'firebase/firestore';
+import { InternDocConverter } from './types/Intern';
 
 
 const App = () => {
     const [user] = useAuthState(firebaseAuth);
 
-    const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+  const [, setCurrentUser] = useAtom(currentUserAtom);
 
     useEffect(() => {
         if (user) {
@@ -38,16 +37,7 @@ const App = () => {
         getDoc(userRef).catch(console.log).then((docSnap) => {
             if (!firebaseAuth.currentUser) return;
 
-            if (!docSnap || !docSnap.exists()) {
-                // let newIntern: Intern = {
-                //     uid: firebaseAuth.currentUser.uid,
-                //     contact: firebaseAuth.currentUser.email,
-                //     name: firebaseAuth.currentUser.displayName || null,
-                //     listed: false,
-                // }
-                // setDoc(userRef, newIntern).catch(console.log);
-                // setCurrentUser(newIntern);
-                // navigate("/profile?onboarding=true");
+          if (!docSnap || !docSnap.exists()) {
             } else {
                 setCurrentUser(docSnap.data());
             }

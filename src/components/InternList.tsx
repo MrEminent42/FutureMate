@@ -44,12 +44,11 @@ const InternList = () => {
         if (firebaseAuth.currentUser) loadUsers();
     }, [])
 
-
     return (
         <Box sx={{ px: '1rem' }}>
 
             {/* hidden reminder */}
-            {!currentUserListed && (
+            {currentUser && !currentUserListed && (
                 <ProfileReminder onClick={() => navigate('profile')} >
                     <Typography sx={{ fontSize: '.8rem' }}>
                         You're not listing your profile.
@@ -61,13 +60,13 @@ const InternList = () => {
             )}
 
             <Box>
-                <Fade in={allUsers.length > 0}>
+                <Fade in={allUsers!.length > 0}>
                     <Box>
                         {filteredUsers && filteredUsers.map((user, i) => (
                             <InternCard
                                 internInfo={user.data()} key={i} />
                         ))}
-                        {allUsers.length > 0 && filteredUsers.length === 0 && (
+                        {allUsers!.length > 0 && filteredUsers.length === 0 && (
                             <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'center',

@@ -13,7 +13,6 @@ export type ProtectedRouteProps = {
     outlet: JSX.Element;
 };
 
-// export default function ProtectedRoute({ isAuthenticated, authenticationPath, outlet }: ProtectedRouteProps) {
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
 
 
@@ -21,20 +20,6 @@ export default function ProtectedRoute({ children }: { children: JSX.Element }) 
         authenticated: false,
         initializing: true
     });
-
-    // firebaseAuth.onAuthStateChanged(user => {
-    //     if (user) {
-    //         setAuthState({
-    //             authenticated: true,
-    //             initializing: false
-    //         });
-    //     } else {
-    //         setAuthState({
-    //             authenticated: false,
-    //             initializing: false
-    //         });
-    //     }
-    // });
 
     useEffect(() => firebaseAuth.onAuthStateChanged(user => {
         if (user) {
