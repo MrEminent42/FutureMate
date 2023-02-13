@@ -15,7 +15,7 @@ import LinkedIn from '@mui/icons-material/LinkedIn';
 import Instagram from '@mui/icons-material/Instagram';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 
 const OtherProfile = () => {
@@ -25,7 +25,7 @@ const OtherProfile = () => {
 
     if (!otherIntern) {
         return (
-            <CircularProgress />
+            <Navigate to="/" />
         )
     }
 

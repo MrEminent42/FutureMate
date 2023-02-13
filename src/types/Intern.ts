@@ -1,5 +1,5 @@
 import { QueryDocumentSnapshot, SnapshotOptions } from "firebase/firestore";
-import { Bedtime, CleanlinessResponse, LocationResponse, LoudnessResponse, ShareBedroomResponse, StartDate } from "./MatchingQuestions";
+import { Bedtime, CleanlinessResponse, LocationResponse, LoudnessResponse, StartDate } from "./MatchingQuestions";
 
 export interface Intern {
     uid: string,
@@ -20,7 +20,7 @@ export interface Intern {
     loudness?: LoudnessResponse | null,
 
     householdSize?: number | null,
-    shareBedroom?: ShareBedroomResponse | null,
+    shareBedroom?: boolean | null,
 
     linkedin?: string | null,
     instagram?: string | null,
@@ -49,7 +49,7 @@ export const combineInternInfo = (primary: {
     loudness?: LoudnessResponse | null,
 
     householdSize?: number | null,
-    shareBedroom?: ShareBedroomResponse | null,
+    shareBedroom?: boolean | null,
 
     linkedin?: string | null,
     instagram?: string | null,
@@ -61,7 +61,7 @@ export const combineInternInfo = (primary: {
         contact: primary.contact || secondary.contact,
         name: primary.name || secondary.name,
         photoURL: primary.photoURL || secondary.photoURL,
-        pronouns: primary.pronouns || secondary.pronouns,
+        pronouns: primary.pronouns,
 
         startDate: primary.startDate || secondary.startDate,
         location: primary.location || secondary.location,
@@ -73,10 +73,10 @@ export const combineInternInfo = (primary: {
         loudness: primary.loudness || secondary.loudness,
 
         householdSize: primary.householdSize || secondary.householdSize,
-        shareBedroom: primary.shareBedroom || secondary.shareBedroom,
+        shareBedroom: primary.shareBedroom,
 
-        linkedin: primary.linkedin || secondary.linkedin,
-        instagram: primary.instagram || secondary.instagram,
+        linkedin: primary.linkedin,
+        instagram: primary.instagram,
     } as Intern;
 }
 

@@ -145,7 +145,7 @@ const TopBar = () => {
                                         setAnchorEl(e.currentTarget);
                                     }}
                                 >
-                                    <Avatar src={currentUser?.photoURL ? currentUser.photoURL : ""}>
+                                    <Avatar src={currentUser?.photoURL ? currentUser.photoURL : ""} sx={{ overflow: 'none' }}>
                                         {currentUser?.name ? currentUser.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
                                     </Avatar>
                                 </IconButton>

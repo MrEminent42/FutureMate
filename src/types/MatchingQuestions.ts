@@ -39,11 +39,6 @@ enum StartDate {
     JUN_19 = "JUN_19"
 }
 
-enum ShareBedroomResponse {
-    YES = "YES",
-    NO = "NO",
-    MAYBE = "MAYBE",
-}
 
 enum LocationResponse {
     SAN_FRANCISCO = "SAN_FRANCISCO",
@@ -67,7 +62,6 @@ export {
     CleanlinessResponse,
     LoudnessResponse,
     StartDate,
-    ShareBedroomResponse,
     LocationResponse,
     CapsToLower
 };

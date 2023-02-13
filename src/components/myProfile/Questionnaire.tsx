@@ -9,12 +9,14 @@ import currentUserAtom from '../../jotai/currentUserAtom';
 import { CleanlinessLabels, BedtimeLabels, LoudnessLabels, combineInternInfo } from '../../types/Intern';
 import { profileErrorsAtom } from '../../jotai/profileAtoms';
 import Divider from '@mui/material/Divider';
+import Checkbox from '@mui/material/Checkbox';
 
 const Questionnaire = () => {
     const [loudness, setLoudness] = useState<LoudnessResponse | null>(null);
     const [bedtime, setBedtime] = useState<Bedtime | null>(null);
     const [cleanliness, setCleanliness] = useState<CleanlinessResponse | null>(null);
     const [householdSize, setHouseholdSize] = useState<number | null>(null);
+    const [shareBedroom, setShareBedroom] = useState(false);
     const [errors, setErrors] = useAtom(profileErrorsAtom);
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
@@ -23,6 +25,7 @@ const Questionnaire = () => {
         setBedtime(currentUser?.bedtime || null);
         setCleanliness(currentUser?.cleanliness || null);
         setHouseholdSize(currentUser?.householdSize || null);
+        setShareBedroom(currentUser?.shareBedroom || false);
     }
 
     useEffect(() => {
@@ -38,6 +41,7 @@ const Questionnaire = () => {
                 bedtime: bedtime,
                 cleanliness: cleanliness,
                 householdSize: householdSize,
+                shareBedroom: shareBedroom,
             },
             currentUser
         ));
@@ -45,7 +49,7 @@ const Questionnaire = () => {
 
     useEffect(() => {
         updateLocalUserInfo()
-    }, [bedtime, loudness, cleanliness, householdSize])
+    }, [bedtime, loudness, cleanliness, householdSize, shareBedroom])
 
 
 
@@ -137,9 +141,9 @@ const Questionnaire = () => {
                         Household Size
                     </Typography>
                 </ProfileEntryLeft>
-                <ProfileEntryRight>
+                <ProfileEntryRight sx={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Slider
-                        sx={{ width: { xs: '100%', md: '65%' } }}
+                        sx={{ width: { xs: '100%', md: '50%' }, mx: '10px' }}
                         value={householdSize || 2}
                         min={2}
                         max={5}
@@ -155,6 +159,16 @@ const Questionnaire = () => {
                         getAriaValueText={(i) => i < 5 ? i.toString() : "5+"}
                         valueLabelDisplay="auto"
                     />
+                    <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'column', textAlign: 'center', }}>
+                        <Box>
+                            <Checkbox
+                                color="secondary"
+                                checked={shareBedroom}
+                                onChange={(e) => setShareBedroom(e.target.checked)}
+                            />
+                        </Box>
+                        <Typography sx={{ fontSize: '.8rem' }}>Share bedroom</Typography>
+                    </Box>
                 </ProfileEntryRight>
             </ProfileEntryContainer>
         </ProfilePaper>

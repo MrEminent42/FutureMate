@@ -11,8 +11,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import GoogleIcon from '@mui/icons-material/Google';
-import { HomeSkeleton } from "./Home";
-import Skeleton from '@mui/material/Skeleton';
 import { styled } from "@mui/material/styles";
 
 
@@ -23,21 +21,13 @@ export const SignIn = () => {
     const [, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const [skeleton, setSkeleton] = useState(true);
-
     const [authState] = useAuthState(firebaseAuth);
     useEffect(() => {
         if (authState) {
-            loadCurrentUser();
+            // loadCurrentUser();
         }
     }, [authState]);
 
-
-    useEffect(() => {
-        setTimeout(function () {
-            setSkeleton(false);
-        }, 1100);
-    }, []);
 
 
     const signInWithGoogle = () => {
@@ -46,7 +36,10 @@ export const SignIn = () => {
         setLoading(true);
 
         signInWithPopup(firebaseAuth, provider).then((result) => {
-            loadCurrentUser();
+            // loadCurrentUser();
+            initialize();
+            setLoading(false);
+            navigate("/");
         }).catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage);
@@ -58,7 +51,7 @@ export const SignIn = () => {
 
 
 
-    const loadCurrentUser = () => {
+    const initialize = () => {
         if (!firebaseAuth.currentUser) return;
         const userRef = doc(firestoreDb, "mates", firebaseAuth.currentUser.uid).withConverter(InternDocConverter);
         getDoc(userRef).catch(console.log).then((docSnap) => {
@@ -83,27 +76,10 @@ export const SignIn = () => {
 
     }
 
-    const renderSkeleton = () => {
-        return (
-            <Fade in={skeleton}>
-                <Box sx={{ width: { xs: '100%', md: '600px' } }}>
-                    <HomeSkeleton />
-                    <Box sx={{ px: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Skeleton variant="rectangular" height={'50px'} width={'80%'} sx={{ my: '15px', borderRadius: '20px' }} />
-                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
-                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
-                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
-                        <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }} />
-                    </Box >
-                </Box>
-            </Fade>
-        )
-    }
-
     const renderSignIn = () => {
         return (
             <Box sx={{ width: { xs: '100%', md: '600px' } }}>
-                <Fade in={!skeleton}>
+                <Fade in>
                     <Card sx={{ m: '1rem', minHeight: '300px', position: 'relative', pb: '70px' }}>
                         <Box sx={{ p: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
@@ -162,13 +138,8 @@ export const SignIn = () => {
         )
     }
 
-    if (skeleton) {
-        return renderSkeleton();
-    } else {
+    return renderSignIn();
 
-        return renderSignIn();
-
-    }
 }
 
 
