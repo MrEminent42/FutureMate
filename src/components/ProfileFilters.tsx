@@ -2,8 +2,6 @@ import { Card, styled, Typography, Box, Dialog, useMediaQuery, ToggleButtonGroup
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Collapse from '@mui/material/Collapse';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import { CapsToLower, CleanlinessResponse, StartDate } from '../types/MatchingQuestions';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useAtom } from 'jotai';

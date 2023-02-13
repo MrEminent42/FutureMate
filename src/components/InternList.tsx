@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import selectedInternAtom from "../jotai/selectedInternAtom";
 import { styled } from "@mui/material/styles";
 import { Avatar, Fade, Card, Button } from "@mui/material";
-import { startDateFilterAtom } from "../jotai/filtersAtom";
 import currentUserAtom, { currentUserListedAtom } from "../jotai/currentUserAtom";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Collapse } from '@mui/material';
@@ -29,9 +28,6 @@ const InternList = () => {
     const [allUsers, setUsers] = useAtom(usersAtom);
     const [filteredUsers] = useAtom(filteredUsersAtom);
     const [nonMatchUsers] = useAtom(filteredUsersNonMatchesAtom);
-
-
-    const [date] = useAtom(startDateFilterAtom);
 
     const [currentUser] = useAtom(currentUserAtom);
     const [currentUserListed] = useAtom(currentUserListedAtom);

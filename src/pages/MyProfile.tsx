@@ -108,6 +108,11 @@ const Profile = () => {
             newErrors = { ...newErrors, photoURL: true };
         }
 
+        if (!currentUser.householdSize) {
+            valid = false;
+            newErrors = { ...newErrors, householdSize: true }
+        }
+
         setErrors({ ...errors, ...newErrors })
         return valid;
     }
