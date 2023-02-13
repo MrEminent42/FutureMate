@@ -16,6 +16,7 @@ import Instagram from '@mui/icons-material/Instagram';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 
 const OtherProfile = () => {
     const navigate = useNavigate();
@@ -104,6 +105,14 @@ const OtherProfile = () => {
                                 <InfoChip>
                                     <AttachMoneyIcon sx={{ color: 'secondary.main', height: '1.2rem' }} />
                                     <InfoChipText >{otherIntern.budgetMax}</InfoChipText>
+                                </InfoChip>
+                            </Tooltip>
+                        )}
+                        {otherIntern.householdSize && (
+                            <Tooltip title="Household Size" placement="top">
+                                <InfoChip>
+                                    <HolidayVillageIcon sx={{ color: 'secondary.main', height: '1.2rem' }} />
+                                    <InfoChipText >{otherIntern.householdSize}</InfoChipText>
                                 </InfoChip>
                             </Tooltip>
                         )}

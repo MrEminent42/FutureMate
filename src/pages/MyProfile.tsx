@@ -216,12 +216,13 @@ export const ProfileEntryContainer = styled(Box)(({ theme }) => ({
     flexGrow: '1',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     margin: '5px 0',
     padding: '7px 5px',
     borderColor: 'red',
     borderRadius: '15px',
     borderStyle: 'solid',
-    borderWidth: 0
+    borderWidth: 0,
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
@@ -231,6 +232,7 @@ export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     maxWidth: '90px',
+    textAlign: 'center',
     // backgroundColor: 'red',
     // padding: '0 10px'
 }))
