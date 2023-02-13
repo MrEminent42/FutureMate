@@ -2,10 +2,10 @@ import { Card, styled, Typography, Box, Dialog, useMediaQuery, ToggleButtonGroup
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { CapsToLower, CleanlinessResponse, LoudnessResponse, StartDate } from '../types/MatchingQuestions';
+import { CapsToLower, CleanlinessResponse, LocationResponse, LoudnessResponse, StartDate } from '../types/MatchingQuestions';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useAtom } from 'jotai';
-import { budgetFilterAtom, cleanlinessFilterAtom, householdSizeFilterAtom, loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
+import { budgetFilterAtom, cleanlinessFilterAtom, householdSizeFilterAtom, locationFilterAtom, loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
 import theme from '../config/config.theme';
 import ReplayIcon from '@mui/icons-material/Replay';
 import CheckIcon from '@mui/icons-material/Check';
@@ -14,10 +14,16 @@ import { CleanlinessLabels, LoudnessLabels } from '../types/Intern';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PlaceIcon from '@mui/icons-material/Place';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 
 const ProfileFilters = () => {
     const [open, setOpen] = useState(false);
+
+    const [locationFilter, setLocationFilter] = useAtom(locationFilterAtom);
+
     const [startDateFilter, setStartDateFilter] = useAtom(startDateFilterAtom);
     const [cleanlinessFilter, setCleanlinessFilter] = useAtom(cleanlinessFilterAtom);
     const [loudnessFilter, setLoudnessFilter] = useAtom(loudnessFiltersAtom);
@@ -28,6 +34,7 @@ const ProfileFilters = () => {
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const resetFilters = () => {
+        setLocationFilter(null);
         setStartDateFilter([]);
         setCleanlinessFilter([]);
         setLoudnessFilter([]);
@@ -37,6 +44,8 @@ const ProfileFilters = () => {
 
     const countAppliedFilters = () => {
         let count = 0;
+
+        if (locationFilter) count++;
 
         if (startDateFilter.length) count++;
         if (cleanlinessFilter.length) count++;
@@ -98,6 +107,42 @@ const ProfileFilters = () => {
                     <DialogTitle>
                         Filters
                     </DialogTitle>
+
+                    <FilterFlex>
+                        <Box sx={{ px: '10px' }}>
+                            <PlaceIcon />
+                        </Box>
+                        <Select
+                            size="small"
+                            value={locationFilter}
+                            onChange={(item) => {
+                                setLocationFilter(item.target.value as LocationResponse)
+                            }}
+                            sx={{ width: '300px', maxWidth: '90%' }}
+                            renderValue={(item) => {
+                                if (item) {
+                                    return <p style={{ textTransform: 'capitalize' }}>{item ? CapsToLower(item) : "Location"}</p>
+                                } else {
+                                    return <em>Any</em>
+                                }
+                            }}
+                        >
+                            <MenuItem
+                                value=""
+                            >
+                                <em>Any</em>
+                            </MenuItem>
+                            {Object.values(LocationResponse).map((item, i) => (
+                                <MenuItem
+                                    key={i}
+                                    value={item}
+                                    sx={{ textTransform: 'capitalize' }}
+                                >{CapsToLower(item)}</MenuItem>
+                            ))}
+                        </Select>
+
+                    </FilterFlex>
+
                     <FilterFlex>
                         <Box sx={{ px: '10px' }}>
                             <InsertInvitationIcon />
