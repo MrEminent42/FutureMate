@@ -78,10 +78,10 @@ const Profile = () => {
             newErrors = { ...newErrors, startDate: true };
         }
 
-        if (!currentUser.budgetMin) {
-            valid = false;
-            newErrors = { ...newErrors, budgetMin: true };
-        }
+        // if (!currentUser.budgetMin) {
+        //     valid = false;
+        //     newErrors = { ...newErrors, budgetMin: true };
+        // }
 
         if (!currentUser.budgetMax) {
             valid = false;

@@ -30,7 +30,7 @@ export const getTodoLabel = (error: string) => {
         case "loudness": return "your loudness living preference";
         case "cleanliness": return "your cleanliness living preference";
         case "bedtime": return "your average bedtime";
-        case "houeholdSize": return "your preferred household size";
+        case "householdSize": return "your preferred household size";
         default: return "Some other error is happening here..."
     }
 }
