@@ -40,9 +40,6 @@ const OtherProfile = () => {
                         Roommate List
                     </Button>
                 </BackContainer>
-                {/* <PageTitle>
-                    Intern Profile
-                </PageTitle> */}
             </TitleContainer>
             <Box sx={{ px: '1rem' }}>
                 <ProfilePaper>
@@ -192,7 +189,7 @@ const TitleContainer = styled(Box)(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     position: 'relative',
-    padding: '10px 0'
+    padding: '10px 0',
 }))
 
 const BackContainer = styled(Box)(() => ({
@@ -208,6 +205,7 @@ const BackContainer = styled(Box)(() => ({
 const Name = styled(Typography)(({ theme }) => ({
     fontSize: '2rem',
     fontWeight: '600',
+    textAlign: 'center',
 }))
 const Pronouns = styled(Typography)(({ theme }) => ({
     fontSize: '1rem',
