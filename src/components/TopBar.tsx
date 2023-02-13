@@ -55,12 +55,10 @@ const TopBar = () => {
                         onClick={() => navigate("/")}
                     >
 
-                        <Fade
-                            in={logoUrl != ''}
-                        >
+                        <Fade in>
                             <Box
                                 component="img"
-                                src={logoUrl}
+                                src={'/logo512.png'}
                                 sx={{ height: { xs: '50px', md: '60px' }, transform: 'scale(2)', overflow: 'hidden' }}
                             />
                         </Fade>
@@ -145,7 +143,7 @@ const TopBar = () => {
                                         setAnchorEl(e.currentTarget);
                                     }}
                                 >
-                                    <Avatar src={currentUser?.photoURL ? currentUser.photoURL : ""}>
+                                    <Avatar src={currentUser?.photoURL ? currentUser.photoURL : ""} sx={{ overflow: 'none' }}>
                                         {currentUser?.name ? currentUser.name.split(" ").map((s) => s[0]).join("") : "Unknown"}
                                     </Avatar>
                                 </IconButton>
