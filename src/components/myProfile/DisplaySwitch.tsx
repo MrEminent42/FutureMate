@@ -8,12 +8,15 @@ import currentUserAtom, { currentUserListedAtom } from '../../jotai/currentUserA
 import { Intern } from '../../types/Intern'
 import { ProfilePaper } from '../../pages/MyProfile'
 import theme from '../../config/config.theme'
+import { ErrorResponse } from '@remix-run/router'
+import { getTodoLabel, profileErrorsAtom } from '../../jotai/profileAtoms'
 
 const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean }) => {
 
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
     const [tried, setTried] = useState(false);
     const [listed, setListed] = useAtom(currentUserListedAtom);
+    const [errors, setErrors] = useAtom(profileErrorsAtom);
 
     const loadInfo = () => {
         // setListed(currentUser?.listed || false);
@@ -34,28 +37,20 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
         }
     }
 
-    const renderTodos = () => {
-        if (checkFullProfile() || !tried) {
-            return <></>
-        }
-
-        return (
-            <Box>
-                <Typography variant='body1' color='error'>Please add your:</Typography>
-                {!currentUser?.name && <Typography> - Name</Typography>}
-                {!currentUser?.contact && <Typography> - Contact method</Typography>}
-                {!currentUser?.location && <Typography> - Location</Typography>}
-                {!currentUser?.startDate && <Typography> - Start date</Typography>}
-                {!currentUser?.budgetMax && <Typography> - Budget</Typography>}
-            </Box>
-        )
-    }
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTried(true);
         if (e.target.checked && checkFullProfile()) {
             setListed(true);
         } else { setListed(false) }
+    }
+
+
+    const renderTodos = () => {
+        return <Box>
+            {Object.entries(errors).filter((key) => key[1]).map(([key, isError], index) =>
+                <Typography key={key} sx={{ fontSize: '.8rem', color: 'red' }}>Please add {getTodoLabel(key)}</Typography>
+            )}
+        </Box>
     }
 
     return (
@@ -92,7 +87,9 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
                     <Switch color='secondary' checked={listed} onChange={handleChange} />
                 </Box>
             </Box>
-            {renderTodos()}
+            <Box sx={{ pl: '5px' }}>
+                {tried && renderTodos()}
+            </Box>
         </ProfilePaper>
     )
 }

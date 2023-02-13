@@ -1,8 +1,19 @@
 import { atom } from "jotai";
 import { CleanlinessResponse, LoudnessResponse, StartDate } from "../types/MatchingQuestions";
 
-const startDateFilterAtom = atom<StartDate | null>(null)
-const cleanlinessFilterAtom = atom<CleanlinessResponse | null>(null)
-const loudnessFiltersAtom = atom<LoudnessResponse | null>(null)
+const includeNoResponseFiltersAtom = atom(true);
 
-export { startDateFilterAtom, loudnessFiltersAtom, cleanlinessFilterAtom }
+const startDateFilterAtom = atom<StartDate[]>([])
+const cleanlinessFilterAtom = atom<CleanlinessResponse[]>([])
+const loudnessFiltersAtom = atom<LoudnessResponse[]>([])
+
+const householdSizeFilterAtom = atom<number[]>([])
+const budgetFilterAtom = atom<number | null>(null)
+
+export {
+    startDateFilterAtom,
+    loudnessFiltersAtom,
+    cleanlinessFilterAtom,
+    householdSizeFilterAtom,
+    budgetFilterAtom
+}

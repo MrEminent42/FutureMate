@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SaleMate",
+  "name": "SaleMate - Find a roomate this summer!",
   "icons": [
     {
       "src": "favicon.ico",

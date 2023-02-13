@@ -16,6 +16,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import { firebaseAuth } from '../../config/firebase';
 import { ProfileEntryContainer, ProfileEntryLeft, ProfileEntryRight, ProfilePaper, SectionTitle } from '../../pages/MyProfile';
 import { styled } from "@mui/material/styles";
+import { profileErrorsAtom } from '../../jotai/profileAtoms';
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
@@ -24,6 +25,8 @@ const CompanyInfo = () => {
     const [location, setLocation] = useState<LocationResponse | null>(currentUser?.location || null);
     const [budgetMin, setBudgetMin] = useState<number | null>(currentUser?.budgetMin || 0);
     const [budgetMax, setBudgetMax] = useState<number | null>(currentUser?.budgetMax || 0);
+
+    const [errors, setErrors] = useAtom(profileErrorsAtom);
 
     const handleBlur = () => {
         updateUserInfo()
@@ -63,7 +66,7 @@ const CompanyInfo = () => {
         <ProfilePaper >
             <SectionTitle>Internship Details</SectionTitle>
             {/* start date */}
-            <ProfileEntryContainer >
+            <ProfileEntryContainer sx={{ borderWidth: errors.startDate ? '1px' : '0px' }} >
                 <ProfileEntryLeft>
                     <InsertInvitationIcon />
                     <LeftChipLabel>
@@ -79,13 +82,16 @@ const CompanyInfo = () => {
                             color='primary'
                             sx={{ textTransform: 'capitalize', flexGrow: 1 }}
                             variant={startDate === item ? 'contained' : 'outlined'}
-                            onClick={() => setStartDate(item)}
+                            onClick={() => {
+                                setErrors({ ...errors, startDate: false })
+                                setStartDate(item)
+                            }}
                         >{CapsToLower(item)}</Button>
                     ))}
                 </ButtonGroup>
             </ProfileEntryContainer>
             {/* internship location */}
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', py: '7px' }}>
+            <ProfileEntryContainer sx={{ borderWidth: errors.location ? '1px' : '0px' }}>
                 <ProfileEntryLeft>
                     <PlaceIcon />
                     <LeftChipLabel>
@@ -96,7 +102,10 @@ const CompanyInfo = () => {
                     <Select
                         size="small"
                         value={location || ''}
-                        onChange={(item) => setLocation(item.target.value as LocationResponse)}
+                        onChange={(item) => {
+                            setErrors({ ...errors, location: false })
+                            setLocation(item.target.value as LocationResponse)
+                        }}
                         sx={{ width: '100%' }}
                         renderValue={(item) => <p style={{ textTransform: 'capitalize' }}>{CapsToLower(item)}</p>}
                     >
@@ -109,12 +118,13 @@ const CompanyInfo = () => {
                         ))}
                     </Select>
                 </ProfileEntryRight>
-            </Box>
+            </ProfileEntryContainer>
             {/* budget */}
-            <ProfileEntryContainer>
+            <ProfileEntryContainer sx={{ borderWidth: errors.budgetMax || errors.budgetMin ? '1px' : '0px' }}>
                 <ProfileEntryLeft>
                     <AttachMoneyIcon />
                     <LeftChipLabel>
+                        Monthly
                         Budget
                     </LeftChipLabel>
                 </ProfileEntryLeft>
@@ -123,7 +133,10 @@ const CompanyInfo = () => {
                         size="small"
                         value={budgetMin || ''}
                         type='number'
-                        onChange={(item) => setBudgetMin(+item.target.value)}
+                        onChange={(item) => {
+                            setErrors({ ...errors, budgetMin: false })
+                            setBudgetMin(+item.target.value)
+                        }}
                         sx={{ flexGrow: .5 }}
                         onBlur={handleBlur}
                     />
@@ -134,7 +147,10 @@ const CompanyInfo = () => {
                         size="small"
                         value={budgetMax || ''}
                         type='number'
-                        onChange={(item) => setBudgetMax(+item.target.value)}
+                        onChange={(item) => {
+                            setErrors({ ...errors, budgetMax: false })
+                            setBudgetMax(+item.target.value)
+                        }}
                         sx={{ flexGrow: .5 }}
                         onBlur={handleBlur}
                     />
@@ -149,4 +165,5 @@ export default CompanyInfo
 const LeftChipLabel = styled(Typography)(() => ({
     fontSize: '.8rem',
     fontWeight: '500',
+    textAlign: 'center',
 }))

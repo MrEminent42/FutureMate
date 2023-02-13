@@ -4,17 +4,8 @@ import ProfileFilters from '../components/ProfileFilters';
 import { styled } from '@mui/system';
 import Typography from "@mui/material/Typography";
 import Skeleton from '@mui/material/Skeleton';
-import { useAtom } from 'jotai';
-import { startDateFilterAtom } from '../jotai/filtersAtom';
-import { useEffect } from 'react';
 
 const Home = () => {
-  const [, setDate] = useAtom(startDateFilterAtom);
-
-  useEffect(() => {
-    setDate(null);
-    // TODO : clear all filters on load?
-  }, [])
 
   return (
     <Box sx={{ width: { xs: '100%', md: '600px' } }}>
@@ -43,7 +34,7 @@ export default Home;
 const TitleContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center'
+  alignItems: 'center',
 }))
 
 export const PageTitle = styled(Typography)(() => ({

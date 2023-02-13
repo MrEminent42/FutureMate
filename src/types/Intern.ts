@@ -17,10 +17,9 @@ export interface Intern {
 
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
-    loudness?: LoudnessResponse,
+    loudness?: LoudnessResponse | null,
 
-    numRoomatesMin?: number | null,
-    numRoomatesMax?: number | null,
+    householdSize?: number | null,
     shareBedroom?: ShareBedroomResponse | null,
 
     linkedin?: string | null,
@@ -47,10 +46,9 @@ export const combineInternInfo = (primary: {
 
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
-    loudness?: LoudnessResponse,
+    loudness?: LoudnessResponse | null,
 
-    numRoomatesMin?: number | null,
-    numRoomatesMax?: number | null,
+    householdSize?: number | null,
     shareBedroom?: ShareBedroomResponse | null,
 
     linkedin?: string | null,
@@ -74,8 +72,7 @@ export const combineInternInfo = (primary: {
         cleanliness: primary.cleanliness || secondary.cleanliness,
         loudness: primary.loudness || secondary.loudness,
 
-        numRoomatesMax: primary.numRoomatesMax || secondary.numRoomatesMax,
-        numRoomatesMin: primary.numRoomatesMin || secondary.numRoomatesMin,
+        householdSize: primary.householdSize || secondary.householdSize,
         shareBedroom: primary.shareBedroom || secondary.shareBedroom,
 
         linkedin: primary.linkedin || secondary.linkedin,
@@ -102,8 +99,7 @@ export const InternDocConverter = {
             cleanliness: intern.cleanliness || "",
             loudness: intern.loudness || "",
 
-            numRoomatesMin: intern.numRoomatesMin || "",
-            numRoomatesMax: intern.numRoomatesMax || "",
+            householdSize: intern.householdSize || "",
             shareBedroom: intern.shareBedroom || "",
 
             linkedin: intern.linkedin || "",

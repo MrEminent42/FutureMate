@@ -18,6 +18,7 @@ import Socials from '../components/myProfile/Socials';
 import { useNavigate } from 'react-router-dom';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { PageTitle } from './Home';
+import { getTodoLabel, profileErrorsAtom } from '../jotai/profileAtoms';
 
 const Profile = () => {
     const queryParameters = new URLSearchParams(window.location.search)
@@ -31,6 +32,8 @@ const Profile = () => {
 
     const [firstTime, setFirstTime] = useState(false);
     const [_, setListed] = useAtom(currentUserListedAtom);
+
+    const [errors, setErrors] = useAtom(profileErrorsAtom);
 
     useEffect(() => {
         if (!firstTime) updateFirebaseUser()
@@ -51,11 +54,67 @@ const Profile = () => {
 
 
     const checkFullProfile = () => {
-        return !(!currentUser?.name ||
-            !currentUser.contact ||
-            !currentUser.location ||
-            !currentUser.startDate ||
-            !currentUser.budgetMax);
+        if (!currentUser) return false;
+        let valid = true;
+        let newErrors = {};
+
+        if (!currentUser.name) {
+            valid = false;
+            newErrors = { ...newErrors, name: true };
+        }
+
+        if (!currentUser.contact) {
+            valid = false;
+            newErrors = { ...newErrors, contact: true };
+        }
+
+        if (!currentUser.location) {
+            valid = false;
+            newErrors = { ...newErrors, location: true };
+        }
+
+        if (!currentUser.startDate) {
+            valid = false;
+            newErrors = { ...newErrors, startDate: true };
+        }
+
+        // if (!currentUser.budgetMin) {
+        //     valid = false;
+        //     newErrors = { ...newErrors, budgetMin: true };
+        // }
+
+        if (!currentUser.budgetMax) {
+            valid = false;
+            newErrors = { ...newErrors, budgetMax: true };
+        }
+
+        if (!currentUser.loudness) {
+            valid = false;
+            newErrors = { ...newErrors, loudness: true };
+        }
+
+        if (!currentUser.bedtime) {
+            valid = false;
+            newErrors = { ...newErrors, bedtime: true };
+        }
+
+        if (!currentUser.cleanliness) {
+            valid = false;
+            newErrors = { ...newErrors, cleanliness: true };
+        }
+
+        if (!currentUser.photoURL) {
+            valid = false;
+            newErrors = { ...newErrors, photoURL: true };
+        }
+
+        if (!currentUser.householdSize) {
+            valid = false;
+            newErrors = { ...newErrors, householdSize: true }
+        }
+
+        setErrors({ ...errors, ...newErrors })
+        return valid;
     }
 
     return (
@@ -133,7 +192,12 @@ const Profile = () => {
                     onClose={() => setEmptyProfileSnack(false)}
                     anchorOrigin={{ horizontal: 'center', vertical: 'top' }}>
                     <Alert severity='error' variant='filled'>
-                        Please fill out your contact info, internship details, and living preferences.
+                        {/* Please make sure your profile has: contact info, internship details, and living preferences. */}
+                        Please add: {
+                            Object.entries(errors)
+                                .filter(([key, isError]) => isError)
+                                .map(([key]) => getTodoLabel(key))
+                                .join(", ")}.
                     </Alert>
                 </Snackbar>
             </Box>
@@ -153,10 +217,17 @@ export const ProfilePaper = styled(Card)(({ theme }) => ({
 }))
 
 export const ProfileEntryContainer = styled(Box)(({ theme }) => ({
-    width: '100%',
+    // width: '100%',
+    flexGrow: '1',
     display: 'flex',
     justifyContent: 'center',
-    padding: '7px 0',
+    alignItems: 'center',
+    margin: '5px 0',
+    padding: '7px 5px',
+    borderColor: 'red',
+    borderRadius: '15px',
+    borderStyle: 'solid',
+    borderWidth: 0,
 }))
 
 export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
@@ -166,6 +237,7 @@ export const ProfileEntryLeft = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     maxWidth: '90px',
+    textAlign: 'center',
     // backgroundColor: 'red',
     // padding: '0 10px'
 }))
