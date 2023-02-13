@@ -18,6 +18,7 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
     const [listed, setListed] = useAtom(currentUserListedAtom);
     const [errors, setErrors] = useAtom(profileErrorsAtom);
 
+
     const loadInfo = () => {
         // setListed(currentUser?.listed || false);
     }
@@ -29,6 +30,7 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
     useEffect(() => {
         loadInfo()
     }, [])
+    
 
     const updateUserInfo = () => {
         if (currentUser) {
@@ -84,7 +86,7 @@ const DisplayProfile = ({ checkFullProfile }: { checkFullProfile: () => boolean 
                         justifyContent: 'end',
                     }}
                 >
-                    <Switch color='secondary' checked={listed} onChange={handleChange} />
+                    <Switch color='secondary' checked={!!listed} onChange={handleChange} />
                 </Box>
             </Box>
             <Box sx={{ pl: '5px' }}>

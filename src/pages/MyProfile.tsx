@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { PageTitle } from './Home';
 import { getTodoLabel, profileErrorsAtom } from '../jotai/profileAtoms';
+import Skeleton from '@mui/material/Skeleton';
 
 const Profile = () => {
     const queryParameters = new URLSearchParams(window.location.search)
@@ -117,6 +118,28 @@ const Profile = () => {
         return valid;
     }
 
+
+    if (!currentUser) {
+        return (
+            <Box sx={{ width: { xs: '100%', md: '600px' } }}>
+                <Box sx={{ px: '1rem' }}>
+                    {firstTime ? (
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Typography variant="h4" sx={{ mb: '1rem' }}>Welcome!</Typography>
+                            <Typography variant="body1" sx={{ mb: '1rem' }}>Please fill out your profile.</Typography>
+                        </Box>
+                    ) : (
+                        <PageTitle sx={{ mb: '1rem' }}>Your Profile</PageTitle>
+                    )}
+
+                    <Skeleton variant="rectangular" height={'200px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }}/>
+                    <Skeleton variant="rectangular" height={'130px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }}/>
+                    <Skeleton variant="rectangular" height={'90px'} width={'100%'} sx={{ my: '15px', borderRadius: '20px' }}/>
+                </Box>
+            </Box >
+        )
+    }
+
     return (
         <Box sx={{ width: { xs: '100%', md: '600px' } }}>
             <Box sx={{ px: '1rem' }}>
@@ -126,7 +149,7 @@ const Profile = () => {
                         <Typography variant="body1" sx={{ mb: '1rem' }}>Please fill out your profile.</Typography>
                     </Box>
                 ) : (
-                        <PageTitle sx={{ mb: '1rem' }}>Your Profile</PageTitle>
+                    <PageTitle sx={{ mb: '1rem' }}>Your Profile</PageTitle>
                 )}
                 <PictureAndName />
                 {!firstTime && <DisplayProfile

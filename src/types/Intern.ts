@@ -4,6 +4,7 @@ import { Bedtime, CleanlinessResponse, LocationResponse, LoudnessResponse, Start
 export interface Intern {
     uid: string,
     listed: boolean,
+    hidden?: string[],
 
     contact?: string | null,
     name?: string | null,
@@ -33,6 +34,7 @@ export const BedtimeLabels = ["", "9-11PM", "11PM-12AM", "12AM+"]
 export const combineInternInfo = (primary: {
     uid?: string,
     listed?: boolean,
+    hidden?: string[],
 
     contact?: string | null,
     name?: string | null,
@@ -57,6 +59,7 @@ export const combineInternInfo = (primary: {
     return {
         uid: primary.uid || secondary.uid,
         listed: primary.listed !== undefined ? primary.listed : secondary.listed,
+        hidden: primary.hidden,
 
         contact: primary.contact || secondary.contact,
         name: primary.name || secondary.name,
@@ -85,6 +88,8 @@ export const InternDocConverter = {
         return {
             uid: intern.uid,
             listed: intern.listed,
+            hidden: intern.hidden || [] as string[],
+
             contact: intern.contact || "",
             name: intern.name || "",
             photoURL: intern.photoURL || "",
