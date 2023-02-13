@@ -124,6 +124,7 @@ const CompanyInfo = () => {
                 <ProfileEntryLeft>
                     <AttachMoneyIcon />
                     <LeftChipLabel>
+                        Monthly
                         Budget
                     </LeftChipLabel>
                 </ProfileEntryLeft>
@@ -164,4 +165,5 @@ export default CompanyInfo
 const LeftChipLabel = styled(Typography)(() => ({
     fontSize: '.8rem',
     fontWeight: '500',
+    textAlign: 'center',
 }))
