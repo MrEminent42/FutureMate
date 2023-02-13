@@ -38,10 +38,6 @@ const ProfileFilters = () => {
         return count;
     }
 
-
-    // const [dates, setDates] = useState([] as StartDate[]);
-    // const [dates, setDates] = use
-
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: '600px' } }}>
 
@@ -49,7 +45,7 @@ const ProfileFilters = () => {
             <FiltersPaper sx={{ minWidth: '40%' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <TopLabel>
-                        Filters
+                        Filters {countAppliedFilters() > 0 && `(${countAppliedFilters()})`}
                     </TopLabel>
                     <Box style={{ display: 'flex', gap: '10px', flexDirection: 'row', alignItems: 'center', marginLeft: '20px', }}>
 
