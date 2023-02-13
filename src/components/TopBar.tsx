@@ -14,6 +14,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import theme from '../config/config.theme';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 
 const TopBar = () => {
@@ -200,7 +201,17 @@ const TopBar = () => {
                                         <ListItemIcon>
                                             <LogoutIcon fontSize="small" />
                                         </ListItemIcon>
-                                        Logout
+                                        Log out
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={() => {
+                                        handleClose();
+                                        window.open("http://github.com/MrEminent42/SaleMate");
+                                    }}>
+                                        <ListItemIcon >
+                                            <GitHubIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        Github
                                     </MenuItem>
                                 </Menu>
                             </React.Fragment>
