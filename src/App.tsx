@@ -23,6 +23,7 @@ const App = () => {
   const [, setCurrentUser] = useAtom(currentUserAtom);
 
     useEffect(() => {
+      console.log("user")
         if (user) {
             loadCurrentUser();
         } else {
