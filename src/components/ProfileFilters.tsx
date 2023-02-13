@@ -29,6 +29,15 @@ const ProfileFilters = () => {
         setLoudnessFilter([]);
     }
 
+    const countAppliedFilters = () => {
+        let count = 0;
+
+        if (startDateFilter.length) count++;
+        if (cleanlinessFilter.length) count++;
+        if (loudnessFilter.length) count++;
+        return count;
+    }
+
 
     // const [dates, setDates] = useState([] as StartDate[]);
     // const [dates, setDates] = use
@@ -36,24 +45,37 @@ const ProfileFilters = () => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: '600px' } }}>
 
-            <FiltersPaper sx={{ width: (open ? '80%' : '69%') }}>
+            {/* <FiltersPaper sx={{ width: (open ? '80%' : '69%') }}> */}
+            <FiltersPaper sx={{ minWidth: '40%' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <TopLabel>
                         Filters
                     </TopLabel>
-                    <FilterButton
-                        variant='contained'
-                        color='secondary'
-                        onClick={() => setOpen(!open)}
-                        sx={{
-                        }}
-                    >
-                        <ChevronRightIcon
+                    <Box style={{ display: 'flex', gap: '10px', flexDirection: 'row', alignItems: 'center', marginLeft: '20px', }}>
+
+                        {countAppliedFilters() > 0 && <FilterButton
+                            variant='outlined'
+                            color='secondary'
+                            onClick={resetFilters}
+                        >
+                            <ReplayIcon />
+                            {!fullScreen && 'Reset'}
+                        </FilterButton>}
+                        <FilterButton
+                            variant='contained'
+                            color='secondary'
+                            onClick={() => setOpen(!open)}
                             sx={{
-                                transition: 'all 250ms',
-                                transform: open ? 'rotate(90deg)' : '',
-                            }} />
-                    </FilterButton>
+                            }}
+                        >
+                            {!fullScreen && 'Select'}
+                            <ChevronRightIcon
+                                sx={{
+                                    transition: 'all 250ms',
+                                    transform: open ? 'rotate(90deg)' : '',
+                                }} />
+                        </FilterButton>
+                    </Box>
                 </Box>
 
             </FiltersPaper >
