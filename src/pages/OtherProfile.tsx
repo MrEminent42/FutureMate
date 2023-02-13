@@ -116,7 +116,7 @@ const OtherProfile = () => {
                     </CardPadder>
                 </ProfilePaper>
                 <ProfilePaper sx={{ pb: 0 }}>
-                    <CardPadder sx={{ flexDirection: 'column', py: { md: '15px' } }}>
+                    <CardPadder sx={{ flexDirection: 'column', py: { md: '5px' } }}>
                         <SliderEntryContainer>
                             <ProfileEntryLeft>
                                 <Typography>

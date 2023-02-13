@@ -21,6 +21,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Collapse } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { filteredUsersAtom, filteredUsersNonMatchesAtom } from "../jotai/usersAtoms";
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 
 
 const InternList = () => {
@@ -119,7 +120,7 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
             <Grid container sx={{}}>
                 {/* left container for title, text, etc */}
                 <Grid item container sx={{ p: { xs: '.5rem', sm: '1.0rem' } }} xs={8}>
-                    <Grid item xs={8} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Grid item xs={12} md={6} sx={{ px: '.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                         <Name>
                             {internInfo.name}
                         </Name>
@@ -128,10 +129,10 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
                         </Pronouns>
 
                     </Grid>
-                    <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <Grid item container xs={12} md={6} sx={{}}>
                         {internInfo.location && (
-                            <InfoChip>
-                                <PlaceIcon sx={{ color: grey[500], height: '1.2rem' }} />
+                            <InfoChip item xs={6}>
+                                <PlaceIcon sx={{ color: grey[500], width: { xs: '1.0rem', md: '1.2rem' }, height: { xs: '1.0rem', md: '1.2rem' } }} />
                                 <Typography
                                     variant={TypographyMapping.CardDotInfo}
                                     sx={{
@@ -141,8 +142,8 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
                             </InfoChip>
                         )}
                         {internInfo.startDate && (
-                            <InfoChip>
-                                <InsertInvitationIcon sx={{ color: grey[500], height: '1.2rem' }} />
+                            <InfoChip item xs={6}>
+                                <InsertInvitationIcon sx={{ color: grey[500], width: { xs: '1.0rem', md: '1.2rem' }, height: { xs: '1.0rem', md: '1.2rem' } }} />
                                 <Typography
                                     variant={TypographyMapping.CardDotInfo}
                                     sx={{ color: grey[500], textTransform: 'capitalize' }}
@@ -152,9 +153,15 @@ const InternCard = ({ internInfo }: { internInfo: Intern }) => {
                             </InfoChip>
                         )}
                         {internInfo.budgetMax && (
-                            <InfoChip>
-                                <AttachMoneyIcon sx={{ color: grey[500], height: '1.2rem' }} />
+                            <InfoChip item xs={6}>
+                                <AttachMoneyIcon sx={{ color: grey[500], width: { xs: '1.0rem', md: '1.2rem' }, height: { xs: '1.0rem', md: '1.2rem' } }} />
                                 <Typography variant={TypographyMapping.CardDotInfo} sx={{ color: grey[500] }}>{internInfo.budgetMax}</Typography>
+                            </InfoChip>
+                        )}
+                        {internInfo.householdSize && (
+                            <InfoChip item xs={6}>
+                                <HolidayVillageIcon sx={{ color: grey[500], width: { xs: '1.0rem', md: '1.2rem' }, height: { xs: '1.0rem', md: '1.2rem' } }} />
+                                <Typography variant={TypographyMapping.CardDotInfo} sx={{ color: grey[500] }}>{internInfo.householdSize}</Typography>
                             </InfoChip>
                         )}
                     </Grid>
@@ -198,10 +205,10 @@ const InternPaper = styled(Card)(({ theme }) => ({
     borderRadius: '20px'
 }))
 
-const InfoChip = styled(Box)(({ theme }) => ({
+const InfoChip = styled(Grid)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    margin: '2px 0'
+    gap: '3px',
 }))
 
 const ProfileReminder = styled(Card)(() => ({
