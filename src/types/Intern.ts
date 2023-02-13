@@ -15,6 +15,7 @@ export interface Intern {
     location?: LocationResponse | null,
     budgetMax?: number | null,
     budgetMin?: number | null,
+    roleInfo?: string | null,
 
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
@@ -45,6 +46,7 @@ export const combineInternInfo = (primary: {
     location?: LocationResponse | null,
     budgetMax?: number | null,
     budgetMin?: number | null,
+    roleInfo?: string | null,
 
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
@@ -70,6 +72,7 @@ export const combineInternInfo = (primary: {
         location: primary.location || secondary.location,
         budgetMax: primary.budgetMax || secondary.budgetMax,
         budgetMin: primary.budgetMin || secondary.budgetMin,
+        roleInfo: primary.roleInfo || secondary.roleInfo ,
 
         bedtime: primary.bedtime || secondary.bedtime,
         cleanliness: primary.cleanliness || secondary.cleanliness,
@@ -99,6 +102,7 @@ export const InternDocConverter = {
             budgetMax: intern.budgetMax || "",
             budgetMin: intern.budgetMin || "",
             location: intern.location || "",
+            roleInfo: intern.roleInfo || "",
 
             bedtime: intern.bedtime || "",
             cleanliness: intern.cleanliness || "",
