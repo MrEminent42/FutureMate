@@ -2,15 +2,18 @@ import { Card, styled, Typography, Box, Dialog, useMediaQuery, ToggleButtonGroup
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { CapsToLower, CleanlinessResponse, StartDate } from '../types/MatchingQuestions';
+import { CapsToLower, CleanlinessResponse, LoudnessResponse, StartDate } from '../types/MatchingQuestions';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useAtom } from 'jotai';
-import { cleanlinessFilterAtom, loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
+import { budgetFilterAtom, cleanlinessFilterAtom, householdSizeFilterAtom, loudnessFiltersAtom, startDateFilterAtom } from '../jotai/filtersAtom';
 import theme from '../config/config.theme';
 import ReplayIcon from '@mui/icons-material/Replay';
 import CheckIcon from '@mui/icons-material/Check';
 import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
-import { CleanlinessLabels } from '../types/Intern';
+import { CleanlinessLabels, LoudnessLabels } from '../types/Intern';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
 const ProfileFilters = () => {
@@ -19,12 +22,17 @@ const ProfileFilters = () => {
     const [cleanlinessFilter, setCleanlinessFilter] = useAtom(cleanlinessFilterAtom);
     const [loudnessFilter, setLoudnessFilter] = useAtom(loudnessFiltersAtom);
 
+    const [householdSizeFilter, setHouseholdSizeFilter] = useAtom(householdSizeFilterAtom);
+    // const [budgetFilter, setBudgetFilter] = useAtom(budgetFilterAtom);
+
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const resetFilters = () => {
         setStartDateFilter([]);
         setCleanlinessFilter([]);
         setLoudnessFilter([]);
+        setHouseholdSizeFilter([]);
+        // setBudgetFilter(null);
     }
 
     const countAppliedFilters = () => {
@@ -33,6 +41,8 @@ const ProfileFilters = () => {
         if (startDateFilter.length) count++;
         if (cleanlinessFilter.length) count++;
         if (loudnessFilter.length) count++;
+        if (householdSizeFilter.length) count++;
+        // if (budgetFilter && budgetFilter > 0) count++;
         return count;
     }
 
@@ -122,6 +132,55 @@ const ProfileFilters = () => {
                             ))}
                         </ToggleButtonGroup>
                     </FilterFlex>
+                    <FilterFlex>
+                        <Box sx={{ px: '10px' }}>
+                            <VolumeUpIcon />
+                        </Box>
+                        <ToggleButtonGroup
+                            value={loudnessFilter}
+                            onChange={(_, value) => setLoudnessFilter(value)}
+                        >
+                            {Object.keys(LoudnessResponse).slice(0, 4).map((item, i) => (
+                                <FilterToggleButton
+                                    key={i}
+                                    value={+item}
+                                >{LoudnessLabels[i + 1]}</FilterToggleButton>
+                            ))}
+                        </ToggleButtonGroup>
+                    </FilterFlex>
+                    <FilterFlex>
+                        <Box sx={{ px: '10px' }}>
+                            <HolidayVillageIcon />
+                        </Box>
+                        <ToggleButtonGroup
+                            value={householdSizeFilter}
+                            onChange={(_, value) => setHouseholdSizeFilter(value)}
+                        >
+                            {[2, 3, 4, 5].map((item) => (
+                                <FilterToggleButton
+                                    key={item}
+                                    value={+item}
+                                >{item < 5 ? item : "5+"}</FilterToggleButton>
+                            ))}
+                        </ToggleButtonGroup>
+                    </FilterFlex>
+                    {/* <FilterFlex>
+                        <Box sx={{ px: '10px' }}>
+                            <AttachMoneyIcon />
+                        </Box>
+                        <ToggleButtonGroup
+                            value={budgetFilter}
+                            exclusive
+                            onChange={(_, value) => setBudgetFilter(value)}
+                        >
+                            {[1000, 1500, 2000, 2500, 3000, 3500, 4000].map((item) => (
+                                <FilterToggleButton
+                                    key={item}
+                                    value={+item}
+                                >{item < 4000 ? "$" + item : "$4000+"}</FilterToggleButton>
+                            ))}
+                        </ToggleButtonGroup>
+                    </FilterFlex> */}
                     <Box sx={{ flexGrow: 1 }} />
                     <FilterFlex sx={{ gap: '10px' }}>
                         <FilterButton
