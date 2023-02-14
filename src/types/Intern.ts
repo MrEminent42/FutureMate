@@ -82,7 +82,7 @@ export const combineInternInfo = (primary: {
         shareBedroom: primary.shareBedroom,
 
         linkedin: primary.linkedin || secondary.linkedin,
-        instagram: primary.instagram || secondary.linkedin,
+        instagram: primary.instagram || secondary.instagram,
     } as Intern;
 }
 
