@@ -43,6 +43,7 @@ const Questionnaire = () => {
                 cleanliness: cleanliness,
                 householdSize: householdSize,
                 shareBedroom: shareBedroom,
+                genderInclusive: genderInclusive,
             },
             {...currentUser, shareBedroom: shareBedroom, genderInclusive: genderInclusive } as Intern
         ));
