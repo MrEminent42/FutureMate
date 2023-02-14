@@ -20,6 +20,7 @@ export interface Intern {
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
     loudness?: LoudnessResponse | null,
+    genderInclusive?: boolean | null,
 
     householdSize?: number | null,
     shareBedroom?: boolean | null,
@@ -51,6 +52,7 @@ export const combineInternInfo = (primary: {
     bedtime?: Bedtime | null,
     cleanliness?: CleanlinessResponse | null,
     loudness?: LoudnessResponse | null,
+    genderInclusive?: boolean | null,
 
     householdSize?: number | null,
     shareBedroom?: boolean | null,
@@ -77,6 +79,7 @@ export const combineInternInfo = (primary: {
         bedtime: primary.bedtime || secondary.bedtime,
         cleanliness: primary.cleanliness || secondary.cleanliness,
         loudness: primary.loudness || secondary.loudness,
+        genderInclusive: primary.genderInclusive || secondary.genderInclusive,
 
         householdSize: primary.householdSize || secondary.householdSize,
         shareBedroom: primary.shareBedroom,
@@ -107,6 +110,7 @@ export const InternDocConverter = {
             bedtime: intern.bedtime || "",
             cleanliness: intern.cleanliness || "",
             loudness: intern.loudness || "",
+            genderInclusive: intern.genderInclusive || "",
 
             householdSize: intern.householdSize || "",
             shareBedroom: intern.shareBedroom || "",
