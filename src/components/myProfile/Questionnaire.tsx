@@ -27,6 +27,7 @@ const Questionnaire = () => {
         setCleanliness(currentUser?.cleanliness || null);
         setHouseholdSize(currentUser?.householdSize || null);
         setShareBedroom(currentUser?.shareBedroom || false);
+        setGenderInclusive(currentUser?.genderInclusive || false);
     }
 
     useEffect(() => {
