@@ -50,6 +50,7 @@ enum LocationResponse {
     ATLANTA = "ATLANTA",
     INDIANAPOLIS = "INDIANAPOLIS",
     PALO_ALTO = "PALO_ALTO",
+    SEATTLE = "SEATTLE",
 }
 
 const CapsToLower = (caps: string) => {
