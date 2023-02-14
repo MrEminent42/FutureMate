@@ -17,6 +17,7 @@ import { firebaseAuth } from '../../config/firebase';
 import { ProfileEntryContainer, ProfileEntryLeft, ProfileEntryRight, ProfilePaper, SectionTitle } from '../../pages/MyProfile';
 import { styled } from "@mui/material/styles";
 import { profileErrorsAtom } from '../../jotai/profileAtoms';
+import WorkIcon from '@mui/icons-material/Work';
 
 const CompanyInfo = () => {
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
@@ -25,6 +26,7 @@ const CompanyInfo = () => {
     const [location, setLocation] = useState<LocationResponse | null>(currentUser?.location || null);
     const [budgetMin, setBudgetMin] = useState<number | null>(currentUser?.budgetMin || 0);
     const [budgetMax, setBudgetMax] = useState<number | null>(currentUser?.budgetMax || 0);
+    const [role, setRole] = useState<string | null>(null);
 
     const [errors, setErrors] = useAtom(profileErrorsAtom);
 
@@ -42,6 +44,7 @@ const CompanyInfo = () => {
                 startDate: startDate,
                 budgetMin: budgetMin,
                 budgetMax: budgetMax,
+                roleInfo: role,
             }, currentUser));
         }
     }
@@ -55,6 +58,7 @@ const CompanyInfo = () => {
         setLocation(currentUser?.location || null);
         setBudgetMax(currentUser?.budgetMax || null);
         setBudgetMin(currentUser?.budgetMin || null);
+        setRole(currentUser?.roleInfo || null);
     }
 
     useEffect(() => {
@@ -152,6 +156,29 @@ const CompanyInfo = () => {
                             setBudgetMax(+item.target.value)
                         }}
                         sx={{ flexGrow: .5 }}
+                        onBlur={handleBlur}
+                    />
+                </ProfileEntryRight>
+            </ProfileEntryContainer>
+            {/* company role/job info */}
+            <ProfileEntryContainer sx={{ borderWidth: errors.budgetMax || errors.budgetMin ? '1px' : '0px' }}>
+                <ProfileEntryLeft>
+                    <WorkIcon />
+                    <LeftChipLabel>
+                        Role
+                    </LeftChipLabel>
+                </ProfileEntryLeft>
+                <ProfileEntryRight >
+                    <TextField
+                        multiline
+                        size="small"
+                        value={role || ''}
+                        type='number'
+                        onChange={(item) => {
+                            setErrors({ ...errors, budgetMin: false })
+                            setRole(item.target.value)
+                        }}
+                        sx={{ flexGrow: 1, width: '100%'}}
                         onBlur={handleBlur}
                     />
                 </ProfileEntryRight>
