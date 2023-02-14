@@ -6,7 +6,7 @@ import Slider from '@mui/material/Slider';
 import { Bedtime, CleanlinessResponse, LoudnessResponse } from '../../types/MatchingQuestions';
 import { useAtom } from 'jotai';
 import currentUserAtom from '../../jotai/currentUserAtom';
-import { CleanlinessLabels, BedtimeLabels, LoudnessLabels, combineInternInfo } from '../../types/Intern';
+import { CleanlinessLabels, BedtimeLabels, LoudnessLabels, combineInternInfo, Intern } from '../../types/Intern';
 import { profileErrorsAtom } from '../../jotai/profileAtoms';
 import Divider from '@mui/material/Divider';
 import Checkbox from '@mui/material/Checkbox';
@@ -17,6 +17,7 @@ const Questionnaire = () => {
     const [cleanliness, setCleanliness] = useState<CleanlinessResponse | null>(null);
     const [householdSize, setHouseholdSize] = useState<number | null>(null);
     const [shareBedroom, setShareBedroom] = useState(false);
+    const [genderInclusive, setGenderInclusive] = useState(false);
     const [errors, setErrors] = useAtom(profileErrorsAtom);
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
@@ -43,7 +44,7 @@ const Questionnaire = () => {
                 householdSize: householdSize,
                 shareBedroom: shareBedroom,
             },
-            currentUser
+            {...currentUser, shareBedroom: shareBedroom, genderInclusive: genderInclusive } as Intern
         ));
     }
 
@@ -143,7 +144,7 @@ const Questionnaire = () => {
                 </ProfileEntryLeft>
                 <ProfileEntryRight sx={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Slider
-                        sx={{ width: { xs: '100%', md: '50%' }, mx: '10px' }}
+                        sx={{ width: { xs: '100%', md: '65%' }, mx: '10px' }}
                         value={householdSize || 2}
                         min={2}
                         max={5}
@@ -159,6 +160,17 @@ const Questionnaire = () => {
                         getAriaValueText={(i) => i < 5 ? i.toString() : "5+"}
                         valueLabelDisplay="auto"
                     />
+                </ProfileEntryRight>
+            </ProfileEntryContainer>
+            <Divider />
+            <ProfileEntryContainer sx={{ borderWidth: errors.householdSize ? '1px' : '0px', flexDirection: { xs: 'column', md: 'row' } }}>
+                {/* <ProfileEntryLeft>
+                    <Typography>
+                        
+                    </Typography>
+                </ProfileEntryLeft> */}
+                <ProfileEntryRight sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+
                     <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'column', textAlign: 'center', }}>
                         <Box>
                             <Checkbox
@@ -167,7 +179,17 @@ const Questionnaire = () => {
                                 onChange={(e) => setShareBedroom(e.target.checked)}
                             />
                         </Box>
-                        <Typography sx={{ fontSize: '.8rem' }}>Share bedroom</Typography>
+                        <Typography sx={{ fontSize: '.8rem' }}>Share a bedroom</Typography>
+                    </Box>
+                    <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'column', textAlign: 'center', }}>
+                        <Box>
+                            <Checkbox
+                                color="secondary"
+                                checked={genderInclusive}
+                                onChange={(e) => setGenderInclusive(e.target.checked)}
+                            />
+                        </Box>
+                        <Typography sx={{ fontSize: '.8rem' }}>Live with all genders</Typography>
                     </Box>
                 </ProfileEntryRight>
             </ProfileEntryContainer>
