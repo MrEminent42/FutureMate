@@ -50,7 +50,7 @@ const Questionnaire = () => {
 
     useEffect(() => {
         updateLocalUserInfo()
-    }, [bedtime, loudness, cleanliness, householdSize, shareBedroom])
+    }, [bedtime, loudness, cleanliness, householdSize, shareBedroom, genderInclusive])
 
 
 
