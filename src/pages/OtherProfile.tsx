@@ -2,7 +2,7 @@ import { useAtom } from 'jotai'
 import Box from '@mui/material/Box/Box';
 import selectedInternAtom from '../jotai/selectedInternAtom'
 import { Typography, CircularProgress, styled, IconButton } from '@mui/material';
-import { ProfilePaper } from './MyProfile';
+import { ProfilePaper, SectionTitle } from './MyProfile';
 import Avatar from '@mui/material/Avatar';
 import PlaceIcon from '@mui/icons-material/Place';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
@@ -17,6 +17,10 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import { Navigate, useNavigate } from 'react-router-dom';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import Grid from '@mui/material/Grid/Grid';
+import { grey } from '@mui/material/colors';
+import Divider from '@mui/material/Divider';
+import Groups2Icon from '@mui/icons-material/Groups2';
 
 const OtherProfile = () => {
     const navigate = useNavigate();
@@ -117,9 +121,10 @@ const OtherProfile = () => {
                 </ProfilePaper>
                 <ProfilePaper sx={{ pb: 0 }}>
                     <CardPadder sx={{ flexDirection: 'column', py: { md: '5px' } }}>
+                        <SectionTitle>Living Preferences</SectionTitle>
                         <SliderEntryContainer>
                             <ProfileEntryLeft>
-                                <Typography>
+                                <Typography sx={{ textAlign: 'center' }}>
                                     Loudness
                                 </Typography>
                             </ProfileEntryLeft>
@@ -176,6 +181,38 @@ const OtherProfile = () => {
                         </SliderEntryContainer>
                     </CardPadder>
                 </ProfilePaper>
+                <ProfilePaper sx={{ pb: 0 }}>
+                    <CardPadder sx={{ flexDirection: 'column' }}>
+                        <SectionTitle>Household Preferences</SectionTitle>
+                        {/* <Grid container gap={2}> */}
+                        {(
+                            <PreferenceGridItem >
+                                <PreferenceGridLeft>
+                                    <Groups2Icon sx={{ color: 'secondary.main', height: '3rem' }} />
+                                    <PreferenceText>All genders</PreferenceText>
+                                </PreferenceGridLeft>
+                                <PreferenceGridRight>
+                                    <PreferenceValue>{otherIntern.genderInclusive ? "Yes" : "No"}</PreferenceValue>
+                                </PreferenceGridRight>
+                            </PreferenceGridItem>
+                        )}
+                        <Divider variant="fullWidth" flexItem />
+                        {otherIntern.householdSize && (
+                            <>
+                                <PreferenceGridItem >
+                                    <PreferenceGridLeft>
+                                        <HolidayVillageIcon sx={{ color: 'secondary.main', height: '3rem' }} />
+                                        <PreferenceText>Household size</PreferenceText>
+                                    </PreferenceGridLeft>
+                                    <PreferenceGridRight>
+                                        <PreferenceValue>{otherIntern.householdSize}</PreferenceValue>
+                                    </PreferenceGridRight>
+                                </PreferenceGridItem>
+                            </>
+                        )}
+                        {/* </Grid> */}
+                    </CardPadder>
+                </ProfilePaper>
             </Box>
         </Box>
     )
@@ -215,6 +252,7 @@ const CardPadder = styled(Box)(() => ({
     p: 3,
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center'
 }))
 
 const InfoChip = styled(Box)(() => ({
@@ -229,6 +267,22 @@ const InfoChipText = styled(Typography)(() => ({
     textAlign: 'center',
     fontSize: '.75rem',
     fontWeight: '700',
+}))
+
+const PreferenceText = styled(Typography)(() => ({
+    textTransform: 'capitalize',
+    textAlign: 'center',
+    fontSize: '1.0rem',
+    fontWeight: '500',
+    // paddingLeft: '2px',
+}))
+
+const PreferenceValue = styled(Typography)(() => ({
+    textTransform: 'capitalize',
+    textAlign: 'center',
+    fontSize: '1.3rem',
+    fontWeight: '500',
+    minWidth: '30%',
 }))
 
 export const SliderEntryContainer = styled(Box)(({ theme }) => ({
@@ -255,4 +309,33 @@ export const ProfileEntryRight = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+}))
+
+const PreferenceGridItem = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+}))
+
+const PreferenceGridLeft = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2px 10px',
+    height: '100%',
+    boxSizing: 'border-box',
+    gap: '10px',
+}))
+
+
+const PreferenceGridRight = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // width: '30%',
+    marginRight: '10px',
 }))

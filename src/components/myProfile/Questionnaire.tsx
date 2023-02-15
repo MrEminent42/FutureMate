@@ -45,7 +45,7 @@ const Questionnaire = () => {
                 shareBedroom: shareBedroom,
                 genderInclusive: genderInclusive,
             },
-            {...currentUser, shareBedroom: shareBedroom, genderInclusive: genderInclusive } as Intern
+            { ...currentUser, shareBedroom: shareBedroom, genderInclusive: genderInclusive } as Intern
         ));
     }
 
@@ -165,34 +165,26 @@ const Questionnaire = () => {
             </ProfileEntryContainer>
             <Divider />
             <ProfileEntryContainer sx={{ borderWidth: errors.householdSize ? '1px' : '0px', flexDirection: { xs: 'column', md: 'row' } }}>
-                {/* <ProfileEntryLeft>
-                    <Typography>
-                        
-                    </Typography>
-                </ProfileEntryLeft> */}
-                <ProfileEntryRight sx={{ flexDirection: 'row', justifyContent: 'center' }}>
-
-                    <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'column', textAlign: 'center', }}>
-                        <Box>
-                            <Checkbox
-                                color="secondary"
-                                checked={shareBedroom}
-                                onChange={(e) => setShareBedroom(e.target.checked)}
-                            />
-                        </Box>
-                        <Typography sx={{ fontSize: '.8rem' }}>Share a bedroom</Typography>
+                <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'row', textAlign: 'center', alignItems: 'center' }}>
+                    <Box>
+                        <Checkbox
+                            color="secondary"
+                            checked={shareBedroom}
+                            onChange={(e) => setShareBedroom(e.target.checked)}
+                        />
                     </Box>
-                    <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'column', textAlign: 'center', }}>
-                        <Box>
-                            <Checkbox
-                                color="secondary"
-                                checked={genderInclusive}
-                                onChange={(e) => setGenderInclusive(e.target.checked)}
-                            />
-                        </Box>
-                        <Typography sx={{ fontSize: '.8rem' }}>Live with all genders</Typography>
+                    <Typography sx={{ fontSize: '.8rem' }}>Share a bedroom</Typography>
+                </Box>
+                <Box sx={{ ml: '10px', px: '4px', display: 'flex', flexDirection: 'row', textAlign: 'center', alignItems: 'center' }}>
+                    <Box>
+                        <Checkbox
+                            color="secondary"
+                            checked={genderInclusive}
+                            onChange={(e) => setGenderInclusive(e.target.checked)}
+                        />
                     </Box>
-                </ProfileEntryRight>
+                    <Typography sx={{ fontSize: '.8rem' }}>Live with all genders</Typography>
+                </Box>
             </ProfileEntryContainer>
         </ProfilePaper>
     )
