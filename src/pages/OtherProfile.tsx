@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import Box from '@mui/material/Box/Box';
 import selectedInternAtom from '../jotai/selectedInternAtom'
-import { Typography, CircularProgress, styled, IconButton } from '@mui/material';
+import { Typography,  styled, IconButton } from '@mui/material';
 import { ProfilePaper, SectionTitle } from './MyProfile';
 import Avatar from '@mui/material/Avatar';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -17,10 +17,9 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import Button from '@mui/material/Button';
 import { Navigate, useNavigate } from 'react-router-dom';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
-import Grid from '@mui/material/Grid/Grid';
-import { grey } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Groups2Icon from '@mui/icons-material/Groups2';
+import BedIcon from '@mui/icons-material/Bed';
 
 const OtherProfile = () => {
     const navigate = useNavigate();
@@ -121,7 +120,7 @@ const OtherProfile = () => {
                 </ProfilePaper>
                 <ProfilePaper sx={{ pb: 0 }}>
                     <CardPadder sx={{ flexDirection: 'column', py: { md: '5px' } }}>
-                        <SectionTitle>Living Preferences</SectionTitle>
+                        <SectionTitle>Lifestyle Preferences</SectionTitle>
                         <SliderEntryContainer>
                             <ProfileEntryLeft>
                                 <Typography sx={{ textAlign: 'center' }}>
@@ -197,12 +196,24 @@ const OtherProfile = () => {
                             </PreferenceGridItem>
                         )}
                         <Divider variant="fullWidth" flexItem />
+                        {(
+                            <PreferenceGridItem >
+                                <PreferenceGridLeft>
+                                    <BedIcon sx={{ color: 'secondary.main', height: '3rem' }} />
+                                    <PreferenceText>Shared bedroom</PreferenceText>
+                                </PreferenceGridLeft>
+                                <PreferenceGridRight>
+                                    <PreferenceValue>{otherIntern.shareBedroom ? "Yes" : "No"}</PreferenceValue>
+                                </PreferenceGridRight>
+                            </PreferenceGridItem>
+                        )}
+                        <Divider variant="fullWidth" flexItem />
                         {otherIntern.householdSize && (
                             <>
                                 <PreferenceGridItem >
                                     <PreferenceGridLeft>
                                         <HolidayVillageIcon sx={{ color: 'secondary.main', height: '3rem' }} />
-                                        <PreferenceText>Household size</PreferenceText>
+                                        <PreferenceText>Preferred household size</PreferenceText>
                                     </PreferenceGridLeft>
                                     <PreferenceGridRight>
                                         <PreferenceValue>{otherIntern.householdSize}</PreferenceValue>
@@ -270,7 +281,7 @@ const InfoChipText = styled(Typography)(() => ({
 }))
 
 const PreferenceText = styled(Typography)(() => ({
-    textTransform: 'capitalize',
+    // textTransform: 'capitalize',
     textAlign: 'center',
     fontSize: '1.0rem',
     fontWeight: '500',
