@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai'
 import Box from '@mui/material/Box/Box';
 import selectedInternAtom from '../jotai/selectedInternAtom'
-import { Typography,  styled, IconButton } from '@mui/material';
+import { Typography, styled, IconButton } from '@mui/material';
 import { ProfilePaper, SectionTitle } from './MyProfile';
 import Avatar from '@mui/material/Avatar';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -31,6 +31,25 @@ const OtherProfile = () => {
             <Navigate to="/" />
         )
     }
+
+    const getUrl = (link: string, value: string) => {
+        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        if (!!pattern.test(value)) {
+            // is url
+            if (value.startsWith("https://") || value.startsWith("http://")) {
+                return value;
+            } else {
+                return "https://" + value;
+            }
+        }
+        return link + value;
+    }
+
 
     return (
         <Box sx={{ width: { xs: '100%', md: '600px' } }}>
@@ -63,7 +82,7 @@ const OtherProfile = () => {
                     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         {otherIntern.linkedin && (
                             <IconButton
-                                href={"https://linkedin.com/in/" + otherIntern.linkedin}
+                                href={getUrl("https://linkedin.com/in/", otherIntern.linkedin)}
                                 target="_blank"
                             >
                                 <LinkedIn />
@@ -71,7 +90,7 @@ const OtherProfile = () => {
                         )}
                         {otherIntern.instagram && (
                             <IconButton
-                                href={"https://instagram.com/" + otherIntern.instagram}
+                                href={getUrl("https://instagram.com/", otherIntern.instagram)}
                                 target="_blank"
                             >
                                 <Instagram />
